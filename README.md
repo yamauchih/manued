@@ -39,17 +39,21 @@ manued.el on GNU XEmacs 21.4 (patch 6) and GNU Emacs 20.7.2.
 
 Type M-x manued-minor-mode.
 
-* Tutorial
+(1) Tutorial
 
-There is a tutorial/English/manued.tut. Please open it by emacs.
+* There is a tutorial/English/manued.tut. Please open it by emacs.
 
-* manued-minor-mode
+(2) manued-minor-mode
 
-** To enter manued-minor-mode, please type "M-x manued-minor-mode".
-** Type some texts in the buffer.
-** To insert manued swap command, put a mark and type M-x manued:insert-swap-command (or type C-c C-m C-s).
-** To extract revised document in another buffer, Type manued:show-newer-in-manued-buffer.
-** Others: please select a menu item. Type M-n or M-p, this is the search command for manued command.
+* To enter manued-minor-mode, please type "M-x manued-minor-mode".
+
+* Type some texts in the buffer.
+
+* To insert manued swap command, put a mark and type M-x manued:insert-swap-command (or type C-c C-m C-s).
+
+* To extract revised document in another buffer, Type manued:show-newer-in-manued-buffer.
+
+* Others: please select a menu item. Type M-n or M-p, this is the search command for manued command.
 
 4. Documentations
 -----------------
