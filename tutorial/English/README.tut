@@ -1,0 +1,22 @@
+
+Manued tutorial
+
+		Copyright (C) 2000-2012 by Hitoshi Yamauchi
+
+
+This directory contains a tutorial for manued.el.
+
+First, please read README in just under the top directory and set up
+manued.el. After the set up, open ``manued.tut'' by your emacs and
+start the tutorial.
+
+Manued Web sites
+
+    https://github.com/yamauchih/manued/
+    http://www.mpi-inf.mpg.de/~hitoshi/otherprojects/manued/index.shtml
+
+More information is under the doc directory.
+Have fun!
+
+
+

@@ -1,0 +1,14 @@
+
+
+
+This is test for file local variables.
+
+
+
+
+
+;;; Local Variables: ***
+;;; manued-l-parenthesis-str: "{" ***
+;;; manued-is-auto-insert-header: (t nil nil) ***
+;;; eval: (manued-minor-mode 1) ***
+;;; End: ***

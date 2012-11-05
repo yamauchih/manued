@@ -1,0 +1,72 @@
+manued
+======
+
+真鵺道 (Manued) とは文章校正のための方法である．manued.el はその emacs
+上への一実装である．
+
+
+README
+======
+
+This README.ja_EUC is Japanese version of README.md
+
+1. What is manued?
+------------------
+
+真鵺道とは，1989 年の第39回プログラミングシンポジウムにおいて竹内郁雄に
+より提案された電子メイルなどでの論文や文書のやりとり時の校正をより容易
+にするための方法である．manued.el はその方法を実践するための実装の一つである．
+
+Manued web page
+*  https://github.com/yamauchih/manued
+*  http://www.mpi-inf.mpg.de/~hitoshi/otherprojects/manued/index.shtml
+
+2. Installation
+---------------
+
+manued.el は Emacs Version 20 以降に依存している．筆者の環境は XEmacs
+21.4(patch 6), GNU Emacs 20.7 である．
+
+* manued.el を load-path の通った場所に置く。
+
+* .emacs に次の行を追加する。
+    (autoload 'manued-minor-mode "manued" "manuscript editing mode" t)
+
+3. Starting Manued
+------------------
+
+チュートリアルファイルを読み込み，指示に従うか，あるいは，
+manued-minor-mode に入って動作を確認する．
+
+(1)チュートリアル
+
+tutorial/Japanese/manued.tut というファイルがアーカイブに付属
+している．それを emacs に読み込み，指示に従う．
+
+(2)manued-minor-mode
+
+1. M-x manued-minor-mode で manued-minor-mode に入る．
+
+2. manued:show-newer-in-manued-buffer によって校正後の文書が抽
+   出される．manued:insert-swap-command (C-cC-mC-s) はリージョ
+   ンの範囲を swap コマンドで囲むコマンドである．
+
+3. その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマン
+   ドの位置を探すことができる．
+
+
+4. Document
+-----------
+
+    doc ディレクトリ以下を御覧下さい．
+
+COPYING
+=======
+
+Copyright (C) 1998-2012 Hitoshi Yamauchi
+
+This software is free software. There is absolutely no warranty about
+this program. This software can be redistributed only under GNU
+copyleft (most recently version of GNU General Public License). See
+doc/manued-j/manued-j.html (In Japanese) or doc/manued-e/manued-e.html
+(In English).

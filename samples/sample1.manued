@@ -1,0 +1,80 @@
+%%defparentheses 【 】
+Editing (Manued, 真鵺道) を目指して」の実装のためのサンプル文書である。
+
+【 <- 範囲外の余計な括弧
+
+[;-*-*- BEGINMANUED -*-*-]
+
+\begin{document}
+
+\end{document}
+
+(setq a font-lock-keywords)
+a
+(t ("\\\\\\(begin\\|end\\|newcommand\\){\\([a-zA-Z0-9\\*]+\\)}" (2 font-lock-function-name-face)) ("\\\\\\(cite\\|label\\|pageref\\|ref\\){\\([^}
+]+\\)}" (2 font-lock-reference-face)) ("^[ 	]*\\\\def\\\\\\(\\(\\w\\|@\\)+\\)" (1 font-lock-function-name-face)) ("\\\\\\([a-zA-Z@]+\\|.\\)" (0 font-lock-keyword-face)) ("\\\\emph{\\([^}]+\\)}" (1 (quote italic) keep)) ("\\\\text\\(\\(bf\\)\\|it\\|sl\\){\\([^}]+\\)}" (3 (if (match-beginning 2) (quote bold) (quote italic)) keep)) ("\\\\\\(\\(bf\\)\\|em\\|it\\|sl\\)\\>\\(\\([^}&\\]\\|\\\\[^\\]\\)+\\)" (3 (if (match-beginning 2) (quote bold) (quote italic)) keep)))
+
+
+%%defparentheses 【 】
+%defdelete /
+%defswap   |
+defcomment	;
+defescape	~
+deforder	newer-last
+[jellohshshs]
+
+【{\it hoehoe\~/}/{\it foobar\~/}~【Th~|i~|s~】】
+
+【{\it hoehoe\~/}/{\it foobar\~/}】
+
+電子メイルにおいて2次元情報が保存されないために【E-mail/電子メイル】に
+【よ/】よる編集が円滑に行なわれないことを嘆いた竹内郁雄先生によって
+【まぬえ【うど/どう;こんなコメントは?】/真鵺道】【/が】提案された。
+
+真鵺道は【/、】【/;】【~【/『;この括弧にするべきだろうか 】Manuscript Editing』
+に由来する。
+
+【;コメントだけ書いてみる。それも複数行に渡ってみよう。いったい何が起
+こるだろうかしかも中にエスケープした括弧閉じ~】を書いてみよう】
+
+【;コメント内部に swap コマンドを書いてみる【A/B~】 ... ただし、閉じ括
+弧だけは終了の印なのでコメント内部に入れられない。このバグは TCP/IP と
+コメント中に書けないことからわかった。】
+
+~【テスト:これはエスケープされているので真鵺道からは無視される．しかし
+編集するとエスケープの処理がされてただの括弧になる
+
+~】】テスト:これは平文中にあるので真鵺道からは無視される．編集しても変
+化なし
+
+【1 first2 last part/1 last part,
+part 12 last 再帰1 last
+part, part 2】
+
+
+結果 = "【FFF/LLLLL】"
+上記の結果 L がでる場合には
+LLLLL
+上記の結果 F がでる場合には
+FFF
+となるはず。しかしこのような複雑なものは利用できまい。そうかな?
+
+;; 元文書
+電子メイルにおいて2次元情報が保存されないためにE-mailに
+よよる編集が円滑に行なわれないことを嘆いた竹内郁雄先生によって
+まぬえうど提案された。
+
+;; 処理後
+電子メイルにおいて2次元情報が保存されないために電子メイルに
+よる編集が円滑に行なわれないことを嘆いた竹内郁雄先生によって
+真鵺道が提案された。
+
+~【~【hahaha/hehehe】】
+     ^ escape されないバグあり 0.9 にて修正
+
+(goto-char 2426)
+
+【foo~/bar~;/etc~】;comment】
+
+
+【foo~/bar~;/etc~】;comment】

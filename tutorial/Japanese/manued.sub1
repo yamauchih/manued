@@ -1,0 +1,36 @@
+defparentheses	[^_^ ^_^]
+defswap		|
+defdelete	/
+defcomment	COMMENT_COMES_FROM_HERE
+defescape	~
+deforder	older-first
+defversion	0.9.5
+
+
+チュートリアル補助ファイル by 山内 斉
+
+最初は manued-minor-mode に入っていないはずですので，manued-minor-mode
+に入って下さい．
+
+manued.el ではヘッダ部分にて真鵺道形式の部分にどのような記号を使用する
+かを決められます．今回は笑い顔を括弧と折り混ぜてみました．また，コメン
+トの始まりは COMMENT_COMES_FROM_HERE としました．
+
+	[^_^このような/にこにこマークを利用することもできます
+	COMMENT_COMES_FROM_HERE ここからコメントになります^_^]
+
+しかし，あまりこったことはしない方が良いでしょう．括弧関係を利用するの
+がおすすめです．2バイト文字を使うのであれば，
+
+	【;】
+
+のようなものを作者は利用しています．あるいは，SGML,HTMLや，XML好みの方
+には，<manued></manued>なども利用できますが，これはあまりおすすめでき
+ません．
+
+さらなるカスタマイズや，より高度な利用方法は，付属のドキュメントを御覧
+下さい．
+
+[^_^
+	ではマヌエドの世界をお楽しみ下さい/Enjoy Manued
+ ^_^]

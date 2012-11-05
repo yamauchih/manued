@@ -1,7 +1,7 @@
 manued
 ======
 
-Manued is a proofreading method. This is an emacs implementation.
+Manued is a proofreading method. manued.el is an emacs implementation.
 
 
 README

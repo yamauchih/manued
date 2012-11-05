@@ -1,0 +1,15 @@
+defparentheses	<manued> </manued>
+defswap		|
+defdelete	/
+defcomment	;
+defescape	~
+deforder	older-first
+defversion	0.9.3
+
+
+This is a sample for <manued>document| |manued; comment is
+here.</manued>.
+
+This sample <manued>shoot/shows</manued> that you can also use
+these manued parentheses.
+

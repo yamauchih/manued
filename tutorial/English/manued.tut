@@ -1,0 +1,135 @@
+defparentheses	[ ]
+defswap		|
+defdelete	/
+defcomment	;
+defescape	~
+deforder	older-first
+defversion	0.9.5
+
+
+This document is a tutorial of manued.el. This document introduces
+novice manued users to how to use manued-minor-mode which is a
+proofreading supporting mode.
+                                                Hitoshi Yamauchi
+
+1. Setup
+
+    Before starting manued-minor-mode tutorial, you must setup
+    manued.el file on your emacs load-path or you can read manued.el
+    file in an emacs buffer. If you can not both, please read README
+    and setup manued-minor-mode. If you have finished setup, you can
+    type M-x manued-minor-mode without errors.
+
+    When you can not understand the word `load-path' but you can read
+    manued.el file in an emacs buffer, please find-file manued.el. And
+    just type M-x eval-current-buffer, you can type M-x
+    manued-minor-mode without errors.
+
+2. Enter the manued-minor-mode.
+
+   Manued.el has only minor-mode. Before version 0.9 of manued.el,
+   there is also manued-major-mode, however, I think it is meanless
+   mode, because proofreading is always needed for LaTeX document,
+   indented text document, or for some kind of document which has
+   always major mode.  Therefore, after version 0.9, major mode is
+   deleted.
+
+   To enter the manued-minor-mode, type M-x manued-minor-mode.
+
+       When you enter the manued-minor-mode, you are always asked
+
+	    insert manued header?(y or n)
+
+       in message line. If you type `y', manued header is inserted at
+       the file. This header defines the manued command for
+       proofreading. However, this file already includes manued
+       header, you may not be asked in this time.
+
+   When you enter the manued-minor-mode, you can see ``Manued''
+   strings in your emacs mode line and you can also see the Manued
+   menu in menu bar.
+
+3. How to proofread
+
+    If you want to fix the next sentence from ``How to pofread'' to
+    ``How to proofread'',
+
+	How to pofread
+
+     (1) Set cursor the character `p' of pofread and
+         set-mark. Set-mark is always binded C-SPC, you may also type
+         C-@.
+
+     (2) Next, move cursor to after the character `d' of pofread and
+         you do either of one of the following.
+
+	     1. M-x manued:insert-delete-command
+	     2. C-c C-m C-d
+	     3. Choice 'insert command -- delete region' from menu.
+
+     Then, you can see the text as follows.
+
+	How to [pofread/;]
+
+     This means `delete pofread'. Next you type correct strings
+     `proofread' after character `/' and type C-l to redraw buffer. I
+     will show the result strings under this paragraph. When you can
+     use colors, you can see the `pofread' is dimmed and red colored
+     `proofread' strings. Whenever you want to redraw your screen,
+     type C-l.
+
+	How to [pofread/proofread;]
+
+     You can also insert some helpful comments after the `;' character.
+
+	How to [pofread/proofread; only typo, this is comment.]
+
+4. Short description of Manued method.
+
+     In manued method, you can correct document as form
+
+	[original/revised;comment].
+
+     We call these characters `[', `/', `;', `]' manued command.  You
+     can fix your document using only this formula. Please select the
+
+	Extract document --- Get revised document in manued buffer
+
+     command from menu. Then buffer is splitted and you can see
+     revised document in *manued* buffer. Please confirm how the
+     document is changed. Above [original/revised;comment] is changed
+     to `revised'.
+
+        [If you want to evaluate /the one set of manued command,;
+	 type M-x manued:eval-last-manuexp]
+
+     Please move the cursor on the any place of this paragraph, and
+     type M-x manued:eval-last-manuexp. This function is also selected
+     from the menu. Can you see
+
+	  the one set of manued command,
+
+     ?
+
+5. Searching manued command
+
+     Manued.el provides the command for searching manued commands.
+     Set the cursor to here^, select `Search next' command from menu.
+
+	  [;You will see the cursor at top of this sentence.]
+
+     With default, M-p and M-n is binded to search previous and search
+     next respectively. Please try these search commands and return to
+     here.
+
+     You can already seen the main functions of
+     manued.el. Congratulations!
+
+6. Customizing manued
+
+     The default manued command symbol [/;] is very common, so you may
+     think ``I always use these symbols in TeX, so manued method can
+     not work in my environment.'' Please remember the ``manued
+     header.''  You can redefine manued command with manued header as
+     you like expect including white space. If you want to see such
+     examples, please open the manued.sub1 and enter manued-minor-mode.

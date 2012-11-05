@@ -1,0 +1,34 @@
+defparentheses	[^_^ ^_^]
+defswap		|
+defdelete	/
+defcomment	COMMENT_COMES_FROM_HERE
+defescape	~
+deforder	older-first
+defversion	0.9.5
+
+Another tutorial for manued.el.
+Hitoshi Yamauchi
+
+If you do not enter the manued-minor-mode, please type M-x
+manued-minor-mode.
+
+Manued.el can redefine the manued command symbols with manued header.
+In this time, I use [^_^ and ^_^]. Moreover, I set the starting
+commend symbol as COMMENT_COMES_FROM_HERE.
+
+	[^_^You can also/use these strings for manued command.
+	COMMENT_COMES_FROM_HERE Comment from here^_^]
+
+However, too complex manued symbol may be harmful for proofreading.
+If you can use multibyte strings, try multibyte parentheses. I always
+use them.
+
+If you prefer SGML, HTML, or XML, like <manued></manued> symbols also
+available.
+
+If you want to know further more information, please read under doc/
+documents.
+
+[^_^
+	So/Enjoy Manued!
+ ^_^]

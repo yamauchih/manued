@@ -1,0 +1,29 @@
+%defparentheses [ ]
+%defswap                |
+%defdelete      /
+%defcomment     ;
+%defescape      ~
+%deforder       older-first
+%deversion      0.9.3
+
+(goto-char 0323)
+
+[a|[Alpha/Beta~|~]]|bc]
+
+[[A|B|C;D]a|b|c;comment]
+
+[a|b|c;comment]
+
+[a/b;comment]
+
+[[a/b]a[a/b]/[a/b]b[a/b]]
+
+[[a|b|c]|[a|b|c]|[a|b|c]]
+
+[a/b;comment]
+
+[a||c;comment]
+
+[a||c]
+
+[/b]
