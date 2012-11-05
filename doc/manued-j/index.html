@@ -38,8 +38,7 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
  SRC="./manuedlogo.png"
  ALT="Image manuedlogo"></H1><DIV CLASS="author_info">
 
-<P ALIGN="CENTER"><STRONG>YAMAUCHI, Hitoshi (山内斉)</STRONG></P>
-<P ALIGN="CENTER"><STRONG>2002-8-12(Mon)</STRONG></P>
+<P ALIGN="CENTER"><STRONG>Hitoshi Yamauchi (山内斉)</STRONG></P>
 </DIV>
 
 <P>
@@ -51,15 +50,15 @@ original version by:  Nikos Drakos, CBLU, University of Leeds
 
 <H3>Abstract:</H3>
 <DIV CLASS="ABSTRACT">
-  真鵺道とは，文書の校正方法の一種である．この手法は第39回プログラミン
-  グシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
-  タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正に
-  あったので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような
-  場合に特に有効である．まず本文書では，真鵺道方式による校正手法を紹介
-  する．そしてこの校正手法をサポートするemacs lispプログラムである
-  <TT>manued.el</TT>の実装を紹介する．真鵺道による校正手法と
-  <TT>manued.el</TT>が電子メールを利用した原稿，論文のやりとりに繁雑さ
-  を感じている方々の手助けとなれば幸いである．
+ 真鵺道は，文書の校正方法の一種である．この手法は1998年の第39回プログラミ
+ ングシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
+ タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正にあっ
+ たので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような場合に特
+ に有効である．まず本文書では，真鵺道方式による校正手法を紹介する．そして
+ この校正手法をサポートする emacs lispプログラムである<TT>manued.el</TT>
+ の実装を紹介する．真鵺道による校正手法と<TT>manued.el</TT>が電子メールを
+ 利用した原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸い
+ である．
 </DIV>
 <P>
 <BR>
@@ -70,89 +69,89 @@ Contents</A>
 <!--Table of Contents-->
 
 <UL CLASS="TofC">
-<LI><A NAME="tex2html60"
+<LI><A NAME="tex2html57"
   HREF="manued-j.html#SECTION00020000000000000000">はじめに</A>
 <UL>
-<LI><A NAME="tex2html61"
+<LI><A NAME="tex2html58"
   HREF="manued-j.html#SECTION00021000000000000000">真鵺道の概要</A>
-<LI><A NAME="tex2html62"
+<LI><A NAME="tex2html59"
   HREF="manued-j.html#SECTION00022000000000000000">この文書の情報</A>
 </UL><BR>
-<LI><A NAME="tex2html63"
+<LI><A NAME="tex2html60"
   HREF="manued-j.html#SECTION00030000000000000000">真鵺道 Quick Start</A>
 <UL>
-<LI><A NAME="tex2html64"
+<LI><A NAME="tex2html61"
   HREF="manued-j.html#SECTION00031000000000000000">About Manued</A>
-<LI><A NAME="tex2html65"
+<LI><A NAME="tex2html62"
   HREF="manued-j.html#SECTION00032000000000000000">Installation</A>
-<LI><A NAME="tex2html66"
+<LI><A NAME="tex2html63"
   HREF="manued-j.html#SECTION00033000000000000000">Starting Manued </A>
 </UL><BR>
-<LI><A NAME="tex2html67"
+<LI><A NAME="tex2html64"
   HREF="manued-j.html#SECTION00040000000000000000">真鵺道(Manued)とは?</A>
 <UL>
-<LI><A NAME="tex2html68"
+<LI><A NAME="tex2html65"
   HREF="manued-j.html#SECTION00041000000000000000">真鵺道概要</A>
-<LI><A NAME="tex2html69"
+<LI><A NAME="tex2html66"
   HREF="manued-j.html#SECTION00042000000000000000">真鵺道の例</A>
 </UL><BR>
-<LI><A NAME="tex2html70"
+<LI><A NAME="tex2html67"
   HREF="manued-j.html#SECTION00050000000000000000">真鵺道の文法について</A>
 <UL>
-<LI><A NAME="tex2html71"
+<LI><A NAME="tex2html68"
   HREF="manued-j.html#SECTION00051000000000000000">真鵺道修正記号定義コマンドと真鵺道コマンド</A>
-<LI><A NAME="tex2html72"
+<LI><A NAME="tex2html69"
   HREF="manued-j.html#SECTION00052000000000000000">manued.el ver.0.9 における修正記号定義コマンド</A>
-<LI><A NAME="tex2html73"
+<LI><A NAME="tex2html70"
   HREF="manued-j.html#SECTION00053000000000000000">manued.el version 0.9 以降における真鵺道コマンド</A>
-<LI><A NAME="tex2html74"
+<LI><A NAME="tex2html71"
   HREF="manued-j.html#SECTION00054000000000000000">整形時修正出力 (pretty print)(after ver.0.9.5)</A>
-<LI><A NAME="tex2html75"
+<LI><A NAME="tex2html72"
   HREF="manued-j.html#SECTION00055000000000000000">サンプル文書</A>
 </UL><BR>
-<LI><A NAME="tex2html76"
+<LI><A NAME="tex2html73"
   HREF="manued-j.html#SECTION00060000000000000000">真鵺道サポートツール manued.el</A>
 <UL>
-<LI><A NAME="tex2html77"
+<LI><A NAME="tex2html74"
   HREF="manued-j.html#SECTION00061000000000000000">Download</A>
-<LI><A NAME="tex2html78"
+<LI><A NAME="tex2html75"
   HREF="manued-j.html#SECTION00062000000000000000">manued.el とその作成経緯について</A>
-<LI><A NAME="tex2html79"
+<LI><A NAME="tex2html76"
   HREF="manued-j.html#SECTION00063000000000000000">Install 方法</A>
-<LI><A NAME="tex2html80"
+<LI><A NAME="tex2html77"
   HREF="manued-j.html#SECTION00064000000000000000">manued.elの使用法</A>
-<LI><A NAME="tex2html81"
+<LI><A NAME="tex2html78"
   HREF="manued-j.html#SECTION00065000000000000000">manued-minor-modeのカスタマイズ方法</A>
-<LI><A NAME="tex2html82"
+<LI><A NAME="tex2html79"
   HREF="manued-j.html#SECTION00066000000000000000">カスタマイズ可能な変数</A>
-<LI><A NAME="tex2html83"
+<LI><A NAME="tex2html80"
   HREF="manued-j.html#SECTION00067000000000000000">Bugs</A>
-<LI><A NAME="tex2html84"
+<LI><A NAME="tex2html81"
   HREF="manued-j.html#SECTION00068000000000000000">Copying</A>
-<LI><A NAME="tex2html85"
+<LI><A NAME="tex2html82"
   HREF="manued-j.html#SECTION00069000000000000000">Manued ML</A>
 </UL><BR>
-<LI><A NAME="tex2html86"
+<LI><A NAME="tex2html83"
   HREF="manued-j.html#SECTION00070000000000000000">真鵺道 Tips</A>
 <UL>
-<LI><A NAME="tex2html87"
+<LI><A NAME="tex2html84"
   HREF="manued-j.html#SECTION00071000000000000000">TeX と真鵺道</A>
 </UL><BR>
-<LI><A NAME="tex2html88"
+<LI><A NAME="tex2html85"
   HREF="manued-j.html#SECTION00080000000000000000">Manued Links</A>
 <UL>
-<LI><A NAME="tex2html89"
+<LI><A NAME="tex2html86"
   HREF="manued-j.html#SECTION00081000000000000000">和田先生の manued.el の実装</A>
-<LI><A NAME="tex2html90"
+<LI><A NAME="tex2html87"
   HREF="manued-j.html#SECTION00082000000000000000">その他の実装</A>
-<LI><A NAME="tex2html91"
+<LI><A NAME="tex2html88"
   HREF="manued-j.html#SECTION00083000000000000000">Manuediff (by Suzuki)</A>
 </UL><BR>
-<LI><A NAME="tex2html92"
+<LI><A NAME="tex2html89"
   HREF="manued-j.html#SECTION00090000000000000000">謝辞</A>
-<LI><A NAME="tex2html93"
+<LI><A NAME="tex2html90"
   HREF="manued-j.html#SECTION000100000000000000000">Bibliography</A>
-<LI><A NAME="tex2html94"
+<LI><A NAME="tex2html91"
   HREF="manued-j.html#SECTION000110000000000000000">Index</A>
 </UL>
 <!--End of Table of Contents-->
@@ -174,11 +173,10 @@ Contents</A>
 </H2>
 
 <P>
-現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期
-待できない．特に電子メイルで原稿をやりとりするような環境では利用可能な
-文字の種類などが限られるため，校正はさらに困難となる．現在のところ，
-Email では，以下のような方法で校正情報を伝えることがよく行なわれてい
-るようである．
+現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期待
+できない．特に電子メイルで原稿をやりとりするような環境では利用可能な文字
+の種類などが限られるため，校正はさらに困難となる．現在のところ，Email で
+は，以下のような方法で校正情報を伝えることがよく行なわれているようである．
 <PRE>
     Azimuth のロボット3原則
     ^^^^^^^
@@ -246,7 +244,7 @@ manued-minor-mode では大きく分けて以下の機能を利用可能である．
 
 <UL>
 <LI>著者 
-<BR>  Copyright (C) 1997-2002 山内 斉 (Hitoshi Yamauchi)
+<BR>      Copyright (C) 1997-2012 山内 斉
 </LI>
 </UL>
 
@@ -268,11 +266,9 @@ About Manued</A>
 </H2>
 
 <P>
-真鵺道とは，第39回プログラミングシンポジウムにおいて竹内郁雄先生により
-提案された電子メイルなどでの論文や文書のやりとり時の校正をより容易にす
-るための方法である．その方法を実践するための実装の一つとして
-<TT>manued.el</TT>をお届けする．<TT>manued.el</TT>が電子メールにおける
-原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸いである．
+真鵺道とは，1998年の第39回プログラミングシンポジウムにおいて竹内郁雄によ
+り提案された．これは電子メイルでの論文や文書のやりとり時の校正をより容易
+にするための方法である．<TT>manued.el</TT> はこの方法を一実装である．
 
 <P>
 
@@ -281,10 +277,8 @@ Installation</A>
 </H2>
 
 <P>
-<TT>manued.el</TT>は Emacs Version 19.34 以降に依存している．Emacs
-Version 19.34 以降のものあるいは，それに基づいた Mule 等を利用されたい．
-筆者の環境は GNU Emacs 19.34.1, Mule Version 2.3 (SUETSUMUHANA)である．
-Install は以下のように行う．
+<TT>manued.el</TT>は Emacs Version 20.7.2 以降に依存している．Install は
+以下のように行う．
 
 <P>
 
@@ -312,8 +306,8 @@ manued-minor-mode に入って動作を確認する．
 
 <UL>
 <LI>チュートリアル
-<BR>manued.tut というファイルがアーカイブに付属しているはずなのでそれを
-  emacs に読み込み，指示に従う．
+<BR>manued.tut というファイルがアーカイブに付属しているのでこれを emacs に
+      読み込み，指示に従う．
 </LI>
 <LI>手動の動作確認 
 <BR>
@@ -323,12 +317,12 @@ manued-minor-mode に入って動作を確認する．
 <LI>テキストを入力する．
 </LI>
 <LI>マークとカーソル移動を用いてリージョンを作成し，
-    manued-insert-swap-command (C-c C-m C-s) により，リージョンを swap
-    コマンドで囲んでみる． manued-show-newer-in-manued-buffer を実行す
-    ることによって校正後の文書が抽出される．
+         manued-insert-swap-command (C-c C-m C-s) により，リージョンを
+         swapコマンドで囲んでみる． manued-show-newer-in-manued-buffer を
+         実行することによって校正後の文書が抽出される．
 </LI>
 <LI>その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマンド
-    の位置を探すことができるのでそれを試してみる．
+         の位置を探すことができるのでそれを試してみる．
   
 </LI>
 </OL>
@@ -349,42 +343,44 @@ manued-minor-mode に入って動作を確認する．
 </H2>
 
 <P>
-真鵺道とは，第39回プログラミングシンポジウムにおいて<A NAME="tex2html1"
-  HREF="http://ne.cs.uec.ac.jp/tak.html">竹内郁雄先生</A>により提案された電子メ
-イルなどのテキストデータを介した論文や文書のやりとり時の校正をより容易
-にするための校正用言語 (Manuscript Editing Language)
-である&nbsp;[#!bib:Takeuchi1998!#]．
-以下にこの論文の概要をまとめる．<A NAME="tex2html2"
-  HREF="./manuscripteditting.txt.gz">Web上には原文のテキストがあります．</A>
+真鵺道とは，1998年に第39回プログラミングシンポジウムにおいて竹内郁雄によ
+り提案された電子メイルなどのテキストデータを介した論文や文書のやりとり時
+の校正をより容易にするための校正用言語 (Manuscript Editing Language)であ
+る&nbsp;[<A
+ HREF="manued-j.html#bib:Takeuchi1998">3</A>]．以下にこの論文の概要をまとめる．
+<A NAME="tex2html1"
+  HREF="./manuscripteditting.txt.gz">Web上には原文のテキストがありま
+す．</A>
 <P>
 電子メールによって原稿を修正する際には，
 
 <UL>
 <LI>紙の上のような訂正記号が使えない．利用できる文字集合の種類が限ら
-  れる．
+       れる．
 </LI>
 <LI>色が利用できない．
 </LI>
-<LI>mail reader によっては文書の二次元情報を保存しないものがあり，編
-  集者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
-  えば Eudora など)．もともと電子メイルでは二次元情報についての規定が
-  ないのでそのような状況は常に発生しうる．
+<LI>mail reader によっては文書の二次元情報を保存しないものがあり，編集
+       者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
+       えば Eudora など)．もともと電子メイルでは二次元情報についての規定
+       がないのでそのような状況は常に発生しうる．
 </LI>
-<LI>改行位置に依存したくない．エディタやワープロなどの行の折り返し機
-  能などによって訂正情報が失われることを避けたい．
+<LI>改行位置に依存したくない．エディタやワープロなどの行の折り返し機能
+       などによって訂正情報が失われることを避けたい．
 </LI>
 </UL>
-という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，
-郵送するという手が一般に行なわれてきたが，それでは間にあわないことが多
-い．Fax という手もあるが，受信した紙から電子情報への変換時には人間が入
-力する部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手
-書き文字の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた
-原稿中の訂正記号を解釈して文書を編集することは現在のところ困難であると
-思われる．結局，もともとの原稿は多くの場合電子情報であり，それを利用で
-きなくする手はあまり賢いとは言えまい．
+という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，郵
+送するという手が一般に行なわれてきたが，それでは間にあわないことが多い．
+Fax という手もあるが，受信した紙から電子情報への変換時には人間が入力する
+部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手書き文字
+の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた原稿中の訂正
+記号を解釈して文書を編集することは現在のところ困難であると思われる．結局，
+もともとの原稿は多くの場合電子情報であり，それを利用できなくする手はあま
+り賢いとは言えまい．
 
 <P>
-そこで，文献&nbsp;[#!bib:Takeuchi1998!#]では
+そこで，文献&nbsp;[<A
+ HREF="manued-j.html#bib:Takeuchi1998">3</A>]では
 
 <UL>
 <LI>修正前と修正後の文書を機械的に抽出できること(必須)
@@ -844,8 +840,7 @@ Markup言語によって強調するなどである．これを行いたい場合には，
 が存在しない場合，デフォルトではコメントの format 文字も出力しない．しか
 し，これは <code>manued-pretty-print-null-comment-out-p</code> によって制御で
 きる．また，スワップ(swap)コマンドでもこのような整形時修正出力のカスタマ
-イズが可能である．詳しくは <A HREF="#sec:PrettyPrintCustomize"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
- SRC="/usr/share/latex2html/icons/crossref.png"></A> を参照のこと．
+イズが可能である．詳しくは <A HREF="#sec:PrettyPrintCustomize">5.6.3</A> を参照のこと．
 
 <P>
 
@@ -967,14 +962,8 @@ Download</A>
 <P>
 
 <UL>
-<LI><A NAME="tex2html3"
-  HREF="http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml">http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml</A>
-</LI>
-<LI><A NAME="tex2html4"
-  HREF="http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml">http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml</A>
-</LI>
-<LI><A NAME="tex2html5"
-  HREF="http://ne.cs.uec.ac.jp/">http://ne.cs.uec.ac.jp/</A>(ミラーサイト)
+<LI><A NAME="tex2html2"
+  HREF="https://github.com/emacsmirror/manued">https://github.com/emacsmirror/manued</A>
 </LI>
 </UL>
 
@@ -995,25 +984,10 @@ manued.el とその作成経緯について
 鵺道文書作成補助機能などを提供する．
 
 <P>
-私は大学院生時代に佐藤雅彦先生の授業を受けた時からLispという言語に興味
-を持っていた．しかし，一度もLispプログラムを書いたことがなかった．実は
-Lispに興味を持ってから何度かLispに挑戦したのだが，まわりに気軽にLispに
-ついて聞けるLisp使いがいなかったことや，Lispで本当に書きたいものという
-ものがわからず，挫折していた．研究室にはHCL(Hokkaido Common Lisp)とい
-う処理系がOmronのLuna 68Kというマシン上にあり，興味からほんの少し触っ
-た程度であった．
-
-<P>
-大学院を離れてから電子メイルにて論文の原稿を何度かやりとりする必要が生
-じたが，修正事項を上手く伝えられないことと，その手間の多さに辟易してい
-た．そんな頃，プログラミングシンポジウムに参加し，真鵺道の発表を聞いて
-いるうちにたちまち魅かれた．これこそEmacs Lispで書くべきものだ．そう思っ
-た．プロシンの会場に居た方々の中にはこの考えに共感して頂ける方もきっと
-いらっしゃると思う．竹内先生が「これはLispの例題としては，4年生が卒論
-に入る前準備程度のレベルのものだろう」とおっしゃったことから，私はこの
-真鵺道プログラムは私にとって良いLispの勉強の例題になるだろうと考え，
-Lispの勉強からはじめた．幸い今回はその点に関してはすばらしい先生にめぐ
-まれ，ここに<TT>manued.el</TT>を提供することができる．
+1997年頃，電子メイルにて論文の原稿を何度かやりとりする必要が生じたが，修
+正事項を上手く伝えられないことと，その手間の多さに辟易していた．そんな頃，
+プログラミングシンポジウムに参加し，真鵺道の発表を聞いているうちにたちま
+ち魅かれた．これこそEmacs Lispで書くべきものだ．そう思い実装するに至った．
 
 <P>
 
@@ -1023,10 +997,7 @@ Install 方法
 </H2>
 
 <P>
-<TT>manued.el</TT>はEmacs Version 19.34以降に依存している．Emacs
-Version 19.34以降のものあるいは，それに基づいたMuleを利用すること．作
-者が <TT>manued.el</TT>を開発した環境はGNU Emacs 19.34.1(mule Version
-2.3 (SUETSUMUHANA)) である．
+<TT>manued.el</TT>はEmacs Version 20.7.2以降に依存している．
 
 <P>
 
@@ -1256,8 +1227,7 @@ hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
 <BR>置換コマンドの適用順 (defalut `older-first') ``older-first'',
   ``newer-last'' あるいは ``older-last'', ``newer-first''．真鵺道の置
   換コマンドは <code>[</code>first/last<code>]</code> の形をしており，どちらを元の
-  文書(older)とみなすかを指定する．<A HREF="#sec:manueddefcommand"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
- SRC="/usr/share/latex2html/icons/crossref.png"></A>節の
+  文書(older)とみなすかを指定する．<A HREF="#sec:manueddefcommand">4.2</A>節の
   <A HREF="#item:deforder">deforder</A>の項を参照．
 </LI>
 </UL>
@@ -1270,34 +1240,6 @@ hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
 <P>
 
 <H3><A NAME="SECTION00066200000000000000"></A>
-<A NAME="sec:DocBeginEnd"></A><BR>
-真鵺道文書の範囲指定
-</H3>
-
-<P>
-<SPAN  CLASS="textbf">注意: 文書の範囲指定に関しては今後廃止の方向で検討している．</SPAN>
-
-<P>
-<TT>manued.el</TT>は真鵺道の文書の範囲を指定することができる．ただし，
-これらの文字列が存在しない場合には，真鵺道文書の初まりは文書の先頭に，
-終わりは文書の最後とみなされる．
-
-<P>
-
-<UL>
-<LI>manued-doc-begin-pat
-<BR>真鵺道文書の初まりを示す文字列を入れておく
-  (defalut `-*-*- BEGINMANUED -*-*-')
-</LI>
-<LI>manued-doc-end-pat
-<BR>真鵺道文書の終わりを示す文字列を入れておく(defalut
-  `-*-*- ENDMANUED -*-*-')
-</LI>
-</UL>
-
-<P>
-
-<H3><A NAME="SECTION00066300000000000000"></A>
 <A NAME="sec:HilightColor"></A><BR>
 Hi-Light の色
 </H3>
@@ -1376,7 +1318,7 @@ Hi-Light の色
 
 <P>
 
-<H3><A NAME="SECTION00066400000000000000"></A>
+<H3><A NAME="SECTION00066300000000000000"></A>
 <A NAME="sec:PrettyPrintCustomize"></A><BR>
 整形時修正出力 (pretty print) のカスタマイズ
 </H3>
@@ -1416,7 +1358,7 @@ Hi-Light の色
 
 <P>
 
-<H3><A NAME="SECTION00066500000000000000">
+<H3><A NAME="SECTION00066400000000000000">
 その他のカスタマイズ</A>
 </H3>
 
@@ -1490,9 +1432,6 @@ Bugs
 <P>
 
 <UL>
-<LI>英語のドキュメントの質の不良．しかし，直すだけの英語力が当方に不
-  足しています．コメントなどは歓迎します．
-</LI>
 <LI>現在のバージョン(0.9.5)では <TT>font-lock-mode</TT>
   を使っていません．そのため，環境によっては訂正箇所のハイライトに問題が
   あります．これは色の表示に関してのみの問題です．
@@ -1507,7 +1446,7 @@ Copying
 </H2>
 
 <P>
-<TT>manued.el</TT>(C) Copyright 1998-2002 YAMAUCHI Hitoshi (山内 斉)
+<TT>manued.el</TT>(C) Copyright 1998-2012 Hitoshi Yamauchi (山内 斉)
 
 <P>
 本ソフトウェアはフリー (自由な) ソフトウェアです．本プログラムを使用し
@@ -1553,13 +1492,13 @@ manued-ml-subscribe" at "takopen.cs.uec.ac.jp.nicht.spam
 <P>
 
 <UL>
-<LI><A NAME="tex2html6"
+<LI><A NAME="tex2html3"
   HREF="sec:ImmediateShownewerTex">TeX と真鵺道(show newer の出力をそのまま TeX でコンパイルするには)</A>
 <UL>
-<LI><A NAME="tex2html7"
+<LI><A NAME="tex2html4"
   HREF="sec:harmDefcommand">defコマンドが邪魔でコンパイルに失敗する場合</A>
 </LI>
-<LI><A NAME="tex2html8"
+<LI><A NAME="tex2html5"
   HREF="sec:harmDefaultLRParenthes">TeX のオプションが消えてしまう</A>
 </LI>
 </UL>
@@ -1800,7 +1739,7 @@ Manuediff (by Suzuki)</A>
 </H2>
 
 <P>
-<A NAME="tex2html9"
+<A NAME="tex2html6"
   HREF="http://hibiki.miyagi-ct.ac.jp/~suzuki/comp/export/manuediff.html">Manuediff</A>
 は diff プログラムですが，その出力を真鵺道フォーマットにします．例:
 <PRE>
@@ -1819,11 +1758,11 @@ Manuediff (by Suzuki)</A>
 </H1>
 
 <P>
-文献[#!bib:Takeuchi1998!#], ``電子メールで原稿を修正する方法 --
+文献[<A
+ HREF="manued-j.html#bib:Takeuchi1998">3</A>], ``電子メールで原稿を修正する方法 --
 Manuscript Editing (Manued, 真鵺道)を目指して --''の電子的原稿の提供
 と，このような素晴しいアイデアを発表して下さった竹内郁雄先生に感謝いた
-します．真鵺道を知ってから現在までの私の論文は全て真鵺道なしには提出で
-きなかったものばかりです．
+します．
 
 <P>
 真鵺道の簡潔な実装により知的な驚きを下さった和田英一先生に感謝いたしま
@@ -1831,8 +1770,7 @@ Manuscript Editing (Manued, 真鵺道)を目指して --''の電子的原稿の提供
 
 <P>
 また，全く Lisp を知らなかった私にLispを教えて下さり，つまらない質問に
-も丁寧に答えて下さった前田敦司氏にも感謝いたします．前田氏なくして，こ
-の実装はありえませんでした．
+も丁寧に答えて下さった前田敦司氏にも感謝いたします．
 
 <P>
 以下の方々がこれまで<TT>manued.el</TT>に関してバグフィックス，有益なコ
@@ -1840,9 +1778,9 @@ Manuscript Editing (Manued, 真鵺道)を目指して --''の電子的原稿の提供
 order)
 
 <UL>
-<LI>川村尚生 : KAWAMURA, Takao (bug fix etc. for version 0.9.3)
+<LI>川村尚生 : Takao Kawamura (bug fix etc. for version 0.9.3)
 </LI>
-<LI>中島幹夫 : NAKAJIMA, Mikio (bug fix etc. for version 0.9.3)
+<LI>中島幹夫 : Mikio Nakajima (bug fix etc. for version 0.9.3)
 </LI>
 <LI>Stefan Monnier  (comments for version 0.9.1)
 </LI>
@@ -1852,7 +1790,40 @@ order)
 
 <P>
 
-<H2>No References!</H2>
+<H2><A NAME="SECTION000100000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="bib:elispinfo">1</A>
+<DD>
+<EM>Emacs and its Info (Emacs 20, XEmacs)</EM>.
+
+<P></P><DT><A NAME="bib:Takeuchi1986">2</A>
+<DD>
+竹内 郁雄.
+<BR><EM>初めての人のための LISP</EM>.
+<BR>サイエンス社, 1986.
+
+<P></P><DT><A NAME="bib:Takeuchi1998">3</A>
+<DD>
+竹内郁雄.
+<BR>電子メールで原稿を修正する方法 -- manuscript editing (manued,
+  真鵺道)を目指して --.
+<BR><EM>第 39 回プログラミングシンポジウム</EM>, pages 61-68, January 1998.
+<BR><A NAME="tex2html7"
+  HREF="./manuscripteditting.txt.gz">原文
+  manuscriptediting.txt.gz</A>.
+
+<P></P><DT><A NAME="bib:Hirose1999">4</A>
+<DD>
+広瀬 雄二.
+<BR><EM>やさしいEmacs-Lisp講座</EM>.
+<BR>カットシステム, 1999.
+
+<P></P><DT><A NAME="bib:Aoyagi1997">5</A>
+<DD>
+青柳 龍也.
+<BR><EM>UNIX 短編シリーズ Emacs Lisp</EM>.
+<BR>工学図書, 1997.
+</DL>
 <BR>
 
 <H2><A NAME="SECTION000110000000000000000">
@@ -1864,7 +1835,7 @@ Index</A>
 <P>
 
 <address>
-Copyright (C) 1998-2002 YAMAUCHI, Hitoshi (山内 斉)<br>
+Copyright (C) 1998-2012 Hitoshi Yamauchi (山内 斉)<br>
 Most recent update : <!--#echo var="LAST_MODIFIED" --> :
 </address>
 
@@ -1891,7 +1862,7 @@ Mathematics Department, Macquarie University, Sydney.
 The command line arguments were: <BR>
  <STRONG>latex2html</STRONG> <TT>-html_version 4.0 -split 0 manued-j.tex</TT>
 <P>
-The translation was initiated by hitoshi on 2012-11-05
+The translation was initiated by hitoshi on 2012-11-06
 <DIV CLASS="navigation"><HR>
 <!--Navigation Panel-->
 <IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
@@ -1904,7 +1875,7 @@ The translation was initiated by hitoshi on 2012-11-05
 <!--End of Navigation Panel-->
 <ADDRESS>
 hitoshi
-2012-11-05
+2012-11-06
 </ADDRESS>
 </BODY>
 </HTML>

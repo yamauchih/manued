@@ -10,6 +10,10 @@ $key = q/sec:ManuedLinks/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_bib:Takeuchi1986/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:CustomizeDefcommand/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
@@ -34,6 +38,10 @@ $key = q/item:deforder/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/cite_bib:Aoyagi1997/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:Bugs/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
@@ -43,6 +51,10 @@ $ref_files{$key} = "$dir".q|manued-j.html|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:ManuedTips/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_bib:elispinfo/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
@@ -58,15 +70,23 @@ $key = q/sec:HilightColor/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
-$key = q/sec:Copying/;
-$ref_files{$key} = "$dir".q|manued-j.html|; 
-$noresave{$key} = "$nosave";
-
 $key = q/sec:Community/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
+$key = q/sec:Copying/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_bib:Takeuchi1998/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
 $key = q/sec:manueddefcommand/;
+$ref_files{$key} = "$dir".q|manued-j.html|; 
+$noresave{$key} = "$nosave";
+
+$key = q/cite_bib:Hirose1999/;
 $ref_files{$key} = "$dir".q|manued-j.html|; 
 $noresave{$key} = "$nosave";
 
