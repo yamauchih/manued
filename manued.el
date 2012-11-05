@@ -1,33 +1,18 @@
 ;;;
-;;; manued.el --- minor mode for manued proofreading method.
+;;; manued.el --- a minor mode of manued proofreading method.
 ;;;
-;;; Manued stands for MANUscripting EDitor.
-;;;
-;;; Author and current maintainer: Hitoshi Yamauchi 山内 斉
-;;; Updated: 2002-08-12
-;;; Version: 0.9.5-current
+;;; Author: Hitoshi Yamauchi
+;;; Maintainer: Hitoshi Yamauchi
+;;; Created: 16 Jan 1998
 ;;; Keywords: proofreading, docs
 ;;;
+;;; Contributors: Thanks a lot.
+;;;     Atusi Maeda
+;;;	Stefan Monnier (0.9.1)
+;;;	Mikio Nakajima (0.9.3)
+;;;	Takao Kawamura (0.9.3)
 ;;;
-;;; Original idea of manued:
-;;;	Ikuo Takeuchi, ``Manuscripting Editing on E-mail,'' 39th
-;;;	Programming Symposium, 1998, January, pp.61--68
-;;;
-;;;	The original paper is written in Japanese,
-;;;	竹内郁雄, ``電子メールで原稿を修正する方法 --- Manuscript
-;;;     Editing (Manued, 真鵺道)を目指して ---'', 第 39 回プログラミン
-;;;	グシンポジウム, 1998, 1月, pp.61--68
-;;;
-;;;
-;;; Acknowlegements:
-;;;	Thanks to Atusi Maeda.
-;;;	He taught me Lisp and the Programming Symposium.
-;;;
-;;;
-;;; Copyright Notice:
-;;;
-;;; Copyright (C) 1998--2012 Hitoshi Yamauchi 山内 斉
-;;; All rights reserved.
+;;; This file is not part of GNU Emacs.
 ;;;
 ;;; This program is free software; you can redistribute it and/or modify
 ;;; it under the terms of the GNU General Public License as published by
@@ -38,11 +23,21 @@
 ;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;;; GNU General Public License for more details.
+;;; see <http://www.gnu.org/licenses/>.
 ;;;
-;;; Contributors : Thanks a lot.
-;;;	Stefan Monnier  (0.9.1)
-;;;	NAKAJIMA, Mikio (0.9.3)
-;;;	KAWAMURA, Takao (0.9.3)
+
+;;;
+;;; Manued stands for MANUscripting EDitor.
+;;;
+;;; Original idea of manued:
+;;;	Ikuo Takeuchi, ``Manuscripting Editing on E-mail,'' 39th
+;;;	Programming Symposium, 1998, January, pp.61--68
+;;;
+;;;	The original paper is written in Japanese,
+;;;	竹内郁雄, ``電子メールで原稿を修正する方法 --- Manuscript
+;;;     Editing (Manued, 真鵺道)を目指して ---'', 第 39 回プログラミン
+;;;	グシンポジウム, 1998, 1月, pp.61--68
+;;;
 ;;;
 ;;------------------------------------------------------------
 ;; debug 用の message 出力
@@ -2130,4 +2125,4 @@ Special Commands:
 		minor-mode-map-alist)))
 ;;
 (provide 'manued)
-;; end of manued.el ------------------------------
+;;; manued.el ends here
