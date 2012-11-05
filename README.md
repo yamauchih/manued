@@ -73,3 +73,4 @@ this program. This software can be redistributed only under GNU
 copyleft (most recently version of GNU General Public License). See
 doc/manued-j/manued-j.html (In Japanese) or doc/manued-e/manued-e.html
 (In English).
+
