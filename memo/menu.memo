@@ -1,0 +1,46 @@
+
+
+(if mew-xemacs-p (require 'easymenu))
+
+;(defvar manued-mode-map nil)
+(setq manued-mode-map nil)
+
+;(defvar manued-mode-menu-spec
+
+(setq manued-mode-menu-spec
+  '("Mew/message"
+    ["Next part"    manued-next-msg t]
+    ["Prev part"    manued-prev-msg t]
+    ["Next page"    manued-next-page t]
+    ["Prev page"    manued-prev-page t]
+    ["Goto summary" manued-goto-summary t]
+    "---"
+    ("Reply/Forward"
+     ["Reply"               manued-reply t]
+     ["Reply with citation" manued-reply-with-citation t]
+     ["Forward"             manued-forward t])))
+
+(if manued-mode-map
+    ()
+  (setq manued-mode-map (make-sparse-keymap))
+  (define-key manued-mode-map " "    'manued-next-page)
+  (define-key manued-mode-map "\177" 'manued-prev-page)
+  (define-key manued-mode-map "n"    'manued-next-msg)
+  (define-key manued-mode-map "p"    'manued-prev-msg)
+  (define-key manued-mode-map "h"    'manued-goto-summary)
+  (define-key manued-mode-map "a"    'manued-reply)
+  (define-key manued-mode-map "A"    'manued-reply-with-citation)
+  (define-key manued-mode-map "f"    'manued-forward)
+  (define-key manued-mode-map "r"    'manued-resend)
+;  (if mew-temacs-p
+      (easy-menu-define
+       manued-mode-menu
+       manued-mode-map
+       "Menu used in Message mode."
+       manued-mode-menu-spec))
+
+(set-buffer-menubar current-menubar)
+
+(add-submenu nil manued-mode-menu-spec)
+
+

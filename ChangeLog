@@ -1,0 +1,344 @@
+2012-11-05  Hitoshi Yamauchi
+
+	* Jonas Bernoulli suggested me to put manued to github.
+
+2002-08-12  Hitoshi Yamauchi
+
+	* update tutorial, README, fix some doc
+
+	* doc/manued-[ej].tex: add pretty print related stuffs
+
+	* doc/manued-[ej].tex: add manuediff (by Suzuki Ken-ichi)
+
+	* manued.el (manued-get-pretty-print-str): add pretty print with
+	  null comment or not mechanism.
+
+2002-08-06  Hitoshi Yamauchi
+
+	* manued.el: add pretty print format style.
+	  This pretty print output function is suggested by Robbie
+	  Pickering.
+
+2002-08-04  Hitoshi Yamauchi
+
+	* manued.el (manued-version-num):
+	  manued commands are compared with string-match and that is used
+	  to string-equal. But this change seems not a good idea. So,
+	  discard it.
+
+2000-10-20  Hitoshi Yamauchi
+
+	* manued.el : buffer-substring gets text-property and `equal' is
+ 	different from under FSF Emacs 19 and (Emacs 20 or XEmacs). So
+ 	some buffer-substring is replaces with
+ 	buffer-substring-no-properties.
+
+2000-10-10  Hitoshi Yamauchi
+
+	* manued.el (manued-is-auto-insert-header): add variable
+	insert-point in the manued-is-auto-insert-header list. This
+	indicates defcommand (header) inserting point.
+
+	* introduce buffer local variables : some global variables should
+	be buffer local variables (commented by KAWAMURA)
+
+2000-10-09  Hitoshi Yamauchi
+
+	* change namespace separator from `:' to `-'
+
+	* manued.el: update with NAKAJIMA and KAWAMURA's code
+
+2000-10-03  Takao Kawamura
+
+	* manued-0.9.3-current.el : swap command を show-older-* に対応さ
+	せた．そのために変数`manued:show-newer-p'を追加．
+
+	* 関数`manued:set-get-first-or-last'と変数
+	`manued:is-get-first-region'を削除．
+
+2000-10-02  Mikio Nakajima
+
+	* manued.el: Call `(provide 'manued)' at the end of the file.
+	Require easymenu when running on Emacs 20 or later.
+	(manued:escaped-l-paren-pat): Declare with defun instead of
+	defmacro.
+	(manued-minor-mode): Remove duplicate
+	`manued:insert-delete-command' keybind description and add
+	`manued:insert-swap-command' one.
+	(manued-mode): Alias to `manued-minor-mode'.
+
+2000-10-01  Mikio Nakajima
+
+	* manued.el (manued:set-order-from-order-str): Use `member'
+	instead of `string-equal'.
+	(manued:insert-header): Ditto.
+	(manued:xemacs-p): Declare with `defconst' instead of `defvar'.
+	Simplify conditions.
+	Add doc.
+	(manued:search-and-insert-header): Remove second `if'.
+	Use `cadr'.
+	(manued:search-set-def-one): Use `cadr'.
+	(manued:insert-header): Ditto.
+
+2000-07-12  Hitoshi Yamauchi
+
+	* manued.el: font-lock-mode との共存．use-color-hilit
+	を 'follow-font-lock-mode にセットするとfont-lock-modeに基いて色をつ
+	ける．
+
+Tue Apr 18 20:11:26 2000  Hitoshi Yamauchi
+
+	* write a tutorial of English version
+
+2000-04-18  Hitoshi Yamauchi
+
+	* manued-minor-modeから抜ける際に，font propertyを消去するようにした．
+
+	* メニューをxemacsに対応した．ついでに階層化メニューの方法がわかった
+	  ので，メニューを階層化した．
+
+	* いくつかのdead codeと未使用の変数の削除
+
+	* コンパイル時に展開できないマクロを修正
+
+	* エラー時にdeleteコマンドとswapコマンドのどちらでエラーが発生したか
+	  区別できないバグを修正
+
+	* hilit に依存する部分を font-property に書き直し，xemacs と
+	  emacs20 に対応．しかし font-lock 未対応．
+
+	* I thank to Stefan Monnier's very helpful comments.
+
+Thu Apr  6 17:36:19 2000  Hitoshi Yamauchi
+
+	* 文書やプログラム中で Manuedou と表記している部分を manued に統一
+
+Mon Mar 13 12:31:09 2000  Hitoshi Yamauchi
+
+	* 現在東北大学にいる．英文のマニュアルを一通り確認，これで web を
+	  作成することとする．
+
+Thu Feb 17 03:28:01 2000  Hitoshi Yamauchi
+
+	* 例題部分を残して一通り英訳終了 Web に上げる．シュルツ氏の死去は
+	  悲しい.
+
+Wed Feb 16 03:46:39 2000  Hitoshi Yamauchi
+
+	* header の綴りが違っていたので修正
+
+Wed Feb  9 02:41:06 2000  Hitoshi Yamauchi
+
+	* 和田先生から山内ツールはいらないというメイルを頂き，ショックを受
+	  ける．竹内先生から使うというメイルを頂き多少立ち直って，真鵺道の
+	  マニュアルを SGML 形式で書く．
+
+Sun Feb  6 06:49:31 2000  Hitoshi Yamauchi
+
+	* color のない環境にも対応 (mule -nw でもサーチや整形が効く)
+
+	* [||] の実装完了．
+
+	* show-newer-region を実装．
+
+	* エラー処理を強化，エラーの場所をできるだけ指すようにした．
+
+Sat Feb  5 14:48:50 2000  Hitoshi Yamauchi
+
+	* hilit や整形部分は LL(1) で書き直した
+
+	* manued.el: hilit 部分の実装が一応完成
+
+	* ~[~[ の場所で二番目のエスケープがきかないバグを修正．これは平文
+	  中では ~ がコマンドとみなされないにもかかわらず，特殊な処理で避
+	  けようとしていたため．今回平文でのサーチとコマンド中のサーチは分
+	  離した．
+
+	* swap command と delete command の挿入が可能になった．
+
+Thu Feb  3 01:52:17 2000  Hitoshi Yamauchi
+
+	* manued.el: ver 0.9 のコーディング開始．
+
+Wed Jan 26 03:52:25 2000  Hitoshi Yamauchi
+
+	* escape の効かないバグを修正
+
+Tue Jan 25 02:02:12 2000  Hitoshi Yamauchi
+
+	* manued/manued.tut: チュートリアル作成
+
+Tue Dec  7 16:57:56 1999  Hitoshi Yamauchi
+
+	* 変数 manued-minor-mode を buffer-local にすることで，指定したバッ
+	  ファのみが manued-minor-mode になる
+
+Tue Feb  9 22:48:27 1999  Hitoshi Yamauchi
+
+	* manued-0.4/manued.el (manued:search-nonescaped-command): ~[~[
+	  のようにエスケープが連続すると失敗するバグを修正
+
+Tue Sep  8 14:36:37 1998  Hitoshi Yamauchi
+
+	* manued-0.4/manued.el (manued:insert-comment-region):マークした場
+	  所にコメントを挿入した場合には[;]の前(最初の挿入点のマーカ地点)
+	  にカーソルが来てしまうのでその場合は ; の後ろにカーソルを移動す
+	  る．
+
+Fri Aug 28 13:52:58 1998  Hitoshi Yamauchi
+
+	* TeX のコメント中に defcommand がある場合には，defcommand が存在
+	  しないと考えて毎回 insert するかどうか聞いてきていたのでこれを修
+	  正．defcommand のセットの部分と insert-headder が defcommand を
+	  探す部分が別になっており，defcommand セットの部分は TeX のコメン
+	  トなどを理解するようになっていたが，insert-headder 部分はそうで
+	  なかった．今回ちょっと無駄があるが defcommand セット部分に探させ
+	  るように統一したので，この部分のギャップはなくなった．
+
+Fri Aug  7 18:53:15 1998  Hitoshi Yamauchi
+
+	* manued-0.4/manued.el: 和田先生の真鵺道文書が通らないのでおかしい
+	  と思っていたら，\ と | をコマンドに使えないような正規表現を使っ
+	  ていたので修正
+
+	* eval-last-manuexp が動作しないので調べてみたら，この中で利用して
+	  いる re-search-系や looking-at の引数にそのまま真鵺道コマンドを
+	  渡していた．そのために真鵺道コマンドが regex の特殊文字だった場
+	  合に search に失敗する．その部分を regexp-quote するよう修正．
+
+Sun Jun 28 00:27:06 1998  Hitoshi Yamauchi
+
+	* manued:eval-last-manuexp を実装した．
+
+	* manued.el: error 処理を強化した．どこでエラーが発生したかをわか
+	  るようにした．(エラーシグナルのハンドリング)
+
+Sat Jun 27 03:55:07 1998  Hitoshi Yamauchi
+
+	* 括弧の対応がとれていない場合のエラーを処理するようになった
+
+Sat Jun 25 00:20:17 1998  Hitoshi Yamauchi
+
+	* 0.4.0 エスケープの処理を加えた
+
+Tue Mar 17 15:08:00 1998  Hitoshi Yamauchi
+
+	* 真鵺道定義コマンドの前に特定の文字列を許すようにした。その文字列
+	  は指定する。たとえば TeX のコメントの中に真鵺道定義コマンドを置
+	  きたい時のために `%%' を登録しておくことが可能になった。これはユー
+	  ザの声を聞いてどんな文字列が必要か調べるべきである。
+
+	* hilit command で真鵺道コマンドが再帰している場合に正しく処理でき
+	  ないバグの修正。色をつける場合には再帰するのは現在の色は何にする
+	  かということだけで、範囲は色をつけていく順で次々に変化する。文字
+	  の色が global な副作用のためにそのようになる。
+
+Thu Mar  5 15:08:32 1998  Hitoshi Yamauchi
+
+	* manued-recenter-hilit で recenter の代わりに hilight-recenter を
+	  用いるようにした。hilit するたびに何か画面に属性の情報が重ねられ
+	  るようであり、じょじょに重くなっていたが、一度 unhilit してから
+	  hilit するとそれを避けることができるようだ。
+
+Thu Feb 19 22:44:29 1998  Hitoshi Yamauchi
+
+	* show command 中に swap コマンドがあると解釈し、停止しなくなるバ
+	  グを修正した。ここで ver. 0.31 としてリリースする。
+
+Wed Feb 18 23:56:22 1998  Hitoshi Yamauchi
+
+	* コメント中に swap コマンドがあると解釈してしまうバグを修正した
+
+	* show command では buffer を分割するようにした
+
+Fri Feb 13 16:28:39 1998  Hitoshi Yamauchi
+
+	* menu を追加した
+
+	* manued-minor-mode を作成した。これによって LaTeX のコマンド中な
+	  どでも使用可能
+
+Thu Feb 12 10:48:41 1998  Hitoshi Yamauchi
+
+	* manued-next-l-parentheses, manued-previous-l-parentheses を追加。
+	  これで次の真鵺道コマンドを簡単に検索できる。M-p, M-n にマップし
+	  た。自分で作ったが、これは便利だ。
+
+	* manued-search-and-insert-headder : def コマンドをサーチして無い
+	  場合には挿入するか尋ねる
+
+	* swap command で comment 文字の挿入をするかしないかの制御を行うよ
+	  うに変更した。
+
+	* manued-mode に入った時に point を移動しないようにした。今日は私
+	  の誕生日。
+
+Sun Feb  8 01:11:11 1998  Hitoshi Yamauchi
+
+	* manued-insert-comment を作成し、C-cC-c にバインドした。
+
+	* manued-recenter-hilit, manued-hilit を追加し、
+	  manued-recenter-hilit を C-l にバインドした。
+
+	* manued-insert-manued-headder を追加
+
+Thu Feb  5 01:12:11 1998  Hitoshi Yamauchi
+
+	* manued.texi を書いた。最初に HTML を書いてから書いた。
+
+Tue Feb  3 22:13:38 1998  Hitoshi Yamauchi
+
+	* 真鵺道の入力サポートのコマンドを作成した。
+
+	* バッファを作成し、そこに整形結果を表示する。バッファが存在する場
+	  合には尋ねることにした。
+
+
+Sun Jan 25 23:00:34 1998  Hitoshi Yamauchi
+
+	* deforder を用いることで、真鵺道コマンドの訂正元と先を切り換える
+	  機能を追加した。
+
+Fri Jan 23          1998 Hitoshi Yamauchi
+
+	* manued-mode のとりあえずのものを作成した。ptt で多田先生の発展的
+	カーネルの話があった。ptt 飲み会に参加した。楽しかった。ところで、
+	多田先生の話によると manued-mode を作成した方がいらっしゃるようで
+	ある。多分 Emacs Lisp 歴一週間の私の作成したものより良いものであろ
+	う。欲しいのでお願いしてみようと思う。しかし、私も自分の必要にせま
+	られて作成しているので入手が容易だと嬉しい。
+
+Mon Jan 19          1998 Hitoshi Yamauchi
+
+	* point で位置を覚えておくのでは、編集した後に point がずれてしま
+	い、おかしな部分を消去することになるバグがあった。point ではなく、
+	マークを利用することによって前方を編集した場合のpoint のずれを解決した。
+
+Sun Jan 18          1998 Hitoshi Yamauchi
+
+	* 修正(前|後)の文章の表示部分の作成
+
+Sat Jan 17          1998 Hitoshi Yamauchi
+
+	* コマンドと訂正(前|後)のみの暗転(訂正(後|前)が読める)部分の作成
+
+	* swap 後のネストした場合の判定に失敗する。結局全面的に書き直した。
+	  今は Emacs Lisp を覚えつつあるために refine の度合がはげしい。単
+	  にわからないままに書いているんで後でわかってくるとひどいコードに
+	  気がつくということである。今日は新テストの試験官だった。明日もで
+	  ある。疲れる。15 日に降った雪がほとんど残ったままである。
+
+Fri Jan 16          1998 Hitoshi Yamauchi
+
+	* 今週の初めから前田さんに Emacs Lisp を教わりつつ、コマンド部分の
+	  hilit 作成
+
+	* while を用いたループ, re-search-forward, match-begining, let 文、
+	  catch, try, defun などを教わる。
+
+	* defparen に同一の記号を用いることができない。その場合を error と
+	  して判定することにする
+
+	* 現在は漢字をコマンドとして利用できない。というのも(goto-char (+
+	  (point) 1)) のようにすると、point と文字数が対応していない部分で
+	  失敗する

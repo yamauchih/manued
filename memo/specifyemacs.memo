@@ -1,0 +1,22 @@
+;;
+;; Emacs の版を区別する方法
+;; ref. XEmacs FAQ1.3.6: How do I portably code for MULE/XEmacs 20
+;;
+;;
+
+(if (featurep 'mule)
+    (cond ((boundp 'MULE)
+	   ;; for original Mule
+	   (message "This is the original Mule.")
+	   )
+	  ((string-match "XEmacs" emacs-version)
+	   ;; for XEmacs with Mule
+	   (message "This is XEmacs with Mule.")
+	   )
+	  (t
+	   ;; for next version of Emacs
+	   (message "This is Emacs.")
+	   ))
+  ;; for old emacs variants
+  (message "This is OLD Emacs. I cannot support...")
+  )

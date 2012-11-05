@@ -1,0 +1,53 @@
+
+memberという関数を始めて知りました．便利ですね．
+
+私はWeb上に日記を書くということはよくわからないのですが，プログラムにそ
+の日のできごとを書いたりしています．メンテナンスをしていると，このコード
+を書いていた頃にそんなことがあったのかと自分で思い出します．manuedはあま
+り人の目に止まらないだろうと思っていたのですが，しかし，見る方がいらっしゃ
+るとなるとちょっと考えた方が良さそうです．
+
+
+(or manued:xemacs-p (string< "20" emacs-version))
+
+
+
+(defalias 'manued-mode 'manued-minor-mode)
+
+はやっておいた方がいいのでしょうか?
+
+確かに
+
+(provide 'manued)
+
+は最後の方が良さそうです
+
+
+>(1)manued:search-and-insert-header により header がファイルの先頭では
+>   なく、Local Variables 〜 End タグの間
+>   (`;;; eval: (manued-minor-mode 1) ***' の直後あたり) に挿入されてし
+>   まい、Emacs がそれを local variables として評価しようとしてエラーに
+>   なる。
+
+これに関しては search-and-insert-header に引数をつけました．
+
+>(2)変数とその値を `:' で区切って書くのだが、manued:l-parenthesis-str
+>   のように変数名に `:' が入っていると
+>
+>     File local-variables error: (error "Local variables entry is terminated incorrectly")
+>
+>   のようなエラーになる。
+
+Emacs Lisp の local variables の設定ではコロンが効くのでこの書法は中止
+(Info Lispref : Local Variables in Files)
+
+これはcommon lispの書法でしたでしょうか．
+
+namespaceで使ったことがあるのはtcl, C++, Javaなのですが，Javaは上手くで
+きていますね．
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+
+
+;; font-lock から借りてきた．
+(defun manued-font-lock-fillin (start end setprop markprop value &optional object)
+  "This is originally in font-lock.el XEmacs.
+Fill in one property of the text from START to END.
+Arguments PROP and VALUE specify the property and value to put where none are
+already in place.  Therefore existing property values are not overwritten.
+Optional argument OBJECT is the string or buffer containing the text."
+  (let ((start (text-property-any start end markprop nil object)) next
+	(putfunc (if (fboundp 'put-nonduplicable-text-property)
+		     'put-nonduplicable-text-property
+		   'put-text-property)))
+    (if (eq putfunc 'put-text-property)
+	(setq markprop setprop))
+    (while start
+      (setq next (next-single-property-change start markprop object end))
+      (funcall putfunc start next setprop value object)
+      (funcall putfunc start next markprop value object)
+      (setq start (text-property-any next end markprop nil object)))))

@@ -1,0 +1,92 @@
+defLparenthesis	{
+defRparenthesis	}
+defswap	|
+defdelete	/
+defcomment	;
+defescape	~
+deforder	older-first
+defversion	0.9.0
+
+ザーッと直しました. 完璧ではないですが, 山内さんのかなりスゴイ英語よりは
+いいでしょう (もっと, 英語勉強しないといけませんよ).
+
+Tak (NUE)
+
+defparentheses { }
+
+This is Yamauchi@Max-Planck Institute, Germany.
+
+{In t/T}hese days, I {must/have to} exchange many documents via Email.
+And I {must/have to} proofread many documents. But, this is not easy
+{way/work} for me. Paper and pens are {seemed/} very easy devices for
+proofreading, since I can use special {/graphical} notation and
+color. I always wonder{/ed} {that/} how {do/} {the/} people proofread
+electr{ical/onic} documents.
+
+I heard some people correct their documents using {/the} following
+notation in Email.
+
+	The Three Laws of Robotics by Azimuth.
+				      ^^^^^^^
+             This may be a mistake {with/for} Asimov. And the number of
+             laws was changed from three to four, {isn't/wasn't} it?
+
+However, the method using the symbol `^' is not easy for me. Reading
+and typing take long time and I am easy to loose some fixed point in a
+long document. I {also/} sometimes misunderst{and/ood} the
+correct{ing/ion} point{/s} {with/in} proofreader's
+comment{/s}. Especially, {however/though} {this is a/these are}
+electr{ical/onic} document{/s}, I {cannot/could not} extract original
+document{/s} nor {fixed/corrected} document{/s} {/easily}. The
+information of {the/} correction {position/points} is very important
+for {/understanding} proofreading{,/.} {s/S}o, when I receive{/d}
+{the/a} newer document only, {there is some problems/I always got into
+a trouble}. I {try/tried} to use `diff' command, but in that
+situation, white space{/s} {is/are} harmful {/to extract necessary
+information only.}  {and/Moreover,} we {can not/could not} include
+{/vaulable} comments for corrected {part/points}. {Moreover/And
+worse}, {each/everyone} {people/} always has a favorite mailer, and
+different environment shows {the/a} different look{s/} for a mail,
+since, for example, some environment{/s} use proportional font{/s} and
+others {are/do} not.
+
+Three years ago, a proofreading method {is/was} proposed by Ikuo
+TAKEUCHI in {/the} Programming {s/S}ymposium{,/ in} Japan. {That/Its}
+name is Manued (Tao of Manuscript Editing{ Language/}). In this
+proofreading method, proofread{ed/} text {has/contains} {/some}
+{/embedded} edit{/ing} command{/s}. For example, [A/B;C], {this/which}
+means ``delete A and insert B{/;} {and C means comment/read C as a
+helful comment}'' like sed command s/A/B/. This method is simple
+{/enough} and {/does} not depend on {/any mailer}
+environment. Moreover{/,} {this/a simple program} can {handle with a
+program to/} extract fixed version or original version. {I will show
+the rewrited example as follows./The following is the correction above
+rewritten in Manued.}
+
+	The Three Laws of Robotics by [Azimuth/Asimov; This may be a
+	mistake {with/for} Asimov. And the number of laws was changed from
+	three to four, {isn't/wasn't} it?]
+
+This {shows change/indicates that} Azimuth {to/should be changed to}
+Asimov and {I can exactly know the which is the comment part/shows a
+comment related to the correction very clearly}. I implemented a
+program `manued.el' that supports Manued proofreading{ method/}. {/The
+program} {M/m}anued.el can search {/for} {the/} correct{ed/ion}
+point{/s}, {hi-light/highlight} {the/} corrected region{/s}, extract
+new{er/}/original document, and so on.
+
+If you feel some {kind of/} trouble with fixing a manuscript via E-mail,
+I think this method can help you.
+
+You can download{ed/} the program `manued.el' from {/either} web site{s/:}
+
+  http://www.archi.is.tohoku.ac.jp/~yamauchi/projects/manued/index.shtml
+  http://ne.cs.uec.ac.jp/.
+
+{However/Though}I implemented this method on Emacs, this method
+{is/does} not depend on Emacs. {Then s/S}ome people {/may} want
+{the/Manued} implementation {for/on} some other environments{,
+like/such as} vi, MS Words{.../, etc.} However, I am not familiar with these
+environments. If someone implement manued supporting program on {the/these}
+environment{/s}, please inform me. Thanks.
+

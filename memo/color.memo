@@ -1,0 +1,40 @@
+;;;
+;;; 色の付け方	2000年4月17日(月)	山内 斉
+;;;	参考 和田先生の manued.el コード
+;;;
+
+;;
+;; face作成 : しかし，Mew のコードを読むとfaceは別に作っていないんですよね．
+;; alpha という名前でアクセス
+;;
+(make-face 'alpha)
+
+;; faceに色設定
+(set-face-foreground 'alpha "red")
+
+;; region に色をつける
+(defun alpha (l r)
+  (interactive "r")
+  (put-text-property l r 'face 'alpha))
+
+;; 色の消し方
+;; これで良いのではないかな．．．
+(remove-text-properties (point-min) (point-max) '(face nil))
+
+
+;; よくわからない
+(detach-extent (make-extent (point-min) (point-max) (current-buffer)))
+(set-extent-property
+	(make-extent (point-min) (point-max) (current-buffer))
+	'detached
+	"red")
+
+(list-faces-display)
+
+;; これはできないのかな．．．
+(progn
+ (make-face 'bgface)
+ (set-face-background-pixmap 'bgface "/HPS/usr/hitoshi/picture/2k0413.xpm")
+ (put-text-property (point-min) (point-max) 'face 'bgface)
+ (sit-for 0))
+
