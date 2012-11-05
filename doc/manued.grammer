@@ -1,0 +1,43 @@
+
+Manued grammer
+			Copyright (C) 1998-2012 Hitoshi Yamauchi
+
+真鵺道の文法を示す．
+
+ここで test を str (文字列) と分離しているのは，text中には真鵺道のコマ
+ンドとして '[' 以外を認識しないようにするためである．これは使い勝手のた
+めである．たとえば，次の例文を考える．
+
+	次の値 a/b を[パメラータ/パラメータ]として用いる場合
+
+もし text を str とする，すなわち，text と真鵺道コマンド内部を区別しな
+い場合，a/b の `/' は `[]' 中にないのでエラーになる．つまり文全体が真鵺
+道コマンド内部にあると考えるのはモードの遷移などがなく，美しいのではあ
+るが，実際の利用では不便であると考え，このような設計にした．
+
+
+text manued-exp 	:= manued-term
+			|  text manued-term
+			;
+
+manued-term 		:= '[' manuedbody-comment ']'
+			;
+
+manuedbody-comment	:= manuedbody `;' comment
+			|  manuedbody
+			;
+
+manuedbody		:= str
+			|  str manued-term
+			|  manuedbody `/' manuedbody
+			|  manuedbody `|' manuedbody `|' manuedbody
+			;
+
+str			:= non empty string
+			;
+
+comment			:= str (except only the `]' command is accepted.)
+			;
+
+
+

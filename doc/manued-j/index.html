@@ -1,0 +1,1910 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Manued Reference Manual </TITLE>
+<META NAME="description" CONTENT="Manued Reference Manual ">
+<META NAME="keywords" CONTENT="manued-j">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="manued-j.css">
+
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<BR><BR></DIV>
+<!--End of Navigation Panel-->
+<H1 ALIGN="CENTER">Manued Reference Manual 
+<BR>  <IMG
+  WIDTH="88" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="./manuedlogo.png"
+ ALT="Image manuedlogo"></H1><DIV CLASS="author_info">
+
+<P ALIGN="CENTER"><STRONG>YAMAUCHI, Hitoshi (山内斉)</STRONG></P>
+<P ALIGN="CENTER"><STRONG>2002-8-12(Mon)</STRONG></P>
+</DIV>
+
+<P>
+
+<!--#config timefmt="%Y/%m/%d (%A)" -->
+
+
+<P>
+
+<H3>Abstract:</H3>
+<DIV CLASS="ABSTRACT">
+  真鵺道とは，文書の校正方法の一種である．この手法は第39回プログラミン
+  グシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
+  タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正に
+  あったので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような
+  場合に特に有効である．まず本文書では，真鵺道方式による校正手法を紹介
+  する．そしてこの校正手法をサポートするemacs lispプログラムである
+  <TT>manued.el</TT>の実装を紹介する．真鵺道による校正手法と
+  <TT>manued.el</TT>が電子メールを利用した原稿，論文のやりとりに繁雑さ
+  を感じている方々の手助けとなれば幸いである．
+</DIV>
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL CLASS="TofC">
+<LI><A NAME="tex2html60"
+  HREF="manued-j.html#SECTION00020000000000000000">はじめに</A>
+<UL>
+<LI><A NAME="tex2html61"
+  HREF="manued-j.html#SECTION00021000000000000000">真鵺道の概要</A>
+<LI><A NAME="tex2html62"
+  HREF="manued-j.html#SECTION00022000000000000000">この文書の情報</A>
+</UL><BR>
+<LI><A NAME="tex2html63"
+  HREF="manued-j.html#SECTION00030000000000000000">真鵺道 Quick Start</A>
+<UL>
+<LI><A NAME="tex2html64"
+  HREF="manued-j.html#SECTION00031000000000000000">About Manued</A>
+<LI><A NAME="tex2html65"
+  HREF="manued-j.html#SECTION00032000000000000000">Installation</A>
+<LI><A NAME="tex2html66"
+  HREF="manued-j.html#SECTION00033000000000000000">Starting Manued </A>
+</UL><BR>
+<LI><A NAME="tex2html67"
+  HREF="manued-j.html#SECTION00040000000000000000">真鵺道(Manued)とは?</A>
+<UL>
+<LI><A NAME="tex2html68"
+  HREF="manued-j.html#SECTION00041000000000000000">真鵺道概要</A>
+<LI><A NAME="tex2html69"
+  HREF="manued-j.html#SECTION00042000000000000000">真鵺道の例</A>
+</UL><BR>
+<LI><A NAME="tex2html70"
+  HREF="manued-j.html#SECTION00050000000000000000">真鵺道の文法について</A>
+<UL>
+<LI><A NAME="tex2html71"
+  HREF="manued-j.html#SECTION00051000000000000000">真鵺道修正記号定義コマンドと真鵺道コマンド</A>
+<LI><A NAME="tex2html72"
+  HREF="manued-j.html#SECTION00052000000000000000">manued.el ver.0.9 における修正記号定義コマンド</A>
+<LI><A NAME="tex2html73"
+  HREF="manued-j.html#SECTION00053000000000000000">manued.el version 0.9 以降における真鵺道コマンド</A>
+<LI><A NAME="tex2html74"
+  HREF="manued-j.html#SECTION00054000000000000000">整形時修正出力 (pretty print)(after ver.0.9.5)</A>
+<LI><A NAME="tex2html75"
+  HREF="manued-j.html#SECTION00055000000000000000">サンプル文書</A>
+</UL><BR>
+<LI><A NAME="tex2html76"
+  HREF="manued-j.html#SECTION00060000000000000000">真鵺道サポートツール manued.el</A>
+<UL>
+<LI><A NAME="tex2html77"
+  HREF="manued-j.html#SECTION00061000000000000000">Download</A>
+<LI><A NAME="tex2html78"
+  HREF="manued-j.html#SECTION00062000000000000000">manued.el とその作成経緯について</A>
+<LI><A NAME="tex2html79"
+  HREF="manued-j.html#SECTION00063000000000000000">Install 方法</A>
+<LI><A NAME="tex2html80"
+  HREF="manued-j.html#SECTION00064000000000000000">manued.elの使用法</A>
+<LI><A NAME="tex2html81"
+  HREF="manued-j.html#SECTION00065000000000000000">manued-minor-modeのカスタマイズ方法</A>
+<LI><A NAME="tex2html82"
+  HREF="manued-j.html#SECTION00066000000000000000">カスタマイズ可能な変数</A>
+<LI><A NAME="tex2html83"
+  HREF="manued-j.html#SECTION00067000000000000000">Bugs</A>
+<LI><A NAME="tex2html84"
+  HREF="manued-j.html#SECTION00068000000000000000">Copying</A>
+<LI><A NAME="tex2html85"
+  HREF="manued-j.html#SECTION00069000000000000000">Manued ML</A>
+</UL><BR>
+<LI><A NAME="tex2html86"
+  HREF="manued-j.html#SECTION00070000000000000000">真鵺道 Tips</A>
+<UL>
+<LI><A NAME="tex2html87"
+  HREF="manued-j.html#SECTION00071000000000000000">TeX と真鵺道</A>
+</UL><BR>
+<LI><A NAME="tex2html88"
+  HREF="manued-j.html#SECTION00080000000000000000">Manued Links</A>
+<UL>
+<LI><A NAME="tex2html89"
+  HREF="manued-j.html#SECTION00081000000000000000">和田先生の manued.el の実装</A>
+<LI><A NAME="tex2html90"
+  HREF="manued-j.html#SECTION00082000000000000000">その他の実装</A>
+<LI><A NAME="tex2html91"
+  HREF="manued-j.html#SECTION00083000000000000000">Manuediff (by Suzuki)</A>
+</UL><BR>
+<LI><A NAME="tex2html92"
+  HREF="manued-j.html#SECTION00090000000000000000">謝辞</A>
+<LI><A NAME="tex2html93"
+  HREF="manued-j.html#SECTION000100000000000000000">Bibliography</A>
+<LI><A NAME="tex2html94"
+  HREF="manued-j.html#SECTION000110000000000000000">Index</A>
+</UL>
+<!--End of Table of Contents-->
+<P>
+
+
+<hr>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+はじめに</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00021000000000000000">
+真鵺道の概要</A>
+</H2>
+
+<P>
+現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期
+待できない．特に電子メイルで原稿をやりとりするような環境では利用可能な
+文字の種類などが限られるため，校正はさらに困難となる．現在のところ，
+Email では，以下のような方法で校正情報を伝えることがよく行なわれてい
+るようである．
+<PRE>
+    Azimuth のロボット3原則
+    ^^^^^^^
+      Asimov の間違いでしょう．それに第 0 法則はどうする?
+
+    第一条 : ロボットは他のロボットに危害を加えてはならない．
+                           ^^^^^^^^
+                             これは「人間」のはず．
+</PRE>
+このように校正位置を`'で示し，その下に校正案を示す方法が用いられるが，
+通常，この入力には多くの労力を必要とする上，訂正指示を自然言語で行うた
+め，どの部分をどのように訂正するかについての曖昧さが残る．この方式の最
+大の問題点はこの曖昧さである．曖昧さの存在のために電子的なものであるに
+もかかわらず機械的に校正後の文書を取得することができない．さらに，プロ
+ポーショナルフォントなどを利用する環境においては訂正位置の情報が正しく
+伝わらない可能性がある．つまり，原稿をやりとりする各人の環境の違いによっ
+ては訂正箇所を特定することすら困難な場合がある．
+
+<P>
+真鵺道方式の校正はこれらの問題を解決する．校正の指示のための入力は比較
+的容易であり，校正前と校正後の原稿の違いは厳密に定義される．したがって，
+校正箇所の指示や，訂正の指示なのか単なるコメント文なのかを誤ることはな
+い．特に真鵺道方式の利点は環境を選ばないことであり，テキストを編集可能
+なエディタであれば利用することができる．基本的には特殊な環境もエディタ
+も不要である．
+
+<P>
+真鵺道方式が仮定するのはテキストエディタだけであるが，さらに便利に利用
+することを考えて Emacs 上に manued-minor-mode を実装した．
+manued-minor-mode では大きく分けて以下の機能を利用可能である．
+
+<UL>
+<LI>校正前，校正後の文書の自動抽出
+</LI>
+<LI>校正場所のサーチ
+</LI>
+<LI>真鵺道方式の校正指示のための入力補助
+</LI>
+</UL>
+
+<P>
+真鵺道方式は環境を選ばないため，このような道具の実装は Emacs 上に限る
+ことではない．今回 Emacs 上に実装したのは筆者が良く利用する環境である
+という理由にすぎない．したがって，他の環境で実装を行なった方があればぜ
+ひお知らせ頂きたい．現在要望のある環境は以下の通りである．
+
+<P>
+
+<UL>
+<LI>vi
+</LI>
+<LI>Microsoft Word
+</LI>
+<LI>真鵺道文書整形のためのフィルタコマンド
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00022000000000000000">
+この文書の情報</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>著者 
+<BR>  Copyright (C) 1997-2002 山内 斉 (Hitoshi Yamauchi)
+</LI>
+</UL>
+
+<P>
+
+
+<hr>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+真鵺道 Quick Start</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+About Manued</A>
+</H2>
+
+<P>
+真鵺道とは，第39回プログラミングシンポジウムにおいて竹内郁雄先生により
+提案された電子メイルなどでの論文や文書のやりとり時の校正をより容易にす
+るための方法である．その方法を実践するための実装の一つとして
+<TT>manued.el</TT>をお届けする．<TT>manued.el</TT>が電子メールにおける
+原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸いである．
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+Installation</A>
+</H2>
+
+<P>
+<TT>manued.el</TT>は Emacs Version 19.34 以降に依存している．Emacs
+Version 19.34 以降のものあるいは，それに基づいた Mule 等を利用されたい．
+筆者の環境は GNU Emacs 19.34.1, Mule Version 2.3 (SUETSUMUHANA)である．
+Install は以下のように行う．
+
+<P>
+
+<OL>
+<LI><TT>manued.el</TT>を load-path の通った場所に置く．
+</LI>
+<LI>.emacs に次の行を追加する．
+<PRE>
+(autoload 'manued-minor-mode "manued" "manuscript editing mode" t)
+</PRE>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+Starting Manued </A>
+</H2>
+
+<P>
+チュートリアルファイルを読み込み，指示に従うか，あるいは，
+manued-minor-mode に入って動作を確認する．
+
+<P>
+
+<UL>
+<LI>チュートリアル
+<BR>manued.tut というファイルがアーカイブに付属しているはずなのでそれを
+  emacs に読み込み，指示に従う．
+</LI>
+<LI>手動の動作確認 
+<BR>
+<OL>
+<LI>M-x manued-minor-mode で manued-minor-mode に入る．
+</LI>
+<LI>テキストを入力する．
+</LI>
+<LI>マークとカーソル移動を用いてリージョンを作成し，
+    manued-insert-swap-command (C-c C-m C-s) により，リージョンを swap
+    コマンドで囲んでみる． manued-show-newer-in-manued-buffer を実行す
+    ることによって校正後の文書が抽出される．
+</LI>
+<LI>その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマンド
+    の位置を探すことができるのでそれを試してみる．
+  
+</LI>
+</OL>
+</LI>
+</UL>
+
+<P>
+
+
+<hr>
+
+<H1><A NAME="SECTION00040000000000000000">
+真鵺道(Manued)とは?</A>
+</H1>
+
+<H2><A NAME="SECTION00041000000000000000">
+真鵺道概要</A>
+</H2>
+
+<P>
+真鵺道とは，第39回プログラミングシンポジウムにおいて<A NAME="tex2html1"
+  HREF="http://ne.cs.uec.ac.jp/tak.html">竹内郁雄先生</A>により提案された電子メ
+イルなどのテキストデータを介した論文や文書のやりとり時の校正をより容易
+にするための校正用言語 (Manuscript Editing Language)
+である&nbsp;[#!bib:Takeuchi1998!#]．
+以下にこの論文の概要をまとめる．<A NAME="tex2html2"
+  HREF="./manuscripteditting.txt.gz">Web上には原文のテキストがあります．</A>
+<P>
+電子メールによって原稿を修正する際には，
+
+<UL>
+<LI>紙の上のような訂正記号が使えない．利用できる文字集合の種類が限ら
+  れる．
+</LI>
+<LI>色が利用できない．
+</LI>
+<LI>mail reader によっては文書の二次元情報を保存しないものがあり，編
+  集者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
+  えば Eudora など)．もともと電子メイルでは二次元情報についての規定が
+  ないのでそのような状況は常に発生しうる．
+</LI>
+<LI>改行位置に依存したくない．エディタやワープロなどの行の折り返し機
+  能などによって訂正情報が失われることを避けたい．
+</LI>
+</UL>
+という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，
+郵送するという手が一般に行なわれてきたが，それでは間にあわないことが多
+い．Fax という手もあるが，受信した紙から電子情報への変換時には人間が入
+力する部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手
+書き文字の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた
+原稿中の訂正記号を解釈して文書を編集することは現在のところ困難であると
+思われる．結局，もともとの原稿は多くの場合電子情報であり，それを利用で
+きなくする手はあまり賢いとは言えまい．
+
+<P>
+そこで，文献&nbsp;[#!bib:Takeuchi1998!#]では
+
+<UL>
+<LI>修正前と修正後の文書を機械的に抽出できること(必須)
+</LI>
+<LI>人間にとって読みやすいこと
+</LI>
+<LI>訂正箇所の視認性が良いこと
+</LI>
+<LI>修正に対するコメントが入れられること
+</LI>
+<LI>修正情報の書き込みが容易なこと
+</LI>
+<LI>繰り返される修正を抽象化すること
+</LI>
+</UL>
+が提案されており，これを実現する原稿修正言語を Manued (Manuscript
+Editing language) と呼んでいる．今回はこの実装を行なった．
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+真鵺道の例</A>
+</H2>
+
+<P>
+簡単な例題を示そう．
+
+<P>
+
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <b><u><font color="#ff0000">共通一次</font></u></b>
+  試験が行なわれた．この試験では
+  <b><u><font color="#ff0000">受検</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <b><u><font color="#ff0000">のっぽの古</font></u></b>時計をどんと
+  <b><u><font color="#ff0000">と</font></u></b>
+  机の上
+  <b><u><font color="#ff0000">にい</font></u></b>た時にはびっくりした．
+  </blockquote>
+
+<P>
+環境(ブラウザなどの違い)によっては見えないかもしれないが，訂正する箇所
+の付近を強調してある．これを次の文書のように訂正したいとしよう．
+
+<P>
+
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <B><u><font color="#ff0000">センター</font></u></b>
+  試験が行なわれた．この試験では
+  <B><u><font color="#ff0000">受験</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <B><u><font color="#ff0000">目覚し</font></u></b>時計をどんと机の上に
+  <B><u><font color="#ff0000">置</font></u></b>いた時にはびっくりした．
+  </blockquote>
+
+<P>
+たとえばこれまでは，
+
+<P>
+<PRE>
+１月１７，１８日の両日には雪の残る中共通一次試験が　　　　　　　　　
+　　　　　　　　　　　　　　　　　　＾＾＾＾　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　センターに訂正（昔の話だねえ）
+行なわれた．この試験では受検者は時計を机上に置くことを許されて　　　
+　　　　　　　　　　　　＾＾＾　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　受験者　　　　　　　　　　　　　　　　　
+いる．その中の一人が大きなのっぽの古時計をどん　　　　　　　　　　　
+　　　　　　　　　　　　　＾＾＾＾＾　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　目覚し　　　　　　　　　　　　　　　　
+とと机の上にいた時にはびっくりした．　　　　　　　　　　　　　　　　
+　＾　　　＾＾　　　　　　　　　　　　　　　　　　　　　　　　　　　
+‘と’が余分　‘に’と‘い’の間に‘置’の抜けあり　　　　　　　　　
+</PRE>
+のように訂正していた．このような文書をブラウザで表示するために，私は2
+次元の表示が保存されるタグと全角のスペースを利用したが，もしも利用しな
+い場合には，この方法は役に立たないだろう．たとえば同じ情報を2次元情報
+を保持するタグを利用せずに次に示してみる．ブラウザは通常2次元情報を保
+存しない (たとえば空白や改行を無視する) ので，それぞれの環境で異なる表
+示となるであろう．ある人は読めるが，ある人は読めないことになる．読めな
+い環境の方にはこの方法が役に立たないことが一目瞭然であろう．
+
+<P>
+１月１７，１８日の両日には雪の残る中共通一次試験が　　　　　　　　　
+　　　　　　　　　　　　　　　　　　＾＾＾＾　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　センターに訂正（昔の話だねえ）
+行なわれた．この試験では受検者は時計を机上に置くことを許されて　　　
+　　　　　　　　　　　　＾＾＾　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　受験者　　　　　　　　　　　　　　　　　
+いる．その中の一人が大きなのっぽの古時計をどん　　　　　　　　　　　
+　　　　　　　　　　　　　＾＾＾＾＾　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　目覚し　　　　　　　　　　　　　　　　
+とと机の上にいた時にはびっくりした．　　　　　　　　　　　　　　　　
+　＾　　　＾＾　　　　　　　　　　　　　　　　　　　　　　　　　　　
+‘と’が余分　‘に’と‘い’の間に‘置’の抜けあり　　　　　　　　　
+
+<P>
+また，2次元情報を保存する環境であっても，コメントと訂正部分の区別がわ
+かりにくかったり，あるいは空白を入れて位置を示す努力したにもかかわらず，
+後に文書の前方に修正を加えたために後方の位置関係が全体としてずれてしま
+うなどの不都合が発生することがある．また，文書のフォーマットの違いなど
+により，カットアンドペーストを行うと意味不明になることがある．真鵺道は
+2次元情報を保存するしないにかかわらず，両方で利用可能な校正方法として
+提案される．
+
+<P>
+真鵺道では基本的に次の2つの置き換えの規則を了解してもらい，校正の操作
+を記号化する．
+
+<P>
+
+<UL>
+<LI><code>[A/B]</code> : A を B で置き換える
+  このバリエーションとして
+  
+<OL>
+<LI><code>[A/]</code> : A を消す(A を空文字で置き換える．)
+</LI>
+<LI><code>[/A]</code> : A を挿入する(空文字を A で置き換える．)
+  
+</LI>
+</OL>
+</LI>
+<LI><code>[A|B|C]</code> CBA の順に並べ換える
+  このバリエーションとして
+  
+<OL>
+<LI><code>[A||C]</code> A と C を交換する
+  
+</LI>
+</OL>
+</LI>
+</UL>
+
+<P>
+上の規則によって最初の文章を書き換えると次のようになる．
+
+<P>
+
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <b><u><font color="#ff0000">[共通一次/センター;昔の話だねえ]</font></u></b>
+  試験が行なわれた．この試験では
+  <b><u><font color="#ff0000">[受検/受験]</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <b><u><font color="#ff0000">[のっぽの古/目覚し]</font></u></b>
+  時計をどんと
+  <b><u><font color="#ff0000">[と/]</font></u></b>
+  机の上に
+  <b><u><font color="#ff0000">[/置]</font></u></b>いた時にはびっくりした．
+  </blockquote>
+
+<P>
+これだけでもかなり強力であることがおわかりだろう．真鵺道がどのようなも
+のかの感じはだいたいつかんで頂けたであろうか．このような規則を処理して
+校正後の文書を抽出するようなサポートを行うツールがあれば，この処理は更
+に強力なものとなるだろう．その実装の一つが<TT>manued.el</TT>である．こ
+れは訂正文書中の訂正箇所の強調表示，訂正前(後)の文書を強調し，訂正後
+(前)の部分やコメントを薄く表示する機能や，訂正前(後)の文書の抽出など
+を行うプログラムである．
+
+<P>
+
+
+<hr>
+
+<H1><A NAME="SECTION00050000000000000000">
+真鵺道の文法について</A>
+</H1>
+
+<H2><A NAME="SECTION00051000000000000000">
+真鵺道修正記号定義コマンドと真鵺道コマンド</A>
+</H2>
+
+<P>
+真鵺道には，文書中で用いる記号を定義する「修正記号定義コマンド」とその
+記号を用いて校正箇所・方法を示す「真鵺道コマンド」がある．真鵺道で用い
+る記号を定義するコマンド (修正記号定義コマンド) はdefで始まり，defコマ
+ンドとも呼ぶ．この修正記号定義コマンドが真鵺道コマンドを規定する．これ
+は，
+
+<UL>
+<LI>電子メイルでは利用可能な記号が少いため文書ごとにどの文字を真鵺道
+  コマンドとして用いるかを文書ごとに変更させた方が都合が良い．これは文
+  書中の利用頻度が低い文字を校正記号として使わないと，校正部分について
+  の混乱が発生するためである．それに対応するため．
+
+<P>
+</LI>
+<LI>上記とほとんど同義であるが，固定した記号を用いた場合にはエスケー
+  プを多用しないといけない文書が発生し，可読性が下がる．これを避けるた
+  め．
+</LI>
+</UL>
+である．この修正記号定義コマンドは真鵺道コマンドを含む文書の冒頭に置か
+れる．行頭にない場合には修正記号定義コマンドとはみなされない．
+
+<P>
+真鵺道コマンドは修正記号定義コマンドから先頭のdefを除いた名前を持って
+いると考えれば良い．たとえば，真鵺道における置換(削除・挿入)を示すコマ
+ンドはdeleteコマンドである．このdeleteコマンドの記号を ★ にするには，
+
+<P>
+<PRE>
+        defdelete ★
+</PRE>
+という行を文書の行頭に記す．すると，この定義のみが行なわれた場合には他
+の記号はデフォルトの記号となり，
+<PRE>
+        [元の削除される文★修正後に挿入される文]
+</PRE>
+というコマンドによって「元の削除される文」が「修正後に挿入される文」に
+置換される．
+
+<P>
+修正記号定義コマンドがない場合，真鵺道コマンドの記号として竹内郁雄先生
+(と秘密結社大日本清談会)が提案したdefaut記号が使用される．
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000"></A>
+<A NAME="sec:manueddefcommand"></A><BR>
+<TT>manued.el</TT> ver.0.9 における修正記号定義コマンド
+</H2>
+
+<P>
+修正記号定義コマンドは，通常，校正文書の冒頭に以下のように書かれる．
+
+<P>
+<PRE>
+        defparentheses  [ ]
+        defdelete       /
+        defswap         |
+        defcomment      ;
+        defescape
+        deforder        newer-last
+        defversion      0.9.5
+</PRE>
+
+<P>
+以下，各行について説明する．また，各コマンドで定義されるデフォルトの文
+字列は説明の最後に示す．
+
+<P>
+
+<UL>
+<LI>defparentheses
+<BR>修正記号定義コマンドの範囲指定の文字列を指示する．(default値
+  `<TT>[ ]</TT>')
+
+<P>
+</LI>
+<LI>defdelete 
+<BR>修正記号定義コマンド中でこのコマンドで指定された文字列の前後を置換す
+  る (削除と挿入)．(default値 `<TT>/</TT>') e.g. [A/B] は AをB に置換
+  する．
+
+<P>
+</LI>
+<LI>defswap 
+<BR>修正記号定義コマンド中でこのコマンドで指定された文字列の前後の入れ換
+  えを行う．(default値 `<code>|</code>') e.g. <code>[A|B|C]</code> はABCをCBAとな
+  るよう入れ換えを行なう．
+
+<P>
+</LI>
+<LI>defescape 
+<BR>修正記号定義コマンド中において修正記号定義コマンドをエスケープする．
+  
+<BR>(default値 `<code>~</code>')
+<BR>たとえば，[This is <code>~</code>[foo<code>~</code>]/These
+  are <code>~</code>[bars<code>~</code>]] とすると，This is
+  [foo] を These are [bars] に置き換える．
+  しかし，このようなものが多数あるようならばdefparentheses 『 』 のよ
+  うに定義し，『This is [foo]/These are
+  [bars]』とした方が良いだろう． 
+<BR>ここで一つ注意することがある．真鵺道コマンドに入っていない時，つまり，
+  平文中ではエスケープされるものはdefparenthesesで指定する最初の文字列
+  だけである．これは<SPAN CLASS="logo-TeX">T<SMALL>E</SMALL>X</SPAN>の文中などで
+<PRE>
+        ここで $a_n/b_n$ という比を考えてみよう．
+        ~[\lim_{n \to \infty} \frac{a_n}{b_n} \]
+</PRE>
+  のような場合に真鵺道コマンドと関係ない部分の真鵺道コマンド文字列をい
+  ちいちエスケープしないためである．ここでは <SPAN CLASS="MATH"><IMG
+ WIDTH="45" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$a_n/b_n$"></SPAN> 中の / や，] な
+  どが真鵺道コマンドに一致している．しかしこれは真鵺道のコマンド中にあ
+  るわけではない．このようなものを全てエスケープするのは繁雑であるため，
+  この必要がないよう，平文中であればコマンドの始まりである文字列 (ここ
+  では`<code>~</code>[') 以外は真鵺道コマンドとみなさないことにしている．
+
+<P>
+</LI>
+<LI>defcomment 
+<BR>修正定義コマンド中でこの記号から後をコメントみなす．この記号から後の
+  文字は整形後は削除される．(default値 `;')
+
+<P>
+</LI>
+<LI>deforder <A NAME="item:deforder"></A> 
+<BR>deleteコマンドによって文を置換する際，defdelete記号の前後どちらを新しい
+  文書とみなすかを示す．(default値 `newer-last')コマンド内部の並びは
+  <code>[</code>first/last<code>]</code> として順序づけられる．ここで first の部分を修
+  正後の文と新しいみなすか，あるいは first 部分を訂正前の文とみなすかを決
+  定する．この指定は，(newer older) と(first last) の組み合わせによる．そ
+  の組み合わせは
+  
+<UL>
+<LI>newer-first
+</LI>
+<LI>newer-last
+</LI>
+<LI>older-first
+</LI>
+<LI>older-last
+  
+</LI>
+</UL>
+  の4つとなる．このdeforder修正記号定義コマンドはdeleteコマンドの並び
+  を決定するだけで真鵺道の記号を決めるものではない．
+
+<P>
+</LI>
+<LI>defversion 
+<BR><TT>manued.el</TT>のバージョン情報を示す．(default値
+  `(manued-version-num)')
+</LI>
+</UL>
+
+<P>
+修正記号定義コマンドは訂正文書の最初に書いておく．また各コマンドは行頭
+から初まるものとする．もし書いていない場合には default 値が利用される．
+このとき，異なるdefコマンドで定義される記号が同一の場合など，記号の区
+別ができないとプログラムがみなす場合，<TT>manued.el</TT>はそれを検査し
+て警告を出す．そのまま同一の定義を用いた場合の<TT>manued.el</TT>の挙動
+は定義されていない．
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000"></A>
+<A NAME="sec:manuedCommand0.9"></A><BR>
+manued.el version 0.9 以降における真鵺道コマンド
+</H2>
+
+<P>
+ここでは真鵺道コマンドをdefaultの記号を用いて説明する．
+
+<P>
+
+<UL>
+<LI><code>[</code>A/B<code>]</code> 
+<BR>  Aを消去し，Bを挿入する．
+<BR>  このバリエーション
+  
+<OL>
+<LI><code>[A/]</code> : A を消す(A を空文字で置き換える．)
+</LI>
+<LI><code>[/A]</code> : A を挿入する(空文字を A で置き換える．)
+  
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI><code>[A|B|C]</code> 
+<BR>AとCの位置を入れ換え，CBAの並びで出力する．
+<BR>このバリエーション
+  
+<OL>
+<LI><code>[A||C]</code> AとCを入れ換える．
+  
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI><code>[</code>; comment <code>]</code>
+<BR>; から <code>]</code> まではコメントとなる．
+
+<P>
+</LI>
+<LI>補足
+<BR>エスケープ文字の直後は解釈されない．コマンド文字を書きたい場合，例え
+  ば `<code>[</code>' を書きたい場合には `<code>~[</code>' とすると，
+  `<code>[</code>' が書ける
+</LI>
+</UL>
+
+<P>
+これらのコマンドのネストは可能であり，処理は内側から行なわれる．ただし，
+解釈できないような並びはエラーである．たとえば真鵺道コマンド範囲の始ま
+りの文字列に対応する終了文字列が存在しない場合や，
+<code>[A|B/C|]</code> のように解釈できないものはエラーである．
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+整形時修正出力 (pretty print)(after ver.0.9.5)</A>
+</H2>
+
+<P>
+真鵺道で新しい文書を抽出する際，その部分に何かしらの修正を施したい場合が
+ある．たとえば，Markup言語を使って文書を書いている場合，校正箇所をその
+Markup言語によって強調するなどである．これを行いたい場合には，
+<PRE>
+  M-x manued-set-pretty-print-on
+</PRE>
+を行い，文書の抽出を行えば良い．これを例1を用いて説明する．
+
+<P>
+例 1: <code>[A/B;C]</code> を整形して，
+<code>\colortext{blue}{A}\colortext{red}{B}\colortext{green}{C}</code> とした
+い．つまり，TeXの出力にて，校正箇所に色をつけたい場合．
+<PRE>
+(setq manued-pretty-print-format-delete-list
+  '("\\colortext{blue}{%s}" "\\colortext{red}{%s}" "\\colortext{green}{%s}"))
+</PRE>
+と <TT>.emacs</TT> あるいは <TT>.manued.el</TT> に記しておく．このリスト
+の意味は次のように消去コマンド(deleteコマンド)の各部分に対応する．
+<PRE>
+(setq manued-pretty-print-format-delete-list
+  '("First Element Format" "Second Element Format" "Comment Element Format"))
+</PRE>
+なお各要素の文字列はEmacs の format 関数の引数となる．
+
+<P>
+
+<H3><A NAME="SECTION00054100000000000000">
+整形時修正出力例</A>
+</H3>
+
+<P>
+例 2: <code>[A/B;C]</code> でオリジナル文字部分(A)とコメント部分(C)は表示せず，
+校正によって訂正された部分をTeXの <TT>Large</TT> 文字で出力したい場合．
+
+<P>
+<PRE>
+ (setq manued-pretty-print-format-delete-list
+   '("" "{\\Large %s}" ""))
+</PRE>
+
+<P>
+例 3: 真鵺道コマンドを他の形式に変更したい場合．たとえば，
+<code>[A/B;C]</code> を <code>{A*B@C}</code> に変更したい場合．
+
+<P>
+<PRE>
+(setq manued-pretty-print-format-delete-list
+  '("{%s*" "%s" "@%s}"))
+</PRE>
+
+<P>
+また，真鵺道ではコメントは optional なものである．そのため，コメント部分
+が存在しない場合，デフォルトではコメントの format 文字も出力しない．しか
+し，これは <code>manued-pretty-print-null-comment-out-p</code> によって制御で
+きる．また，スワップ(swap)コマンドでもこのような整形時修正出力のカスタマ
+イズが可能である．詳しくは <A HREF="#sec:PrettyPrintCustomize"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A> を参照のこと．
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000"></A>
+<A NAME="sec:sample"></A><BR>
+サンプル文書
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00055100000000000000">
+サンプル1</A>
+</H3>
+
+<P>
+defparenthesesとして利用可能なものは空白のない任意の文字列なので，以下
+のような記号も可能である．
+<PRE>
+    defparentheses ^_^[  ]^_^
+
+    真鵺道は^_^[/，]^_^^_^[【/『;この括弧にするべきだろうか]^_^
+    Manuscript Editing Language』に由来する．
+</PRE>
+修正後:
+<PRE>
+    真鵺道は，『Manuscript Editing Language』に由来する．
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00055200000000000000">
+サンプル2</A>
+</H3>
+
+<P>
+2バイト文字が利用可能な環境ではこの形が利用しやすいと思われる．
+<PRE>
+    defparentheses 【 】
+
+    受験生の一人が受験写真を撮った後にイメチェンをしたらしく，試験監督
+   【間/官】の間で「あれは別人ではないか」という【教義/協議】があった．
+    【/結局別人ではないらしいということに落ち着いた．】
+</PRE>
+修正後:
+<PRE>
+    受験生の一人が受験写真を撮った後にイメチェンをしたらしく，試験監督
+    官の間で「あれは別人ではないか」という協議があった．結局別人ではな
+    いらしいということに落ち着いた．
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00055300000000000000">
+サンプル3</A>
+</H3>
+SGML, HTML, XML 風のもの
+<PRE>
+    defparentheses      &lt;manued&gt; &lt;/manued&gt;
+    defdelete   /
+
+    「原稿は残っているんです．&lt;manued&gt;/ここに．&lt;/manued&gt;」
+    「我に&lt;manued&gt;市場/至上&lt;/manued&gt;の歌声を届けよ．」
+    「&lt;manued&gt;何時/汝&lt;/manued&gt;のあるべき姿に戻れ．」
+</PRE>
+修正後:
+<PRE>
+    「原稿は残っているんです．ここに．」
+    「我に至上の歌声を届けよ．」
+    「汝のあるべき姿に戻れ．」
+</PRE>
+
+<P>
+
+<H3><A NAME="SECTION00055400000000000000">
+サンプル4:おまけ</A>
+</H3>
+
+<P>
+これは私の友人の楯岡氏からどうであろうかと提案されたものである．sed の
+コマンドに似ているため，ある種の人にはなじみやすいであろうが，個人的に
+は可読性が低いのではないかと思う．
+<PRE>
+    defparentheses s/ /g
+    defdelete //
+    defescape
+
+    電子メイルにおいて2次元情報が保存されないためにs/Email//電子メイ
+    ル/gにs/よ///gよる編集が円滑に行なわれないことを嘆いた竹内郁雄先生
+    によってs/まぬえs/うど//どう;こんなコメントは?/g//真鵺道/gs///が/g
+    提案された．
+</PRE>
+修正後:
+<PRE>
+電子メイルにおいて2次元情報が保存されないために電子メイルによる編集が
+円滑に行なわれないことを嘆いた竹内郁雄先生によって真鵺道が提案された．
+</PRE>
+
+<P>
+
+
+<hr>
+
+<H1><A NAME="SECTION00060000000000000000">
+真鵺道サポートツール <TT>manued.el</TT></A>
+</H1>
+
+<P>
+真鵺道をサポートするツールとして，<TT>manued.el</TT>を提供する．
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+Download</A>
+</H2>
+
+<P>
+以下のWeb Siteに最新版の<TT>manued.el</TT>とドキュメントがある．
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html3"
+  HREF="http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml">http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml</A>
+</LI>
+<LI><A NAME="tex2html4"
+  HREF="http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml">http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml</A>
+</LI>
+<LI><A NAME="tex2html5"
+  HREF="http://ne.cs.uec.ac.jp/">http://ne.cs.uec.ac.jp/</A>(ミラーサイト)
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00062000000000000000"></A>
+<A NAME="sec:manuedelOverview"></A><BR>
+manued.el とその作成経緯について
+</H2>
+
+<P>
+<TT>manued.el</TT>は真鵺道をサポートする Emacs Lisp プログラムである．
+真鵺道自体は，電子メイルで原稿の校正を容易にするための方法である．これ
+をサポートするツールとしては，コマンド部分に色をつけるものから，整形前
+と後の文書を元に真鵺道形式に変換するものなど様々な形態が考えられる．今
+回提供する<TT>manued.el</TT>は Emacs 上で真鵺道コマンド部分の色付け，
+コマンドのサーチ，整形 (修正前あるいは修正後の文章の取り出し)，また真
+鵺道文書作成補助機能などを提供する．
+
+<P>
+私は大学院生時代に佐藤雅彦先生の授業を受けた時からLispという言語に興味
+を持っていた．しかし，一度もLispプログラムを書いたことがなかった．実は
+Lispに興味を持ってから何度かLispに挑戦したのだが，まわりに気軽にLispに
+ついて聞けるLisp使いがいなかったことや，Lispで本当に書きたいものという
+ものがわからず，挫折していた．研究室にはHCL(Hokkaido Common Lisp)とい
+う処理系がOmronのLuna 68Kというマシン上にあり，興味からほんの少し触っ
+た程度であった．
+
+<P>
+大学院を離れてから電子メイルにて論文の原稿を何度かやりとりする必要が生
+じたが，修正事項を上手く伝えられないことと，その手間の多さに辟易してい
+た．そんな頃，プログラミングシンポジウムに参加し，真鵺道の発表を聞いて
+いるうちにたちまち魅かれた．これこそEmacs Lispで書くべきものだ．そう思っ
+た．プロシンの会場に居た方々の中にはこの考えに共感して頂ける方もきっと
+いらっしゃると思う．竹内先生が「これはLispの例題としては，4年生が卒論
+に入る前準備程度のレベルのものだろう」とおっしゃったことから，私はこの
+真鵺道プログラムは私にとって良いLispの勉強の例題になるだろうと考え，
+Lispの勉強からはじめた．幸い今回はその点に関してはすばらしい先生にめぐ
+まれ，ここに<TT>manued.el</TT>を提供することができる．
+
+<P>
+
+<H2><A NAME="SECTION00063000000000000000"></A>
+<A NAME="sec:Instllation"></A><BR>
+Install 方法
+</H2>
+
+<P>
+<TT>manued.el</TT>はEmacs Version 19.34以降に依存している．Emacs
+Version 19.34以降のものあるいは，それに基づいたMuleを利用すること．作
+者が <TT>manued.el</TT>を開発した環境はGNU Emacs 19.34.1(mule Version
+2.3 (SUETSUMUHANA)) である．
+
+<P>
+
+<OL>
+<LI>manued.el を load-path の通っている directory に置く
+</LI>
+<LI>.emacs に次の行を追加
+<PRE>
+(autoload  'manued-minor-mode "manued" "manuscript editing mode" t)
+</PRE>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION00064000000000000000"></A>
+<A NAME="sec:Usage"></A><BR>
+<TT>manued.el</TT>の使用法
+</H2>
+
+<P>
+真鵺道文書をバッファに読み込み，M-x manued-minor-mode で真鵺道モードに
+入る．以下のコマンドが利用可能となっている．キーのデフォルトのバインド
+などは今後の検討課題である．もちろんカスタマイズ可能である．
+
+<P>
+
+<UL>
+<LI>モード開始とその他
+       
+<UL>
+<LI>M-x manued-mode 
+<BR>これはmanued-minor-modeのaliasである．次の
+	      manued-minor-modeの項を参照．
+
+<P>
+</LI>
+<LI>M-x manued-minor-mode 
+<BR>真鵺道minor modeに入る．version 0.9.0以降の
+	      <TT>manued.el</TT>には基本的にminor modeしか存在しない．作
+	      者はLaTeX-modeや，indented-text-modeなどと併用する以外の利
+	      用法が見い出せなかったため，保守の容易さも考慮して
+	      minor-modeのみの実装に簡略化した．
+
+<P>
+</LI>
+<LI>M-x manued-show-version
+<BR>真鵺道のバージョンを知らせる
+
+<P>
+</LI>
+<LI>M-x manued-insert-headder
+<BR>修正記号定義のためのヘッダを挿入する
+       
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>hilit関係
+       
+<UL>
+<LI>M-x manued-hilit-older
+<BR>元文書部分を hi-light する
+</LI>
+<LI>M-x manued-hilit-newer
+	      校正後の文書部分を hi-light する
+</LI>
+<LI>M-x manued-recenter-hilit
+<BR>現在のポイントを画面の中央に移動し，re-hilit を行う．
+       
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>整形コマンド
+      
+<UL>
+<LI>M-x manued-show-older-in-manued-buffer
+<BR>現在のバッファの内容から元文書を他のバッファに整形して出力する
+</LI>
+<LI>M-x manued-show-newer-in-manued-buffer
+<BR>現在のバッファの内容から校正後の文書を他のバッファに整形し
+	     て出力する
+</LI>
+<LI>M-x manued-show-older-region
+<BR>指定されたリージョンの内容から元文書を整形して出力する．リー
+	     ジョンは上書きされる．
+</LI>
+<LI>M-x manued-show-newer-region
+<BR>指定されたリージョンの内容から校正後の文書を出力する．リー
+	     ジョンは上書きされる．
+</LI>
+<LI>M-x manued-eval-last-manuexp
+<BR>直前の真鵺道コマンドを整形する
+</LI>
+<LI>M-x manued-set-pretty-print-on 
+<BR>	     文書整形時に修正出力(pretty print)モードにする
+</LI>
+<LI>M-x manued-set-pretty-print-off 
+<BR>	     文書整形時に修正出力(pretty print)モードを off にする
+      
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>真鵺道コマンド挿入
+       
+<UL>
+<LI>M-x manued-insert-swap-command
+<BR>マークした所から現在のポイントを狭んで swap コマンドを挿入
+	      する．manued-is-swap-command-with-comment-on が t にセット
+	      されている場合にはコメントも一緒に挿入する．
+</LI>
+<LI>M-x manued-insert-swap-command-toggle-comment
+<BR>manued-insert-swap-command と同じであるが，コメント挿入の
+	      条件が逆になり，manued-is-swap-command-with-comment-on が
+	      nil の場合にコメントを挿入する．
+</LI>
+<LI>M-x manued-insert-delete-command
+<BR>マークした所から現在のポイントの範囲を消去する範囲として
+	      deleteコマンドを挿入する．
+	      manued-is-delete-command-with-comment-on がt にセットされ
+	      ている場合にはコメントも一緒に挿入する．
+</LI>
+<LI>M-x manued-insert-delete-command-toggle-comment
+<BR>manued-insert-delete-command と同じであるが，コメント挿入
+	      の条件が逆になり，manued-is-delete-command-with-comment-on
+	      が nil の場合にコメントも挿入する．
+</LI>
+<LI>M-x manued-insert-comment-region
+<BR>マークした所から現在のポイントの範囲を囲むように comment
+	      コマンドを挿入する．
+</LI>
+<LI>M-x manued-insert-comment-at-point
+<BR>現在のポイントにコメントコマンドを挿入する．
+       
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>検索コマンド
+       
+<UL>
+<LI>M-x manued-next-l-parenthesis
+<BR>次の真鵺道コマンドの始まりをサーチし移動する
+</LI>
+<LI>M-x manued-previous-l-parenthesis
+<BR>直前の真鵺道コマンドの始まりをサーチし移動する
+       
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00065000000000000000"></A>
+<A NAME="sec:Customize"></A><BR>
+<TT>manued-minor-mode</TT>のカスタマイズ方法
+</H2>
+
+<P>
+カスタマイズ方法は大きく分けて二種類ある．一つはemacs lisp変数の
+default 値を変更する方法である．変更可能な変数は後に示す．もう一つは
+hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
+<PRE>
+(run-hooks 'manued-minor-mode-hook)
+</PRE>
+を実行する．そこでこのhookを利用して mode に依存したカスタマイズが可能
+である．(が，現在は可能であるという程度である．)
+
+<P>
+また，筆者の薦める方法は <TT>.manued.el</TT>というファイルをホームディ
+レクトリに置き，その中で真鵺道関係の設定を行い，<TT>.emacs</TT>にて読
+み込む方法である．そのためには，<TT>.manued.el</TT>というファイルを作
+成し，<TT>.emacs</TT>に
+<PRE>
+(load-file "~/.manued.el")
+</PRE>
+と書いておく方法である．
+
+<P>
+
+<H2><A NAME="SECTION00066000000000000000"></A>
+<A NAME="sec:CustomizeVariables"></A><BR>
+カスタマイズ可能な変数
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00066100000000000000"></A>
+<A NAME="sec:CustomizeDefcommand"></A><BR>
+修正記号定義コマンド
+</H3>
+
+<P>
+この真鵺道コマンド記号のデフォルト値は文章中に修正記号定義コマンド
+(def*)が出現すると上書きされる．それらの指定が無い場合に採用されるデフォ
+ルトの記号も示す．
+
+<P>
+
+<UL>
+<LI>manued-l-parenthesis-str
+<BR>真鵺道コマンドの開始記号の default 値 (defalut `<code>[</code>')
+</LI>
+<LI>manued-r-parenthesis-str
+<BR>真鵺道コマンドの終了記号の default 値 (defalut `<code>]</code>')
+</LI>
+<LI>manued-delete-str
+<BR>置換コマンドの記号の default 値 (defalut `/')
+</LI>
+<LI>manued-swap-str
+<BR>交換コマンドの記号の default 値 (defalut `<code>|</code>')
+</LI>
+<LI>manued-comment-str
+<BR>コメントのはじまりの記号の default 値 (defalut `;')
+</LI>
+<LI>manued-escape-str
+<BR>エスケープ記号の default 値 (defalut `<code>~</code>')
+</LI>
+<LI>manued-order-str
+<BR>置換コマンドの適用順 (defalut `older-first') ``older-first'',
+  ``newer-last'' あるいは ``older-last'', ``newer-first''．真鵺道の置
+  換コマンドは <code>[</code>first/last<code>]</code> の形をしており，どちらを元の
+  文書(older)とみなすかを指定する．<A HREF="#sec:manueddefcommand"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="/usr/share/latex2html/icons/crossref.png"></A>節の
+  <A HREF="#item:deforder">deforder</A>の項を参照．
+</LI>
+</UL>
+
+<P>
+<TT>manued.el</TT>は起動時にこれらに同一の記号が割り当てられたかどうか
+をチェックする．そしてもし同一の記号が割り当たっているようであれば警告
+出すので，正しい動作が可能なように def コマンドの定義を直す必要がある．
+
+<P>
+
+<H3><A NAME="SECTION00066200000000000000"></A>
+<A NAME="sec:DocBeginEnd"></A><BR>
+真鵺道文書の範囲指定
+</H3>
+
+<P>
+<SPAN  CLASS="textbf">注意: 文書の範囲指定に関しては今後廃止の方向で検討している．</SPAN>
+
+<P>
+<TT>manued.el</TT>は真鵺道の文書の範囲を指定することができる．ただし，
+これらの文字列が存在しない場合には，真鵺道文書の初まりは文書の先頭に，
+終わりは文書の最後とみなされる．
+
+<P>
+
+<UL>
+<LI>manued-doc-begin-pat
+<BR>真鵺道文書の初まりを示す文字列を入れておく
+  (defalut `-*-*- BEGINMANUED -*-*-')
+</LI>
+<LI>manued-doc-end-pat
+<BR>真鵺道文書の終わりを示す文字列を入れておく(defalut
+  `-*-*- ENDMANUED -*-*-')
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00066300000000000000"></A>
+<A NAME="sec:HilightColor"></A><BR>
+Hi-Light の色
+</H3>
+
+<P>
+色の使用に関しては3つの選択肢がある．それぞれ，
+<TT>manued-use-color-hilit</TT>を以下の括弧の中の値にセットする．
+
+<P>
+
+<UL>
+<LI>可能な場合には常に使用する場合．(<TT>t</TT>)
+</LI>
+<LI>常に使用しない場合．(<TT>nil</TT>)
+</LI>
+<LI>font-lock-modeに追従して利用する場合．(<TT>'follow-font-lock-mode</TT>)
+</LI>
+</UL>
+
+<P>
+例
+<PRE>
+(setq manued-use-color-hilit 'follow-font-lock-mode)
+</PRE>
+
+<P>
+色の指定には，emacs の色指定名を 6 つ並べたリストを用いる．どのような
+色があるかは M-x list-colors-display にて見ることができる．色のリスト
+の各要素の意味は次のようになっている．
+
+<P>
+<PRE>
+'(delete-first-color delete-last-color
+  swap-alpha-color swap-beta-color swap-gamma-color
+  comment-color command-color)
+</PRE>
+
+<P>
+それぞれの意味を以下に示す
+
+<UL>
+<LI>delete-first-color, delete-last-color
+<BR>次のように delete コマンド中の色を指定する．
+<code>[</code>delete-first-color/delete-last-color<code>]</code>
+</LI>
+<LI>swap-alpha-color, swap-beta-color, swap-gamma-color 
+<BR>次のように swap コマンド中の色を指定する．
+<code>[</code>swap-alpha-color | swap-beta-color | swap-gamma-color<code>]</code>
+</LI>
+<LI>comment-color 
+<BR><code>[</code>;comment<code>]</code> の comment 部分の色を指定する．
+</LI>
+<LI>command-color
+<BR>コマンドの記号(default では `<code>[</code>',`/',`;',`<code>]</code>' ) の色を指定する．
+</LI>
+</UL>
+
+<P>
+たとえば，デフォルトでは
+<PRE>
+ '(red gray60 blue red green4 BlueViolet gray60)
+</PRE>
+のようなリストとなっている．また，デフォルト値のリストを保持している変
+数は次の通りである．
+
+<P>
+
+<UL>
+<LI>manued-first-hilit-color-list
+<BR>first 部分を hi-light する場合の色リスト
+</LI>
+<LI>manued-last-hilit-color-list
+<BR>last 部分を hi-light する場合の色リスト
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00066400000000000000"></A>
+<A NAME="sec:PrettyPrintCustomize"></A><BR>
+整形時修正出力 (pretty print) のカスタマイズ
+</H3>
+
+<P>
+
+<UL>
+<LI>manued-pretty-print-format-delete-list
+<BR>       消去コマンド用の整形出力(pretty print)の際に利用される format の
+       リスト．
+       (default <code>'("\\textnormal{%s}" "\\textbf{%s}" "\\textit{%s}")</code>)
+
+<P>
+</LI>
+<LI>manued-pretty-print-format-swap-list 
+<BR>       交換コマンド用の整形出力(pretty print)の際に利用される format の
+       リスト．(default
+       <code>'("\\textbf{%s}---" "\\textbf{%s}" "---\\textbf{%s}" "(\\textit{%s})")</code>
+
+<P>
+</LI>
+<LI>manued-pretty-print-on-p 
+<BR>       整形コマンドの実行時に修正出力(pretty print)を行うか．(default
+       <TT>nil</TT>)
+       この値はコマンド (<code>M-x manued-set-pretty-print-on</code>,
+       <code>M-x manued-set-pretty-print-off</code>) でも変更できるが，常に
+       修正出力を行いたい場合には <code>t</code> とすることができる．
+
+<P>
+</LI>
+<LI>manued-pretty-print-null-comment-out-p
+<BR>       真鵺道コマンドでコメント部分が存在しない場合，format 文字列そのも
+       のも出力されないが，この変数を <TT>t</TT> にすると空のコメントがあ
+       るとして出力される．注意: この変数は buffer local ではない．
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00066500000000000000">
+その他のカスタマイズ</A>
+</H3>
+
+<P>
+
+<UL>
+<LI>manued-mode-syntax-table
+<BR>syntax-table の default 値 (default : text-mode-syntax-table)
+</LI>
+<LI>manued-mode-abbrev-table
+<BR>abbrev-table の default 値 (default : text-mode-syntax-table)
+</LI>
+<LI>manued-mode-map, manued-minor-mode-map
+<BR>キーマップの default 値
+</LI>
+<LI>manued-is-delete-command-with-comment-on
+<BR>manued-insert-delete-command において，deleteコマンド内部にコメント
+  文字を挿入するかしないかを制御する．t で挿入．
+</LI>
+<LI>manued-is-swap-command-with-comment-on
+<BR>manued-insert-swap-command において，swapコマンド内部にコメント文字
+  を挿入するかしないかを制御する．t で挿入．
+</LI>
+<LI>manued-is-auto-insert-headder
+<BR>この変数の値は '(auto-insert query-when-insert insert-point)
+  というリストである．バッファ に def コマンドが存在しない場合に def
+  コマンドをヘッダとして挿入するか，挿入する場合にはどのように挿入するか
+  を制御する．
+  
+<UL>
+<LI>auto-insert : t の時，manued-minor-mode に入った時にそのバッ
+    ファに defcommand が存在しない場合に defcommand を挿入する．
+</LI>
+<LI>query-when-insert (auto-insert が t の時有効) : t
+    の場合にはヘッダの挿入時にユーザに可否を尋ねる．
+</LI>
+<LI>insert-point (auto-insert が t の時有効) :
+    値により以下の3つの場合がある．
+    
+<UL>
+<LI>t : 現在のカーソル位置にヘッダを挿入する
+</LI>
+<LI>nil : バッファ先頭(point-min)にヘッダを挿入する
+</LI>
+<LI>number (数値) : その数をpointとしてその位置にヘッダを挿入する
+    
+</LI>
+</UL>
+</LI>
+</UL>
+</LI>
+<LI>manued-ask-if-formatted-buffer-is
+<BR>整形時，既に整形済みの buffer が存在した場合に上書きを尋ねるかどうか．
+  t で尋ねてくる
+</LI>
+<LI>manued-defcommand-head-str-list
+<BR>真鵺道定義コマンドの先頭につけることが可能な文字列のリスト．TeX のコ
+  メント中でも def コマンドを認識できるよう default 値として ``%'' と
+  ``%%'' が定義されている．他に行頭に付加したい文字列があれば，この
+  リストにその文字列を付加する．
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00067000000000000000"></A>
+<A NAME="sec:Bugs"></A><BR>
+Bugs
+</H2>
+
+<P>
+
+<UL>
+<LI>英語のドキュメントの質の不良．しかし，直すだけの英語力が当方に不
+  足しています．コメントなどは歓迎します．
+</LI>
+<LI>現在のバージョン(0.9.5)では <TT>font-lock-mode</TT>
+  を使っていません．そのため，環境によっては訂正箇所のハイライトに問題が
+  あります．これは色の表示に関してのみの問題です．
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00068000000000000000"></A>
+<A NAME="sec:Copying"></A><BR>
+Copying
+</H2>
+
+<P>
+<TT>manued.el</TT>(C) Copyright 1998-2002 YAMAUCHI Hitoshi (山内 斉)
+
+<P>
+本ソフトウェアはフリー (自由な) ソフトウェアです．本プログラムを使用し
+て生じたいかなる結果に対しても作者は責任を負いません．Free Software
+Foundation から配布されている GNU General Public License の最新版の制
+約のもとで自由に改変，再配布が可能です．
+
+<P>
+本プログラムは，可能な限り上手く動作するように努力して作成されています
+が，完全に無保証です．
+
+<P>
+
+<H2><A NAME="SECTION00069000000000000000"></A>
+<A NAME="sec:Community"></A><BR>
+Manued ML
+</H2>
+
+<P>
+真鵺道のメイリングリストが開設されました．真鵺道に関する議論を行なえれ
+ばと思います．MLに登録するには，
+<BLOCKQUOTE>
+manued-ml-subscribe" at "takopen.cs.uec.ac.jp.nicht.spam
+
+</BLOCKQUOTE>
+(メイルを送信される場合には最後の.nicht.spamを削り，``at''を
+@ に変更して下さい．)
+に空のメイルを送付すればconfermメイルが来ますので，それに従って登録をお願
+いします．
+
+<P>
+
+
+<hr>
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000"></A>
+<A NAME="sec:ManuedTips"></A><BR>
+真鵺道 Tips
+</H1>
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html6"
+  HREF="sec:ImmediateShownewerTex">TeX と真鵺道(show newer の出力をそのまま TeX でコンパイルするには)</A>
+<UL>
+<LI><A NAME="tex2html7"
+  HREF="sec:harmDefcommand">defコマンドが邪魔でコンパイルに失敗する場合</A>
+</LI>
+<LI><A NAME="tex2html8"
+  HREF="sec:harmDefaultLRParenthes">TeX のオプションが消えてしまう</A>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+<A NAME="sec:ImmediateShownewerTex"></A>
+<H2><A NAME="SECTION00071000000000000000">
+TeX と真鵺道</A>
+</H2>
+
+<P>
+show-newer の出力をそのまま TeX でコンパイルするには
+
+<P>
+<A NAME="sec:harmDefcommand"></A>
+<H3><A NAME="SECTION00071100000000000000">
+defcommand が邪魔でコンパイルに失敗する場合</A>
+</H3>
+
+<P>
+show newer 後の *manued* buffer を M-x write-file で *.tex ファイルに
+し，そのままコンパイルできれば良いのですが，manued の def コマンドヘッ
+ダが邪魔になることがあります．この解決方法としては，defコマンドを記し
+たヘッダ部分を真鵺道文書中に書かずに，変数定義するという方法があります．
+しかし，このヘッダには，離れた環境での真鵺道文書の一貫性をとるために付
+属するという目的もありますから，電子メイルでファイルをやりとりする際に，
+ヘッダの情報が抜けるのは好ましくありません．
+
+<P>
+そこで，manued.el では真鵺道定義コマンドの頭に付けることのできる文字列
+を指定可能になっています．manued-defcommnd-head-str-list には，例えば
+TeX のコメント `%', `%%' などがデフォルトで登録されており，下のよう
+に書いても解釈されます．ただし，真鵺道コマンドは必ず行頭になくてはいけ
+ません．また，manued-defcommnd-head-str-list の文字列と真鵺道コマンド
+間には空白を入れてはいけません．
+
+<P>
+<PRE>
+        %%defparentheses 【 】
+</PRE>
+
+<P>
+<A NAME="sec:harmDefaultLRParenthes"></A>
+<H3><A NAME="SECTION00071200000000000000">
+TeX のオプションが消えてしまう</A>
+</H3>
+
+<P>
+default の真鵺道コマンドは `<TT>[ ]</TT>' でくくることになっており，こ
+れが TeX のコマンドと競合します．私は日本語を使うことが多いためデフォ
+ルトの真鵺道コマンドの括弧を `【 】' に変更しています．このようにあま
+り使わない記号をわりあてるのが良いでしょう．この場合，.emacs には次の
+ように書いておきます．
+
+<P>
+<PRE>
+        (setq manued-l-parenthesis-str "【")
+        (setq manued-r-parenthesis-str "】")
+</PRE>
+
+<P>
+ただし，これは2バイト文字の利用可能な環境の話です．このような環境でな
+い場合には各自で工夫が必要かと思います．TeX + ASCII 環境のみでなにか良
+いと考えられる方法があるという方は御一報下さい．
+
+<P>
+
+
+<hr>
+
+<H1><A NAME="SECTION00080000000000000000"></A>
+<A NAME="sec:ManuedLinks"></A><BR>
+Manued Links
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00081000000000000000"></A>
+<A NAME="sec:WadaManued"></A><BR>
+和田先生の manued.el の実装
+</H2>
+
+<P>
+1999 年の 12 月号の bit でも紹介したが，<TT>manued.el</TT>には他の実装
+も存在する．それは emacs 上でなされている．emacs 上の実装が他にもある
+というのは emacs におけるこのようなものに対するプログラミングの容易さ
+か，あるいは，このような環境に depend しない手法というものを望む人が
+emacs をよく利用するからか，たまたまなのかは私にはわからない．
+
+<P>
+ここでは，和田先生による実装を紹介する．以下は和田先生が真鵺道方式で校
+正をやりとりした時のメイルの抜粋である．このメイルには，真鵺道方式で校
+正した文書本体，<TT>manued.el</TT>の説明(抜粋部分)，<TT>(manued)</TT>
+本体が含まれていた．
+
+<P>
+この実装は真鵺道方式で校正した文書を「見る」ということを目的として作成
+されており，山内の実装に比べてコンパクトである．コンパクトゆえに山内の
+<TT>manued.el</TT>をinstall していない人に対して送るメイルに付属させて
+利用してもらうことも容易である．
+
+<P>
+
+<H3><A NAME="SECTION00081100000000000000">
+和田先生の<TT>manued.el</TT></A>
+</H3>
+
+<P>
+<PRE>
+;;
+;; manued : editing manuscripts for Emacs
+;; 1998 Eiiti Wada 和田 英一
+;; manued.el, Copyright (C) 1999 Eiiti Wada．
+;;
+;;[α\β]はαをβで置き換える
+;;[α\]  はαを削除
+;;[\β]  はβを挿入
+;;[α|γ|β]はαγβをβγαに並び換える
+;;[α||β]  はαβをβαに並び換える
+;;[★δ]    はコメント
+;;
+;; しかしこれは目がチラチラして見難いという意見もあると思いますので,
+;; 色つきで眺めるツールを急いで用意しました. おためしください. Muleエ
+;; ディタのWindowで動作します.
+;;
+;;まず次のemacs lispのプログラム部分をmuleのwindowにおきます. esc esc
+;;とやると minibuffer に Eval: というプロンプトがでます. そこで
+;;(eval-current-buffer)
+;;とやると, プログラム全体が評価出来ます.
+;;
+;;次にmanuedのコメントの入ったメイルの本文をmuleのwindowにおき, esc
+;;esc でeval:の状態にし, (manued)と打ち込みます. するとα, β, γの部
+;;分がそれぞれの色で表示されます.
+;;
+;;もし, これらの色が気に入らない場合は, muleでesc escでeval:状態に
+;;し, (list-faces-display)を実行すると, 使える色の名前の一覧がで
+;;ます.  それを参考にして, 添付のプログラムの先頭の色定義の定数を
+;;変更すれば好きな色に変えられます.
+;;
+
+(make-face 'alpha)
+(set-face-foreground 'alpha "blue")
+(make-face 'beta)
+(set-face-foreground 'beta "red")
+(make-face 'gamma)
+(set-face-foreground 'gamma "green4")
+(setq facealpha 'alpha)
+(setq facebeta  'beta)
+(setq facegamma 'gamma)
+
+(defun proc-range (beg end)
+ (let* (p0 p1 p2 ch)
+       (goto-char beg)
+       (setq beg (search-forward "[" end t))
+       (while beg (proc-sec) (setq beg (search-forward "[" end 0)))))
+
+(defun proc-sec nil
+ (setq p0 (re-search-forward "[]|\[{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p0) p0)))
+ (cond ((= ch ?[) (skip) (proc-sec))
+       ((= ch ?\\) (findrsb) (alpha beg p0) (beta p0 p2))
+       ((= ch ?|) (findvl) (findrsb) (alpha beg p0) (gamma p0 p1) (beta p1 p2))
+       ((= ch ?]) (gamma beg p0))
+       ((= ch ?{) (skipcb) (proc-sec))))
+
+(defun skip nil
+ (let* (p ch)
+       (setq p (re-search-forward "[][{]" end t))
+       (while p
+              (setq ch (string-to-char (buffer-substring (1- p) p)))
+              (cond ((= ch ?]) (setq p nil))
+                    ((= ch ?[)
+                     (skip)
+                     (setq p (re-search-forward "[][]" end t)))
+                    ((= ch ?{) (skipcb))   ))))
+(defun skipcb nil
+ (let* (p ch)
+       (setq p (re-search-forward "[}{]" end t))
+       (while p
+              (setq ch (string-to-char (buffer-substring (1- p) p)))
+              (cond ((= ch ?}) (setq p nil))
+                    ((= ch ?{)
+                     (skipcb)
+                     (setq p (re-search-forward "[}{]" end t)))))))
+
+(defun findrsb nil
+ (setq p2 (re-search-forward "[][{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p2) p2)))
+ (cond ((= ch ?[) (skip) (findrsb))
+       ((= ch ?]))
+       ((= ch ?{) (skipcb) (findrsb))))
+
+(defun findvl nil
+ (setq p1 (re-search-forward "[|[{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p1) p1)))
+ (cond ((= ch ?[) (skip) (findvl))
+       ((= ch ?|))
+       ((= ch ?{) (skipcb) (findvl))))
+
+(defun alpha (l r)
+ (put-text-property l (1- r) 'face facealpha)
+ (proc-range l (1- r)))
+
+(defun beta  (l r)
+ (put-text-property l (1- r) 'face facebeta)
+ (proc-range l (1- r)))
+
+(defun gamma (l r)
+ (put-text-property l (1- r) 'face facegamma)
+ (proc-range l (1- r)))
+
+(defun manued nil (proc-range 1 (point-max)))
+</PRE>
+
+<P>
+この <TT>manued.el</TT> の公開を快く承諾して頂いた和田英一先生に感謝します．
+
+<P>
+
+<H2><A NAME="SECTION00082000000000000000">
+その他の実装</A>
+</H2>
+
+<P>
+Windowsの秀丸というエディタ上に実装された<TT>manued</TT>が存在するようです．
+
+<P>
+
+
+<hr>
+
+<P>
+
+<H2><A NAME="SECTION00083000000000000000">
+Manuediff (by Suzuki)</A>
+</H2>
+
+<P>
+<A NAME="tex2html9"
+  HREF="http://hibiki.miyagi-ct.ac.jp/~suzuki/comp/export/manuediff.html">Manuediff</A>
+は diff プログラムですが，その出力を真鵺道フォーマットにします．例:
+<PRE>
+  manuediff file1 file2 &gt; diff.with.manued.format
+</PRE>
+
+<P>
+
+
+<hr>
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000">
+謝辞</A>
+</H1>
+
+<P>
+文献[#!bib:Takeuchi1998!#], ``電子メールで原稿を修正する方法 --
+Manuscript Editing (Manued, 真鵺道)を目指して --''の電子的原稿の提供
+と，このような素晴しいアイデアを発表して下さった竹内郁雄先生に感謝いた
+します．真鵺道を知ってから現在までの私の論文は全て真鵺道なしには提出で
+きなかったものばかりです．
+
+<P>
+真鵺道の簡潔な実装により知的な驚きを下さった和田英一先生に感謝いたしま
+す．
+
+<P>
+また，全く Lisp を知らなかった私にLispを教えて下さり，つまらない質問に
+も丁寧に答えて下さった前田敦司氏にも感謝いたします．前田氏なくして，こ
+の実装はありえませんでした．
+
+<P>
+以下の方々がこれまで<TT>manued.el</TT>に関してバグフィックス，有益なコ
+メントなどの形で貢献して下さいました．感謝いたします．(Alphabetical
+order)
+
+<UL>
+<LI>川村尚生 : KAWAMURA, Takao (bug fix etc. for version 0.9.3)
+</LI>
+<LI>中島幹夫 : NAKAJIMA, Mikio (bug fix etc. for version 0.9.3)
+</LI>
+<LI>Stefan Monnier  (comments for version 0.9.1)
+</LI>
+<LI>鈴木健一 : Suzuki, Ken-ichi (manuediff)
+</LI>
+</UL>
+
+<P>
+
+<H2>No References!</H2>
+<BR>
+
+<H2><A NAME="SECTION000110000000000000000">
+Index</A>
+</H2><DL COMPACT>
+<DD>
+</DL>
+
+<P>
+
+<address>
+Copyright (C) 1998-2002 YAMAUCHI, Hitoshi (山内 斉)<br>
+Most recent update : <!--#echo var="LAST_MODIFIED" --> :
+</address>
+
+<P>
+
+<H1><A NAME="SECTION000120000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Manued Reference Manual 
+<BR>  <IMG
+  WIDTH="88" HEIGHT="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="./manuedlogo.png"
+ ALT="Image manuedlogo"></STRONG><P>
+This document was generated using the
+<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2008 (1.71)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+Nikos Drakos, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-html_version 4.0 -split 0 manued-j.tex</TT>
+<P>
+The translation was initiated by hitoshi on 2012-11-05
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="/usr/share/latex2html/icons/prev_g.png">   
+<BR></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+hitoshi
+2012-11-05
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,30 @@
+
+HTML document ¤òrelease¤¹¤ëºÝ¤Î¥á¥â
+
+	Font ¤Î¿§¤ÎÄ´À°
+	IMG tagÉôÊ¬
+	&circ; ¤Î¥Ð¥°¤ËÂÐ½è
+	<pre> ¤Ç¤Ê¤¤ÉôÊ¬¤ÎÎã¤ò½¤Àµ¤¹¤ë¤³¤È
+	¥Ø¥Ã¥À
+
+<!DOCTYPE HTML  PUBLIC  "-//W3C//DTD HTML 3.2//EN">
+<!-- Copyright (C) By YAMAUCHI Hitoshi -->
+<html>
+<head>
+<title>Manued (in English)</title>
+<meta http-equiv="Content-type" content="text/html;charset=ISO-8859-1">
+
+EUC-JP
+
+<meta name="Author" content="YAMAUCHI Hitoshi">
+</head>
+<body>
+
+
+ÆüËÜ¸ìlatex2html¤Î¾ì¹ç¡¤-init_file ¤Ç±Ñ¸ìÍÑ¤Î½é´üÀßÄê¥Õ¥¡¥¤¥ë¤òÆÉ¤ß¹þ¤ß¡¤
+±Ñ¸ì¤Ë¤¹¤ë¤³¤È¤Ï¤Ç¤­¤ë¤¬¡¤ÆüÉÕÉôÊ¬¤¬ÆüËÜ¸ì¤Î¤Þ¤Þ¤Ê¤Î¤Ç¡¤¤½¤ì¤òÊÑ¹¹¤¹¤ë¡¥
+
+latex2html -html_version 4.0 -init_file dot.latex2html-init-eng manued-e.tex
+latex2html -html_version 4.0 -split 0 manued-j.tex
+
+

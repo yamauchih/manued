@@ -1,0 +1,1367 @@
+%%
+%% manued-j.tex : manued.el のマニュアルの日本語版
+%% Copyright (C) 1998-2012 Hitoshi Yamauchi 山内 斉
+%%
+%% latex2html -html_version 4.0 -split 0 manued-j.tex
+%%
+
+%%How to use color on TeX
+%%http://www02.so-net.ne.jp/~hide-t/tex/graphics.html
+%%\usepackage{color} with graphics package
+%%
+%%In default, we can use colors black, white, red, green, blue, yellow,
+%%cyan, magenta．
+%%\begin{itemize}
+%%\item \definecolorで新たに色を定義することも出来ます．
+%%\item \color{clr} : デフォルトの色を，clrにします．
+%%\item \textcolor{clr}{text} textの色を，clrにします．
+%%\item \colorbox{bkgd_clr}{text} : 背景色がbkgd_clrのボックスを作ります．
+%%\item \fcolorbox{line_clr}{bkgd_clr}{text} : 背景色bkgd_clr，枠色
+%%  line_clrのボックスを作ります．
+%%\item \pagecolor{clr} : ページ色を，clrにします．
+%%\end{itemize}
+
+\documentclass{article}
+\usepackage{html}
+\usepackage{makeidx}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{color}
+\makeindex
+
+\title{Manued Reference Manual \\
+  \includegraphics{manuedlogo}}
+\author{YAMAUCHI, Hitoshi (山内斉)}
+\date{2002-8-12(Mon)}
+
+\begin{document}
+\maketitle
+
+\begin{rawhtml}
+<!--#config timefmt="%Y/%m/%d (%A)" -->
+\end{rawhtml}
+
+\begin{abstract}
+  真鵺道とは，文書の校正方法の一種である．この手法は第39回プログラミン
+  グシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
+  タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正に
+  あったので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような
+  場合に特に有効である．まず本文書では，真鵺道方式による校正手法を紹介
+  する．そしてこの校正手法をサポートするemacs lispプログラムである
+  \texttt{manued.el}の実装を紹介する．真鵺道による校正手法と
+  \texttt{manued.el}が電子メールを利用した原稿，論文のやりとりに繁雑さ
+  を感じている方々の手助けとなれば幸いである．
+\end{abstract}
+\tableofcontents
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+
+\section{はじめに}
+
+\subsection{真鵺道の概要}
+
+現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期
+待できない．特に電子メイルで原稿をやりとりするような環境では利用可能な
+文字の種類などが限られるため，校正はさらに困難となる．現在のところ，
+Email では，以下のような方法で校正情報を伝えることがよく行なわれてい
+るようである．
+\begin{verbatim}
+    Azimuth のロボット3原則
+    ^^^^^^^
+      Asimov の間違いでしょう．それに第 0 法則はどうする?
+
+    第一条 : ロボットは他のロボットに危害を加えてはならない．
+                           ^^^^^^^^
+                             これは「人間」のはず．
+\end{verbatim}
+このように校正位置を`\^'で示し，その下に校正案を示す方法が用いられるが，
+通常，この入力には多くの労力を必要とする上，訂正指示を自然言語で行うた
+め，どの部分をどのように訂正するかについての曖昧さが残る．この方式の最
+大の問題点はこの曖昧さである．曖昧さの存在のために電子的なものであるに
+もかかわらず機械的に校正後の文書を取得することができない．さらに，プロ
+ポーショナルフォントなどを利用する環境においては訂正位置の情報が正しく
+伝わらない可能性がある．つまり，原稿をやりとりする各人の環境の違いによっ
+ては訂正箇所を特定することすら困難な場合がある．
+
+真鵺道方式の校正はこれらの問題を解決する．校正の指示のための入力は比較
+的容易であり，校正前と校正後の原稿の違いは厳密に定義される．したがって，
+校正箇所の指示や，訂正の指示なのか単なるコメント文なのかを誤ることはな
+い．特に真鵺道方式の利点は環境を選ばないことであり，テキストを編集可能
+なエディタであれば利用することができる．基本的には特殊な環境もエディタ
+も不要である．
+
+真鵺道方式が仮定するのはテキストエディタだけであるが，さらに便利に利用
+することを考えて Emacs 上に manued-minor-mode を実装した．
+manued-minor-mode では大きく分けて以下の機能を利用可能である．
+\begin{itemize}
+\item 校正前，校正後の文書の自動抽出
+\item 校正場所のサーチ
+\item 真鵺道方式の校正指示のための入力補助
+\end{itemize}
+
+真鵺道方式は環境を選ばないため，このような道具の実装は Emacs 上に限る
+ことではない．今回 Emacs 上に実装したのは筆者が良く利用する環境である
+という理由にすぎない．したがって，他の環境で実装を行なった方があればぜ
+ひお知らせ頂きたい．現在要望のある環境は以下の通りである．
+
+\begin{itemize}
+\item vi
+\item Microsoft Word
+\item 真鵺道文書整形のためのフィルタコマンド
+\end{itemize}
+
+\subsection{この文書の情報}
+
+\begin{itemize}
+\item 著者 \\
+  Copyright (C) 1997-2002 山内 斉 (Hitoshi Yamauchi)
+\end{itemize}
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+
+\section{真鵺道 Quick Start}
+
+\subsection{About Manued}
+
+真鵺道とは，第39回プログラミングシンポジウムにおいて竹内郁雄先生により
+提案された電子メイルなどでの論文や文書のやりとり時の校正をより容易にす
+るための方法である．その方法を実践するための実装の一つとして
+\texttt{manued.el}をお届けする．\texttt{manued.el}が電子メールにおける
+原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸いである．
+
+\subsection{Installation}
+
+\texttt{manued.el}は Emacs Version 19.34 以降に依存している．Emacs
+Version 19.34 以降のものあるいは，それに基づいた Mule 等を利用されたい．
+筆者の環境は GNU Emacs 19.34.1, Mule Version 2.3 (SUETSUMUHANA)である．
+Install は以下のように行う．
+
+\begin{enumerate}
+\item \texttt{manued.el}を load-path の通った場所に置く．
+\item .emacs に次の行を追加する．
+\begin{verbatim}
+(autoload 'manued-minor-mode "manued" "manuscript editing mode" t)
+\end{verbatim}
+\end{enumerate}
+
+\subsection{Starting Manued }
+
+チュートリアルファイルを読み込み，指示に従うか，あるいは，
+manued-minor-mode に入って動作を確認する．
+
+\begin{itemize}
+\item チュートリアル\\ %
+  manued.tut というファイルがアーカイブに付属しているはずなのでそれを
+  emacs に読み込み，指示に従う．
+\item 手動の動作確認 \\ %
+  \begin{enumerate}
+  \item M-x manued-minor-mode で manued-minor-mode に入る．
+  \item テキストを入力する．
+  \item マークとカーソル移動を用いてリージョンを作成し，
+    manued-insert-swap-command (C-c C-m C-s) により，リージョンを swap
+    コマンドで囲んでみる． manued-show-newer-in-manued-buffer を実行す
+    ることによって校正後の文書が抽出される．
+  \item その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマンド
+    の位置を探すことができるのでそれを試してみる．
+  \end{enumerate}
+\end{itemize}
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+\section{真鵺道(Manued)とは?}
+\subsection{真鵺道概要}
+
+真鵺道とは，第39回プログラミングシンポジウムにおいて\htmladdnormallink
+{竹内郁雄先生}{http://ne.cs.uec.ac.jp/tak.html}により提案された電子メ
+イルなどのテキストデータを介した論文や文書のやりとり時の校正をより容易
+にするための校正用言語 (Manuscript Editing Language)
+である~\cite{bib:Takeuchi1998}．
+以下にこの論文の概要をまとめる．\htmladdnormallink
+{Web上には原文のテキストがあります．}{./manuscripteditting.txt.gz}
+
+電子メールによって原稿を修正する際には，
+\begin{itemize}
+\item 紙の上のような訂正記号が使えない．利用できる文字集合の種類が限ら
+  れる．
+\item 色が利用できない．
+\item mail reader によっては文書の二次元情報を保存しないものがあり，編
+  集者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
+  えば Eudora など)．もともと電子メイルでは二次元情報についての規定が
+  ないのでそのような状況は常に発生しうる．
+\item 改行位置に依存したくない．エディタやワープロなどの行の折り返し機
+  能などによって訂正情報が失われることを避けたい．
+\end{itemize}
+という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，
+郵送するという手が一般に行なわれてきたが，それでは間にあわないことが多
+い．Fax という手もあるが，受信した紙から電子情報への変換時には人間が入
+力する部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手
+書き文字の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた
+原稿中の訂正記号を解釈して文書を編集することは現在のところ困難であると
+思われる．結局，もともとの原稿は多くの場合電子情報であり，それを利用で
+きなくする手はあまり賢いとは言えまい．
+
+そこで，文献~\cite{bib:Takeuchi1998}では
+\begin{itemize}
+  \item 修正前と修正後の文書を機械的に抽出できること(必須)
+  \item 人間にとって読みやすいこと
+  \item 訂正箇所の視認性が良いこと
+  \item 修正に対するコメントが入れられること
+  \item 修正情報の書き込みが容易なこと
+  \item 繰り返される修正を抽象化すること
+\end{itemize}
+が提案されており，これを実現する原稿修正言語を Manued (Manuscript
+Editing language) と呼んでいる．今回はこの実装を行なった．
+
+\subsection{真鵺道の例}
+% <label id="reidai">
+
+簡単な例題を示そう．
+
+\begin{latexonly}
+  \begin{quotation}
+    1月17, 18 日の両日には雪の残る中
+    {\color{red}\textbf{\underline{共通一次}}}
+    試験が行なわれた．この試験では
+    {\color{red}\textbf{\underline{受検}}}
+    者は時計を机上に置くことを許されている．その中の一人が大きな
+    {\color{red}\textbf{\underline{のっぽの古}}}時計をどんと
+    {\color{red}\textbf{\underline{と}}}
+    机の上
+    {\color{red}\textbf{\underline{にい}}}た時にはびっくりした．
+  \end{quotation}
+\end{latexonly}
+\begin{rawhtml}
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <b><u><font color="#ff0000">共通一次</font></u></b>
+  試験が行なわれた．この試験では
+  <b><u><font color="#ff0000">受検</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <b><u><font color="#ff0000">のっぽの古</font></u></b>時計をどんと
+  <b><u><font color="#ff0000">と</font></u></b>
+  机の上
+  <b><u><font color="#ff0000">にい</font></u></b>た時にはびっくりした．
+  </blockquote>
+\end{rawhtml}
+
+環境(ブラウザなどの違い)によっては見えないかもしれないが，訂正する箇所
+の付近を強調してある．これを次の文書のように訂正したいとしよう．
+
+\begin{latexonly}
+  \begin{quotation}
+    1月17, 18 日の両日には雪の残る中
+    {\color{red}\textbf{\underline{センター}}}
+    試験が行なわれた．この試験では
+    {\color{red}\textbf{\underline{受験}}}
+    者は時計を机上に置くことを許されている．その中の一人が大きな
+    {\color{red}\textbf{\underline{目覚し}}}時計をどんと机の上に
+    {\color{red}\textbf{\underline{置}}}いた時にはびっくりした．
+  \end{quotation}
+\end{latexonly}
+\begin{rawhtml}
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <B><u><font color="#ff0000">センター</font></u></b>
+  試験が行なわれた．この試験では
+  <B><u><font color="#ff0000">受験</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <B><u><font color="#ff0000">目覚し</font></u></b>時計をどんと机の上に
+  <B><u><font color="#ff0000">置</font></u></b>いた時にはびっくりした．
+  </blockquote>
+\end{rawhtml}
+
+
+たとえばこれまでは，
+
+\begin{verbatim}
+１月１７，１８日の両日には雪の残る中共通一次試験が　　　　　　　　　
+　　　　　　　　　　　　　　　　　　＾＾＾＾　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　センターに訂正（昔の話だねえ）
+行なわれた．この試験では受検者は時計を机上に置くことを許されて　　　
+　　　　　　　　　　　　＾＾＾　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　受験者　　　　　　　　　　　　　　　　　
+いる．その中の一人が大きなのっぽの古時計をどん　　　　　　　　　　　
+　　　　　　　　　　　　　＾＾＾＾＾　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　目覚し　　　　　　　　　　　　　　　　
+とと机の上にいた時にはびっくりした．　　　　　　　　　　　　　　　　
+　＾　　　＾＾　　　　　　　　　　　　　　　　　　　　　　　　　　　
+‘と’が余分　‘に’と‘い’の間に‘置’の抜けあり　　　　　　　　　
+\end{verbatim}
+のように訂正していた．このような文書をブラウザで表示するために，私は2
+次元の表示が保存されるタグと全角のスペースを利用したが，もしも利用しな
+い場合には，この方法は役に立たないだろう．たとえば同じ情報を2次元情報
+を保持するタグを利用せずに次に示してみる．ブラウザは通常2次元情報を保
+存しない (たとえば空白や改行を無視する) ので，それぞれの環境で異なる表
+示となるであろう．ある人は読めるが，ある人は読めないことになる．読めな
+い環境の方にはこの方法が役に立たないことが一目瞭然であろう．
+
+
+１月１７，１８日の両日には雪の残る中共通一次試験が　　　　　　　　　
+　　　　　　　　　　　　　　　　　　＾＾＾＾　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　センターに訂正（昔の話だねえ）
+行なわれた．この試験では受検者は時計を机上に置くことを許されて　　　
+　　　　　　　　　　　　＾＾＾　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　受験者　　　　　　　　　　　　　　　　　
+いる．その中の一人が大きなのっぽの古時計をどん　　　　　　　　　　　
+　　　　　　　　　　　　　＾＾＾＾＾　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　目覚し　　　　　　　　　　　　　　　　
+とと机の上にいた時にはびっくりした．　　　　　　　　　　　　　　　　
+　＾　　　＾＾　　　　　　　　　　　　　　　　　　　　　　　　　　　
+‘と’が余分　‘に’と‘い’の間に‘置’の抜けあり　　　　　　　　　
+
+
+
+また，2次元情報を保存する環境であっても，コメントと訂正部分の区別がわ
+かりにくかったり，あるいは空白を入れて位置を示す努力したにもかかわらず，
+後に文書の前方に修正を加えたために後方の位置関係が全体としてずれてしま
+うなどの不都合が発生することがある．また，文書のフォーマットの違いなど
+により，カットアンドペーストを行うと意味不明になることがある．真鵺道は
+2次元情報を保存するしないにかかわらず，両方で利用可能な校正方法として
+提案される．
+
+真鵺道では基本的に次の2つの置き換えの規則を了解してもらい，校正の操作
+を記号化する．
+
+\begin{itemize}
+\item \verb-[A/B]- : A を B で置き換える
+  このバリエーションとして
+  \begin{enumerate}
+  \item \verb-[A/]- : A を消す(A を空文字で置き換える．)
+  \item \verb-[/A]- : A を挿入する(空文字を A で置き換える．)
+  \end{enumerate}
+\item \verb-[A|B|C]- CBA の順に並べ換える
+  このバリエーションとして
+  \begin{enumerate}
+  \item \verb-[A||C]- A と C を交換する
+  \end{enumerate}
+\end{itemize}
+
+上の規則によって最初の文章を書き換えると次のようになる．
+
+\begin{latexonly}
+  \begin{quotation}
+    1月17, 18 日の両日には雪の残る中
+    {\color{red}\textbf{\underline{[共通一次/センター;昔の話だねえ]}}}
+    試験が行なわれた．この試験では
+    {\color{red}\textbf{\underline{[受検/受験]}}}
+    者は時計を机上に置くことを許されている．その中の一人が大きな
+    {\color{red}\textbf{\underline{[のっぽの古/目覚し]}}}
+    時計をどんと
+    {\color{red}\textbf{\underline{[と/]}}}
+    机の上に
+    {\color{red}\textbf{\underline{[/置]}}}いた時にはびっくりした．
+  \end{quotation}
+\end{latexonly}
+\begin{rawhtml}
+  <blockquote>
+  1月17, 18 日の両日には雪の残る中
+  <b><u><font color="#ff0000">[共通一次/センター;昔の話だねえ]</font></u></b>
+  試験が行なわれた．この試験では
+  <b><u><font color="#ff0000">[受検/受験]</font></u></b>
+  者は時計を机上に置くことを許されている．その中の一人が大きな
+  <b><u><font color="#ff0000">[のっぽの古/目覚し]</font></u></b>
+  時計をどんと
+  <b><u><font color="#ff0000">[と/]</font></u></b>
+  机の上に
+  <b><u><font color="#ff0000">[/置]</font></u></b>いた時にはびっくりした．
+  </blockquote>
+\end{rawhtml}
+
+これだけでもかなり強力であることがおわかりだろう．真鵺道がどのようなも
+のかの感じはだいたいつかんで頂けたであろうか．このような規則を処理して
+校正後の文書を抽出するようなサポートを行うツールがあれば，この処理は更
+に強力なものとなるだろう．その実装の一つが\texttt{manued.el}である．こ
+れは訂正文書中の訂正箇所の強調表示，訂正前(後)の文書を強調し，訂正後
+(前)の部分やコメントを薄く表示する機能や，訂正前(後)の文書の抽出など
+を行うプログラムである．
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+\section{真鵺道の文法について}
+\subsection{真鵺道修正記号定義コマンドと真鵺道コマンド}
+% <label id="monuedCommandAndCommandDef">
+
+真鵺道には，文書中で用いる記号を定義する「修正記号定義コマンド」とその
+記号を用いて校正箇所・方法を示す「真鵺道コマンド」がある．真鵺道で用い
+る記号を定義するコマンド (修正記号定義コマンド) はdefで始まり，defコマ
+ンドとも呼ぶ．この修正記号定義コマンドが真鵺道コマンドを規定する．これ
+は，
+\begin{itemize}
+\item 電子メイルでは利用可能な記号が少いため文書ごとにどの文字を真鵺道
+  コマンドとして用いるかを文書ごとに変更させた方が都合が良い．これは文
+  書中の利用頻度が低い文字を校正記号として使わないと，校正部分について
+  の混乱が発生するためである．それに対応するため．
+
+\item 上記とほとんど同義であるが，固定した記号を用いた場合にはエスケー
+  プを多用しないといけない文書が発生し，可読性が下がる．これを避けるた
+  め．
+\end{itemize}
+である．この修正記号定義コマンドは真鵺道コマンドを含む文書の冒頭に置か
+れる．行頭にない場合には修正記号定義コマンドとはみなされない．
+
+真鵺道コマンドは修正記号定義コマンドから先頭のdefを除いた名前を持って
+いると考えれば良い．たとえば，真鵺道における置換(削除・挿入)を示すコマ
+ンドはdeleteコマンドである．このdeleteコマンドの記号を ★ にするには，
+
+\begin{verbatim}
+        defdelete ★
+\end{verbatim}
+という行を文書の行頭に記す．すると，この定義のみが行なわれた場合には他
+の記号はデフォルトの記号となり，
+\begin{verbatim}
+        [元の削除される文★修正後に挿入される文]
+\end{verbatim}
+というコマンドによって「元の削除される文」が「修正後に挿入される文」に
+置換される．
+
+修正記号定義コマンドがない場合，真鵺道コマンドの記号として竹内郁雄先生
+(と秘密結社大日本清談会)が提案したdefaut記号が使用される．
+
+\subsection{\texttt{manued.el} ver.0.9 における修正記号定義コマンド}
+\label{sec:manueddefcommand}
+
+修正記号定義コマンドは，通常，校正文書の冒頭に以下のように書かれる．
+
+\begin{verbatim}
+        defparentheses  [ ]
+        defdelete       /
+        defswap         |
+        defcomment      ;
+        defescape
+        deforder        newer-last
+        defversion      0.9.5
+\end{verbatim}
+
+以下，各行について説明する．また，各コマンドで定義されるデフォルトの文
+字列は説明の最後に示す．
+
+\begin{itemize}
+\item defparentheses\\ %
+  修正記号定義コマンドの範囲指定の文字列を指示する．(default値
+  `\texttt{[ ]}')
+
+\item defdelete \\ %
+  修正記号定義コマンド中でこのコマンドで指定された文字列の前後を置換す
+  る (削除と挿入)．(default値 `\texttt{/}') e.g. [A/B] は AをB に置換
+  する．
+
+\item defswap \\ %
+  修正記号定義コマンド中でこのコマンドで指定された文字列の前後の入れ換
+  えを行う．(default値 `\verb-|-') e.g. \verb-[A|B|C]- はABCをCBAとな
+  るよう入れ換えを行なう．
+
+\item defescape \\ %
+  修正記号定義コマンド中において修正記号定義コマンドをエスケープする．
+  \\ %
+  (default値 `\verb|~|')\\ %
+  たとえば，[This is \verb|~|[foo\verb|~|]/These
+  are \verb|~|[bars\verb|~|]] とすると，This is
+  [foo] を These are [bars] に置き換える．
+  しかし，このようなものが多数あるようならばdefparentheses 『 』 のよ
+  うに定義し，『This is [foo]/These are
+  [bars]』とした方が良いだろう． \\ %
+  ここで一つ注意することがある．真鵺道コマンドに入っていない時，つまり，
+  平文中ではエスケープされるものはdefparenthesesで指定する最初の文字列
+  だけである．これは\TeX の文中などで
+\begin{verbatim}
+        ここで $a_n/b_n$ という比を考えてみよう．
+        ~[\lim_{n \to \infty} \frac{a_n}{b_n} \]
+\end{verbatim}
+  のような場合に真鵺道コマンドと関係ない部分の真鵺道コマンド文字列をい
+  ちいちエスケープしないためである．ここでは $a_n/b_n$ 中の / や，] な
+  どが真鵺道コマンドに一致している．しかしこれは真鵺道のコマンド中にあ
+  るわけではない．このようなものを全てエスケープするのは繁雑であるため，
+  この必要がないよう，平文中であればコマンドの始まりである文字列 (ここ
+  では`\verb|~|[') 以外は真鵺道コマンドとみなさないことにしている．
+
+\item defcomment \\ %
+  修正定義コマンド中でこの記号から後をコメントみなす．この記号から後の
+  文字は整形後は削除される．(default値 `;')
+
+\item deforder \label{item:deforder} \\ %
+  %\htmlref{deforder}
+  deleteコマンドによって文を置換する際，defdelete記号の前後どちらを新しい
+  文書とみなすかを示す．(default値 `newer-last')コマンド内部の並びは
+  \verb|[|first/last\verb|]| として順序づけられる．ここで first の部分を修
+  正後の文と新しいみなすか，あるいは first 部分を訂正前の文とみなすかを決
+  定する．この指定は，(newer older) と(first last) の組み合わせによる．そ
+  の組み合わせは
+  \begin{itemize}
+  \item newer-first
+  \item newer-last
+  \item older-first
+  \item older-last
+  \end{itemize}
+  の4つとなる．このdeforder修正記号定義コマンドはdeleteコマンドの並び
+  を決定するだけで真鵺道の記号を決めるものではない．
+
+\item defversion \\ %
+  \texttt{manued.el}のバージョン情報を示す．(default値
+  `(manued-version-num)')
+\end{itemize}
+
+修正記号定義コマンドは訂正文書の最初に書いておく．また各コマンドは行頭
+から初まるものとする．もし書いていない場合には default 値が利用される．
+このとき，異なるdefコマンドで定義される記号が同一の場合など，記号の区
+別ができないとプログラムがみなす場合，\texttt{manued.el}はそれを検査し
+て警告を出す．そのまま同一の定義を用いた場合の\texttt{manued.el}の挙動
+は定義されていない．
+
+\subsection{manued.el version 0.9 以降における真鵺道コマンド}
+\label{sec:manuedCommand0.9}
+
+ここでは真鵺道コマンドをdefaultの記号を用いて説明する．
+
+\begin{itemize}
+\item \verb|[|A/B\verb|]| \\
+  Aを消去し，Bを挿入する．\\
+  このバリエーション
+  \begin{enumerate}
+  \item \verb-[A/]- : A を消す(A を空文字で置き換える．)
+  \item \verb-[/A]- : A を挿入する(空文字を A で置き換える．)
+  \end{enumerate}
+
+\item \verb-[A|B|C]- \\ %
+  AとCの位置を入れ換え，CBAの並びで出力する．\\ %
+  このバリエーション
+  \begin{enumerate}
+  \item \verb-[A||C]- AとCを入れ換える．
+  \end{enumerate}
+
+\item \verb|[|; comment \verb|]|\\ %
+  ; から \verb|]| まではコメントとなる．
+
+\item 補足\\ %
+  エスケープ文字の直後は解釈されない．コマンド文字を書きたい場合，例え
+  ば `\verb|[|' を書きたい場合には `\verb|~[|' とすると，
+  `\verb|[|' が書ける
+\end{itemize}
+
+これらのコマンドのネストは可能であり，処理は内側から行なわれる．ただし，
+解釈できないような並びはエラーである．たとえば真鵺道コマンド範囲の始ま
+りの文字列に対応する終了文字列が存在しない場合や，
+\verb-[A|B/C|]- のように解釈できないものはエラーである．
+
+\subsection{整形時修正出力 (pretty print)(after ver.0.9.5)}
+
+真鵺道で新しい文書を抽出する際，その部分に何かしらの修正を施したい場合が
+ある．たとえば，Markup言語を使って文書を書いている場合，校正箇所をその
+Markup言語によって強調するなどである．これを行いたい場合には，
+\begin{verbatim}
+  M-x manued-set-pretty-print-on
+\end{verbatim}
+を行い，文書の抽出を行えば良い．これを例1を用いて説明する．
+
+例 1: \verb-[A/B;C]- を整形して，
+\verb-\colortext{blue}{A}\colortext{red}{B}\colortext{green}{C}- とした
+い．つまり，TeXの出力にて，校正箇所に色をつけたい場合．
+\begin{verbatim}
+(setq manued-pretty-print-format-delete-list
+  '("\\colortext{blue}{%s}" "\\colortext{red}{%s}" "\\colortext{green}{%s}"))
+\end{verbatim}
+と \texttt{.emacs} あるいは \texttt{.manued.el} に記しておく．このリスト
+の意味は次のように消去コマンド(deleteコマンド)の各部分に対応する．
+\begin{verbatim}
+(setq manued-pretty-print-format-delete-list
+  '("First Element Format" "Second Element Format" "Comment Element Format"))
+\end{verbatim}
+なお各要素の文字列はEmacs の format 関数の引数となる．
+
+\subsubsection{整形時修正出力例}
+
+例 2: \verb-[A/B;C]- でオリジナル文字部分(A)とコメント部分(C)は表示せず，
+校正によって訂正された部分をTeXの \texttt{Large} 文字で出力したい場合．
+
+\begin{verbatim}
+ (setq manued-pretty-print-format-delete-list
+   '("" "{\\Large %s}" ""))
+\end{verbatim}
+
+例 3: 真鵺道コマンドを他の形式に変更したい場合．たとえば，
+\verb-[A/B;C]- を \verb-{A*B@C}- に変更したい場合．
+
+\begin{verbatim}
+(setq manued-pretty-print-format-delete-list
+  '("{%s*" "%s" "@%s}"))
+\end{verbatim}
+
+また，真鵺道ではコメントは optional なものである．そのため，コメント部分
+が存在しない場合，デフォルトではコメントの format 文字も出力しない．しか
+し，これは \verb|manued-pretty-print-null-comment-out-p| によって制御で
+きる．また，スワップ(swap)コマンドでもこのような整形時修正出力のカスタマ
+イズが可能である．詳しくは \ref{sec:PrettyPrintCustomize} を参照のこと．
+
+\subsection{サンプル文書}
+\label{sec:sample}
+
+\subsubsection{サンプル1}
+
+defparenthesesとして利用可能なものは空白のない任意の文字列なので，以下
+のような記号も可能である．
+\begin{verbatim}
+    defparentheses ^_^[  ]^_^
+
+    真鵺道は^_^[/，]^_^^_^[【/『;この括弧にするべきだろうか]^_^
+    Manuscript Editing Language』に由来する．
+\end{verbatim}
+修正後:
+\begin{verbatim}
+    真鵺道は，『Manuscript Editing Language』に由来する．
+\end{verbatim}
+
+\subsubsection{サンプル2}
+
+2バイト文字が利用可能な環境ではこの形が利用しやすいと思われる．
+\begin{verbatim}
+    defparentheses 【 】
+
+    受験生の一人が受験写真を撮った後にイメチェンをしたらしく，試験監督
+   【間/官】の間で「あれは別人ではないか」という【教義/協議】があった．
+    【/結局別人ではないらしいということに落ち着いた．】
+\end{verbatim}
+修正後:
+\begin{verbatim}
+    受験生の一人が受験写真を撮った後にイメチェンをしたらしく，試験監督
+    官の間で「あれは別人ではないか」という協議があった．結局別人ではな
+    いらしいということに落ち着いた．
+\end{verbatim}
+
+\subsubsection{サンプル3}
+SGML, HTML, XML 風のもの
+\begin{verbatim}
+    defparentheses      <manued> </manued>
+    defdelete   /
+
+    「原稿は残っているんです．<manued>/ここに．</manued>」
+    「我に<manued>市場/至上</manued>の歌声を届けよ．」
+    「<manued>何時/汝</manued>のあるべき姿に戻れ．」
+\end{verbatim}
+修正後:
+\begin{verbatim}
+    「原稿は残っているんです．ここに．」
+    「我に至上の歌声を届けよ．」
+    「汝のあるべき姿に戻れ．」
+\end{verbatim}
+
+\subsubsection{サンプル4:おまけ}
+
+これは私の友人の楯岡氏からどうであろうかと提案されたものである．sed の
+コマンドに似ているため，ある種の人にはなじみやすいであろうが，個人的に
+は可読性が低いのではないかと思う．
+\begin{verbatim}
+    defparentheses s/ /g
+    defdelete //
+    defescape
+
+    電子メイルにおいて2次元情報が保存されないためにs/Email//電子メイ
+    ル/gにs/よ///gよる編集が円滑に行なわれないことを嘆いた竹内郁雄先生
+    によってs/まぬえs/うど//どう;こんなコメントは?/g//真鵺道/gs///が/g
+    提案された．
+\end{verbatim}
+修正後:
+\begin{verbatim}
+電子メイルにおいて2次元情報が保存されないために電子メイルによる編集が
+円滑に行なわれないことを嘆いた竹内郁雄先生によって真鵺道が提案された．
+\end{verbatim}
+
+%<!-- </BODY> -->
+%<!-- </HTML> -->
+%<!-- Manued Software -->
+%<!-- Copyright (C) By YAMAUCHI Hitoshi -->
+%<!-- 今日もまた教授が無断欠勤で学校に来ない．1998年2月 4日(水) -->
+%<!-- <HTML> -->
+%<!-- <HEAD> -->
+%<!-- <TITLE>Page of manued.el (in Japanese)</TITLE> -->
+%<!-- <META http-equiv="Content-type" content="text/html;charset=x-euc-jp"> -->
+%<!-- </HEAD> -->
+%<!-- <BODY> -->
+%<!--#config timefmt="%Y/%m/%d (%A)" -->
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+\section{真鵺道サポートツール \texttt{manued.el}}
+
+真鵺道をサポートするツールとして，\texttt{manued.el}を提供する．
+
+\subsection{Download}
+% <label id="download">
+
+以下のWeb Siteに最新版の\texttt{manued.el}とドキュメントがある．
+
+\begin{itemize}
+\item \htmladdnormallink{http://www.mpi-sb.mpg.de/\~{}hitoshi/otherprojects/manued/index-j.shtml}{http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml}
+\item \htmladdnormallink{http://www.archi.is.tohoku.ac.jp/\~{}yamauchi/otherprojects/manued/index-j.shtml}{http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml}
+\item \htmladdnormallink{http://ne.cs.uec.ac.jp/}{http://ne.cs.uec.ac.jp/}(ミラーサイト)
+\end{itemize}
+
+\subsection{manued.el とその作成経緯について}
+\label{sec:manuedelOverview}
+
+\texttt{manued.el}は真鵺道をサポートする Emacs Lisp プログラムである．
+真鵺道自体は，電子メイルで原稿の校正を容易にするための方法である．これ
+をサポートするツールとしては，コマンド部分に色をつけるものから，整形前
+と後の文書を元に真鵺道形式に変換するものなど様々な形態が考えられる．今
+回提供する\texttt{manued.el}は Emacs 上で真鵺道コマンド部分の色付け，
+コマンドのサーチ，整形 (修正前あるいは修正後の文章の取り出し)，また真
+鵺道文書作成補助機能などを提供する．
+
+私は大学院生時代に佐藤雅彦先生の授業を受けた時からLispという言語に興味
+を持っていた．しかし，一度もLispプログラムを書いたことがなかった．実は
+Lispに興味を持ってから何度かLispに挑戦したのだが，まわりに気軽にLispに
+ついて聞けるLisp使いがいなかったことや，Lispで本当に書きたいものという
+ものがわからず，挫折していた．研究室にはHCL(Hokkaido Common Lisp)とい
+う処理系がOmronのLuna 68Kというマシン上にあり，興味からほんの少し触っ
+た程度であった．
+
+大学院を離れてから電子メイルにて論文の原稿を何度かやりとりする必要が生
+じたが，修正事項を上手く伝えられないことと，その手間の多さに辟易してい
+た．そんな頃，プログラミングシンポジウムに参加し，真鵺道の発表を聞いて
+いるうちにたちまち魅かれた．これこそEmacs Lispで書くべきものだ．そう思っ
+た．プロシンの会場に居た方々の中にはこの考えに共感して頂ける方もきっと
+いらっしゃると思う．竹内先生が「これはLispの例題としては，4年生が卒論
+に入る前準備程度のレベルのものだろう」とおっしゃったことから，私はこの
+真鵺道プログラムは私にとって良いLispの勉強の例題になるだろうと考え，
+Lispの勉強からはじめた．幸い今回はその点に関してはすばらしい先生にめぐ
+まれ，ここに\texttt{manued.el}を提供することができる．
+%% 前田敦司先生
+
+\subsection{Install 方法}
+\label{sec:Instllation}
+
+\texttt{manued.el}はEmacs Version 19.34以降に依存している．Emacs
+Version 19.34以降のものあるいは，それに基づいたMuleを利用すること．作
+者が \texttt{manued.el}を開発した環境はGNU Emacs 19.34.1(mule Version
+2.3 (SUETSUMUHANA)) である．
+
+\begin{enumerate}
+\item manued.el を load-path の通っている directory に置く
+\item .emacs に次の行を追加
+\begin{verbatim}
+(autoload  'manued-minor-mode "manued" "manuscript editing mode" t)
+\end{verbatim}
+\end{enumerate}
+
+\subsection{\texttt{manued.el}の使用法}
+\label{sec:Usage}
+
+真鵺道文書をバッファに読み込み，M-x manued-minor-mode で真鵺道モードに
+入る．以下のコマンドが利用可能となっている．キーのデフォルトのバインド
+などは今後の検討課題である．もちろんカスタマイズ可能である．
+%%(mitemizee で階層付きのメニューを作成しようと，menu-bar.el などを眺め
+%%たのですが，Lisp を触りはじめてまだ 1 ヶ月の私は未熟でどうも上手くいき
+%%ません．どなたか御存知の方教えて下さい．)
+
+\begin{itemize}
+ \item モード開始とその他
+       \begin{itemize}
+	\item M-x manued-mode \\ %
+	      これはmanued-minor-modeのaliasである．次の
+	      manued-minor-modeの項を参照．
+
+	\item M-x manued-minor-mode \\ %
+	      真鵺道minor modeに入る．version 0.9.0以降の
+	      \texttt{manued.el}には基本的にminor modeしか存在しない．作
+	      者はLaTeX-modeや，indented-text-modeなどと併用する以外の利
+	      用法が見い出せなかったため，保守の容易さも考慮して
+	      minor-modeのみの実装に簡略化した．
+
+	\item M-x manued-show-version\\ %
+	      真鵺道のバージョンを知らせる
+
+	\item M-x manued-insert-headder\\ %
+	      修正記号定義のためのヘッダを挿入する
+       \end{itemize}
+
+ \item hilit関係
+       \begin{itemize}
+	\item M-x manued-hilit-older\\ %
+	      元文書部分を hi-light する
+	\item M-x manued-hilit-newer
+	      校正後の文書部分を hi-light する
+	\item M-x manued-recenter-hilit\\ %
+	      現在のポイントを画面の中央に移動し，re-hilit を行う．
+       \end{itemize}
+
+ \item 整形コマンド
+      \begin{itemize}
+       \item M-x manued-show-older-in-manued-buffer\\ %
+	     現在のバッファの内容から元文書を他のバッファに整形して出力する
+       \item M-x manued-show-newer-in-manued-buffer\\ %
+	     現在のバッファの内容から校正後の文書を他のバッファに整形し
+	     て出力する
+       \item M-x manued-show-older-region\\ %
+	     指定されたリージョンの内容から元文書を整形して出力する．リー
+	     ジョンは上書きされる．
+       \item M-x manued-show-newer-region\\ %
+	     指定されたリージョンの内容から校正後の文書を出力する．リー
+	     ジョンは上書きされる．
+       \item M-x manued-eval-last-manuexp\\ %
+	     直前の真鵺道コマンドを整形する
+       \item M-x manued-set-pretty-print-on \\
+	     文書整形時に修正出力(pretty print)モードにする
+       \item M-x manued-set-pretty-print-off \\
+	     文書整形時に修正出力(pretty print)モードを off にする
+      \end{itemize}
+
+ \item 真鵺道コマンド挿入
+       \begin{itemize}
+	\item M-x manued-insert-swap-command\\ %
+	      マークした所から現在のポイントを狭んで swap コマンドを挿入
+	      する．manued-is-swap-command-with-comment-on が t にセット
+	      されている場合にはコメントも一緒に挿入する．
+	\item M-x manued-insert-swap-command-toggle-comment\\ %
+	      manued-insert-swap-command と同じであるが，コメント挿入の
+	      条件が逆になり，manued-is-swap-command-with-comment-on が
+	      nil の場合にコメントを挿入する．
+	\item M-x manued-insert-delete-command\\ %
+	      マークした所から現在のポイントの範囲を消去する範囲として
+	      deleteコマンドを挿入する．
+	      manued-is-delete-command-with-comment-on がt にセットされ
+	      ている場合にはコメントも一緒に挿入する．
+	\item M-x manued-insert-delete-command-toggle-comment\\ %
+	      manued-insert-delete-command と同じであるが，コメント挿入
+	      の条件が逆になり，manued-is-delete-command-with-comment-on
+	      が nil の場合にコメントも挿入する．
+	\item M-x manued-insert-comment-region\\ %
+	      マークした所から現在のポイントの範囲を囲むように comment
+	      コマンドを挿入する．
+	\item M-x manued-insert-comment-at-point\\ %
+	      現在のポイントにコメントコマンドを挿入する．
+       \end{itemize}
+
+ \item 検索コマンド
+       \begin{itemize}
+	\item M-x manued-next-l-parenthesis\\ %
+	      次の真鵺道コマンドの始まりをサーチし移動する
+	\item M-x manued-previous-l-parenthesis\\ %
+	      直前の真鵺道コマンドの始まりをサーチし移動する
+       \end{itemize}
+\end{itemize}
+
+\subsection{\texttt{manued-minor-mode}のカスタマイズ方法}
+\label{sec:Customize}
+
+カスタマイズ方法は大きく分けて二種類ある．一つはemacs lisp変数の
+default 値を変更する方法である．変更可能な変数は後に示す．もう一つは
+hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
+\begin{verbatim}
+(run-hooks 'manued-minor-mode-hook)
+\end{verbatim}
+を実行する．そこでこのhookを利用して mode に依存したカスタマイズが可能
+である．(が，現在は可能であるという程度である．)
+
+また，筆者の薦める方法は \texttt{.manued.el}というファイルをホームディ
+レクトリに置き，その中で真鵺道関係の設定を行い，\texttt{.emacs}にて読
+み込む方法である．そのためには，\texttt{.manued.el}というファイルを作
+成し，\texttt{.emacs}に
+\begin{verbatim}
+(load-file "~/.manued.el")
+\end{verbatim}
+と書いておく方法である．
+
+\subsection{カスタマイズ可能な変数}
+\label{sec:CustomizeVariables}
+
+\subsubsection{修正記号定義コマンド}
+\label{sec:CustomizeDefcommand}
+
+この真鵺道コマンド記号のデフォルト値は文章中に修正記号定義コマンド
+(def*)が出現すると上書きされる．それらの指定が無い場合に採用されるデフォ
+ルトの記号も示す．
+
+\begin{itemize}
+\item manued-l-parenthesis-str\\ %
+  真鵺道コマンドの開始記号の default 値 (defalut `\verb|[|')
+\item manued-r-parenthesis-str\\ %
+  真鵺道コマンドの終了記号の default 値 (defalut `\verb|]|')
+\item manued-delete-str\\ %
+  置換コマンドの記号の default 値 (defalut `/')
+\item manued-swap-str\\ %
+  交換コマンドの記号の default 値 (defalut `\verb-|-')
+\item manued-comment-str\\ %
+  コメントのはじまりの記号の default 値 (defalut `;')
+\item manued-escape-str\\ %
+  エスケープ記号の default 値 (defalut `\verb|~|')
+\item manued-order-str\\ %
+  置換コマンドの適用順 (defalut `older-first') ``older-first'',
+  ``newer-last'' あるいは ``older-last'', ``newer-first''．真鵺道の置
+  換コマンドは \verb|[|first/last\verb|]| の形をしており，どちらを元の
+  文書(older)とみなすかを指定する．\ref{sec:manueddefcommand}節の
+  \htmlref{deforder}{item:deforder}の項を参照．
+\end{itemize}
+
+\texttt{manued.el}は起動時にこれらに同一の記号が割り当てられたかどうか
+をチェックする．そしてもし同一の記号が割り当たっているようであれば警告
+出すので，正しい動作が可能なように def コマンドの定義を直す必要がある．
+
+%%
+%% 範囲指定に関しては廃止の方向にある
+%%
+\subsubsection{真鵺道文書の範囲指定}
+\label{sec:DocBeginEnd}
+
+\textbf{注意: 文書の範囲指定に関しては今後廃止の方向で検討している．}
+
+\texttt{manued.el}は真鵺道の文書の範囲を指定することができる．ただし，
+これらの文字列が存在しない場合には，真鵺道文書の初まりは文書の先頭に，
+終わりは文書の最後とみなされる．
+
+\begin{itemize}
+\item manued-doc-begin-pat\\ %
+  真鵺道文書の初まりを示す文字列を入れておく
+  (defalut `-*-*- BEGINMANUED -*-*-')
+\item manued-doc-end-pat\\ %
+  真鵺道文書の終わりを示す文字列を入れておく(defalut
+  `-*-*- ENDMANUED -*-*-')
+\end{itemize}
+
+\subsubsection{Hi-Light の色}
+\label{sec:HilightColor}
+
+色の使用に関しては3つの選択肢がある．それぞれ，
+\texttt{manued-use-color-hilit}を以下の括弧の中の値にセットする．
+
+\begin{itemize}
+\item 可能な場合には常に使用する場合．(\texttt{t})
+\item 常に使用しない場合．(\texttt{nil})
+\item font-lock-modeに追従して利用する場合．(\texttt{'follow-font-lock-mode})
+\end{itemize}
+
+
+例
+\begin{verbatim}
+(setq manued-use-color-hilit 'follow-font-lock-mode)
+\end{verbatim}
+
+
+色の指定には，emacs の色指定名を 6 つ並べたリストを用いる．どのような
+色があるかは M-x list-colors-display にて見ることができる．色のリスト
+の各要素の意味は次のようになっている．
+
+\begin{verbatim}
+'(delete-first-color delete-last-color
+  swap-alpha-color swap-beta-color swap-gamma-color
+  comment-color command-color)
+\end{verbatim}
+
+それぞれの意味を以下に示す
+\begin{itemize}
+\item delete-first-color, delete-last-color\\ %
+次のように delete コマンド中の色を指定する．
+\verb|[|delete-first-color/delete-last-color\verb|]|
+\item swap-alpha-color, swap-beta-color, swap-gamma-color \\ %
+次のように swap コマンド中の色を指定する．
+\verb|[|swap-alpha-color | swap-beta-color | swap-gamma-color\verb|]|
+\item comment-color \\ %
+\verb|[|;comment\verb|]| の comment 部分の色を指定する．
+\item command-color\\ %
+コマンドの記号(default では `\verb|[|',`/',`;',`\verb|]|' ) の色を指定する．
+\end{itemize}
+
+たとえば，デフォルトでは
+\begin{verbatim}
+ '(red gray60 blue red green4 BlueViolet gray60)
+\end{verbatim}
+のようなリストとなっている．また，デフォルト値のリストを保持している変
+数は次の通りである．
+
+\begin{itemize}
+\item manued-first-hilit-color-list\\ %
+first 部分を hi-light する場合の色リスト
+\item manued-last-hilit-color-list\\ %
+last 部分を hi-light する場合の色リスト
+\end{itemize}
+
+\subsubsection{整形時修正出力 (pretty print) のカスタマイズ}
+\label{sec:PrettyPrintCustomize}
+
+\begin{itemize}
+ \item manued-pretty-print-format-delete-list\\
+       消去コマンド用の整形出力(pretty print)の際に利用される format の
+       リスト．
+       (default \verb-'("\\textnormal{%s}" "\\textbf{%s}" "\\textit{%s}")-)
+
+ \item manued-pretty-print-format-swap-list \\
+       交換コマンド用の整形出力(pretty print)の際に利用される format の
+       リスト．(default
+       \verb|'("\\textbf{%s}---" "\\textbf{%s}" "---\\textbf{%s}" "(\\textit{%s})")|
+
+ \item manued-pretty-print-on-p \\
+       整形コマンドの実行時に修正出力(pretty print)を行うか．(default
+       \texttt{nil})
+       この値はコマンド (\verb|M-x manued-set-pretty-print-on|,
+       \verb|M-x manued-set-pretty-print-off|) でも変更できるが，常に
+       修正出力を行いたい場合には \verb-t- とすることができる．
+
+ \item manued-pretty-print-null-comment-out-p\\
+       真鵺道コマンドでコメント部分が存在しない場合，format 文字列そのも
+       のも出力されないが，この変数を \texttt{t} にすると空のコメントがあ
+       るとして出力される．注意: この変数は buffer local ではない．
+\end{itemize}
+
+\subsubsection{その他のカスタマイズ}
+
+\begin{itemize}
+\item manued-mode-syntax-table\\ %
+  syntax-table の default 値 (default : text-mode-syntax-table)
+\item manued-mode-abbrev-table\\ %
+  abbrev-table の default 値 (default : text-mode-syntax-table)
+\item manued-mode-map, manued-minor-mode-map\\ %
+  キーマップの default 値
+\item manued-is-delete-command-with-comment-on\\ %
+  manued-insert-delete-command において，deleteコマンド内部にコメント
+  文字を挿入するかしないかを制御する．t で挿入．
+\item manued-is-swap-command-with-comment-on\\ %
+  manued-insert-swap-command において，swapコマンド内部にコメント文字
+  を挿入するかしないかを制御する．t で挿入．
+\item manued-is-auto-insert-headder\\ %
+  この変数の値は '(auto-insert query-when-insert insert-point)
+  というリストである．バッファ に def コマンドが存在しない場合に def
+  コマンドをヘッダとして挿入するか，挿入する場合にはどのように挿入するか
+  を制御する．
+  \begin{itemize}
+  \item auto-insert : t の時，manued-minor-mode に入った時にそのバッ
+    ファに defcommand が存在しない場合に defcommand を挿入する．
+  \item query-when-insert (auto-insert が t の時有効) : t
+    の場合にはヘッダの挿入時にユーザに可否を尋ねる．
+  \item insert-point (auto-insert が t の時有効) :
+    値により以下の3つの場合がある．
+    \begin{itemize}
+    \item t : 現在のカーソル位置にヘッダを挿入する
+    \item nil : バッファ先頭(point-min)にヘッダを挿入する
+    \item number (数値) : その数をpointとしてその位置にヘッダを挿入する
+    \end{itemize}
+  \end{itemize}
+\item manued-ask-if-formatted-buffer-is\\ %
+  整形時，既に整形済みの buffer が存在した場合に上書きを尋ねるかどうか．
+  t で尋ねてくる
+\item manued-defcommand-head-str-list\\ %
+  真鵺道定義コマンドの先頭につけることが可能な文字列のリスト．TeX のコ
+  メント中でも def コマンドを認識できるよう default 値として ``\%'' と
+  ``\%\%'' が定義されている．他に行頭に付加したい文字列があれば，この
+  リストにその文字列を付加する．
+\end{itemize}
+
+\subsection{Bugs}
+\label{sec:Bugs}
+
+\begin{itemize}
+\item 英語のドキュメントの質の不良．しかし，直すだけの英語力が当方に不
+  足しています．コメントなどは歓迎します．
+\item 現在のバージョン(0.9.5)では \texttt{font-lock-mode}
+  を使っていません．そのため，環境によっては訂正箇所のハイライトに問題が
+  あります．これは色の表示に関してのみの問題です．
+\end{itemize}
+
+\subsection{Copying}
+\label{sec:Copying}
+
+\texttt{manued.el}(C) Copyright 1998-2002 YAMAUCHI Hitoshi (山内 斉)
+
+本ソフトウェアはフリー (自由な) ソフトウェアです．本プログラムを使用し
+て生じたいかなる結果に対しても作者は責任を負いません．Free Software
+Foundation から配布されている GNU General Public License の最新版の制
+約のもとで自由に改変，再配布が可能です．
+
+本プログラムは，可能な限り上手く動作するように努力して作成されています
+が，完全に無保証です．
+
+\subsection{Manued ML}
+\label{sec:Community}
+
+真鵺道のメイリングリストが開設されました．真鵺道に関する議論を行なえれ
+ばと思います．MLに登録するには，
+\begin{quotation}
+ \latexhtml{manued-ml-subscribe@takopen.cs.uec.ac.jp}
+ {manued-ml-subscribe" at "takopen.cs.uec.ac.jp.nicht.spam}
+\end{quotation}
+\latexhtml{}{(メイルを送信される場合には最後の.nicht.spamを削り，``at''を
+@ に変更して下さい．)}
+に空のメイルを送付すればconfermメイルが来ますので，それに従って登録をお願
+いします．
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+
+\section{真鵺道 Tips}
+\label{sec:ManuedTips}
+
+\begin{itemize}
+\item \htmladdnormallink{TeX と真鵺道(show newer の出力をそのまま TeX でコンパイルするには)}{sec:ImmediateShownewerTex}
+  \begin{itemize}
+  \item \htmladdnormallink{defコマンドが邪魔でコンパイルに失敗する場合}
+    {sec:harmDefcommand}
+  \item \htmladdnormallink{TeX のオプションが消えてしまう}
+    {sec:harmDefaultLRParenthes}
+  \end{itemize}
+\end{itemize}
+
+
+\label{sec:ImmediateShownewerTex}
+\subsection{TeX と真鵺道}
+
+show-newer の出力をそのまま TeX でコンパイルするには
+
+\label{sec:harmDefcommand}
+\subsubsection{defcommand が邪魔でコンパイルに失敗する場合}
+
+show newer 後の *manued* buffer を M-x write-file で *.tex ファイルに
+し，そのままコンパイルできれば良いのですが，manued の def コマンドヘッ
+ダが邪魔になることがあります．この解決方法としては，defコマンドを記し
+たヘッダ部分を真鵺道文書中に書かずに，変数定義するという方法があります．
+しかし，このヘッダには，離れた環境での真鵺道文書の一貫性をとるために付
+属するという目的もありますから，電子メイルでファイルをやりとりする際に，
+ヘッダの情報が抜けるのは好ましくありません．
+
+そこで，manued.el では真鵺道定義コマンドの頭に付けることのできる文字列
+を指定可能になっています．manued-defcommnd-head-str-list には，例えば
+TeX のコメント `\%', `\%\%' などがデフォルトで登録されており，下のよう
+に書いても解釈されます．ただし，真鵺道コマンドは必ず行頭になくてはいけ
+ません．また，manued-defcommnd-head-str-list の文字列と真鵺道コマンド
+間には空白を入れてはいけません．
+
+\begin{verbatim}
+        %%defparentheses 【 】
+\end{verbatim}
+
+\label{sec:harmDefaultLRParenthes}
+\subsubsection{TeX のオプションが消えてしまう}
+
+default の真鵺道コマンドは `\texttt{[ ]}' でくくることになっており，こ
+れが TeX のコマンドと競合します．私は日本語を使うことが多いためデフォ
+ルトの真鵺道コマンドの括弧を `【 】' に変更しています．このようにあま
+り使わない記号をわりあてるのが良いでしょう．この場合，.emacs には次の
+ように書いておきます．
+
+\begin{verbatim}
+        (setq manued-l-parenthesis-str "【")
+        (setq manued-r-parenthesis-str "】")
+\end{verbatim}
+
+ただし，これは2バイト文字の利用可能な環境の話です．このような環境でな
+い場合には各自で工夫が必要かと思います．TeX + ASCII 環境のみでなにか良
+いと考えられる方法があるという方は御一報下さい．
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+\section{Manued Links}
+\label{sec:ManuedLinks}
+
+\subsection{和田先生の manued.el の実装}
+\label{sec:WadaManued}
+
+1999 年の 12 月号の bit でも紹介したが，\texttt{manued.el}には他の実装
+も存在する．それは emacs 上でなされている．emacs 上の実装が他にもある
+というのは emacs におけるこのようなものに対するプログラミングの容易さ
+か，あるいは，このような環境に depend しない手法というものを望む人が
+emacs をよく利用するからか，たまたまなのかは私にはわからない．
+
+ここでは，和田先生による実装を紹介する．以下は和田先生が真鵺道方式で校
+正をやりとりした時のメイルの抜粋である．このメイルには，真鵺道方式で校
+正した文書本体，\texttt{manued.el}の説明(抜粋部分)，\texttt{(manued)}
+本体が含まれていた．
+
+この実装は真鵺道方式で校正した文書を「見る」ということを目的として作成
+されており，山内の実装に比べてコンパクトである．コンパクトゆえに山内の
+\texttt{manued.el}をinstall していない人に対して送るメイルに付属させて
+利用してもらうことも容易である．
+
+\subsubsection{和田先生の\texttt{manued.el}}
+
+\begin{verbatim}
+;;
+;; manued : editing manuscripts for Emacs
+;; 1998 Eiiti Wada 和田 英一
+;; manued.el, Copyright (C) 1999 Eiiti Wada．
+;;
+;;[α\β]はαをβで置き換える
+;;[α\]  はαを削除
+;;[\β]  はβを挿入
+;;[α|γ|β]はαγβをβγαに並び換える
+;;[α||β]  はαβをβαに並び換える
+;;[★δ]    はコメント
+;;
+;; しかしこれは目がチラチラして見難いという意見もあると思いますので,
+;; 色つきで眺めるツールを急いで用意しました. おためしください. Muleエ
+;; ディタのWindowで動作します.
+;;
+;;まず次のemacs lispのプログラム部分をmuleのwindowにおきます. esc esc
+;;とやると minibuffer に Eval: というプロンプトがでます. そこで
+;;(eval-current-buffer)
+;;とやると, プログラム全体が評価出来ます.
+;;
+;;次にmanuedのコメントの入ったメイルの本文をmuleのwindowにおき, esc
+;;esc でeval:の状態にし, (manued)と打ち込みます. するとα, β, γの部
+;;分がそれぞれの色で表示されます.
+;;
+;;もし, これらの色が気に入らない場合は, muleでesc escでeval:状態に
+;;し, (list-faces-display)を実行すると, 使える色の名前の一覧がで
+;;ます.  それを参考にして, 添付のプログラムの先頭の色定義の定数を
+;;変更すれば好きな色に変えられます.
+;;
+
+(make-face 'alpha)
+(set-face-foreground 'alpha "blue")
+(make-face 'beta)
+(set-face-foreground 'beta "red")
+(make-face 'gamma)
+(set-face-foreground 'gamma "green4")
+(setq facealpha 'alpha)
+(setq facebeta  'beta)
+(setq facegamma 'gamma)
+
+(defun proc-range (beg end)
+ (let* (p0 p1 p2 ch)
+       (goto-char beg)
+       (setq beg (search-forward "[" end t))
+       (while beg (proc-sec) (setq beg (search-forward "[" end 0)))))
+
+(defun proc-sec nil
+ (setq p0 (re-search-forward "[]|\[{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p0) p0)))
+ (cond ((= ch ?[) (skip) (proc-sec))
+       ((= ch ?\\) (findrsb) (alpha beg p0) (beta p0 p2))
+       ((= ch ?|) (findvl) (findrsb) (alpha beg p0) (gamma p0 p1) (beta p1 p2))
+       ((= ch ?]) (gamma beg p0))
+       ((= ch ?{) (skipcb) (proc-sec))))
+
+(defun skip nil
+ (let* (p ch)
+       (setq p (re-search-forward "[][{]" end t))
+       (while p
+              (setq ch (string-to-char (buffer-substring (1- p) p)))
+              (cond ((= ch ?]) (setq p nil))
+                    ((= ch ?[)
+                     (skip)
+                     (setq p (re-search-forward "[][]" end t)))
+                    ((= ch ?{) (skipcb))   ))))
+(defun skipcb nil
+ (let* (p ch)
+       (setq p (re-search-forward "[}{]" end t))
+       (while p
+              (setq ch (string-to-char (buffer-substring (1- p) p)))
+              (cond ((= ch ?}) (setq p nil))
+                    ((= ch ?{)
+                     (skipcb)
+                     (setq p (re-search-forward "[}{]" end t)))))))
+
+(defun findrsb nil
+ (setq p2 (re-search-forward "[][{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p2) p2)))
+ (cond ((= ch ?[) (skip) (findrsb))
+       ((= ch ?]))
+       ((= ch ?{) (skipcb) (findrsb))))
+
+(defun findvl nil
+ (setq p1 (re-search-forward "[|[{]" end t))
+ (setq ch (string-to-char (buffer-substring (1- p1) p1)))
+ (cond ((= ch ?[) (skip) (findvl))
+       ((= ch ?|))
+       ((= ch ?{) (skipcb) (findvl))))
+
+(defun alpha (l r)
+ (put-text-property l (1- r) 'face facealpha)
+ (proc-range l (1- r)))
+
+(defun beta  (l r)
+ (put-text-property l (1- r) 'face facebeta)
+ (proc-range l (1- r)))
+
+(defun gamma (l r)
+ (put-text-property l (1- r) 'face facegamma)
+ (proc-range l (1- r)))
+
+(defun manued nil (proc-range 1 (point-max)))
+\end{verbatim}
+
+この \texttt{manued.el} の公開を快く承諾して頂いた和田英一先生に感謝します．
+
+\subsection{その他の実装}
+
+Windowsの秀丸というエディタ上に実装された\texttt{manued}が存在するようです．
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+
+\subsection{Manuediff (by Suzuki)}
+
+\htmladdnormallink{Manuediff}
+{http://hibiki.miyagi-ct.ac.jp/~suzuki/comp/export/manuediff.html}
+は diff プログラムですが，その出力を真鵺道フォーマットにします．例:
+\begin{verbatim}
+  manuediff file1 file2 > diff.with.manued.format
+\end{verbatim}
+
+\newpage
+\begin{rawhtml}
+<hr>
+\end{rawhtml}
+
+\section{謝辞}
+
+文献\cite{bib:Takeuchi1998}, ``電子メールで原稿を修正する方法 ---
+Manuscript Editing (Manued, 真鵺道)を目指して ---''の電子的原稿の提供
+と，このような素晴しいアイデアを発表して下さった竹内郁雄先生に感謝いた
+します．真鵺道を知ってから現在までの私の論文は全て真鵺道なしには提出で
+きなかったものばかりです．
+
+真鵺道の簡潔な実装により知的な驚きを下さった和田英一先生に感謝いたしま
+す．
+
+また，全く Lisp を知らなかった私にLispを教えて下さり，つまらない質問に
+も丁寧に答えて下さった前田敦司氏にも感謝いたします．前田氏なくして，こ
+の実装はありえませんでした．
+
+以下の方々がこれまで\texttt{manued.el}に関してバグフィックス，有益なコ
+メントなどの形で貢献して下さいました．感謝いたします．(Alphabetical
+order)
+\begin{itemize}
+ \item 川村尚生 : KAWAMURA, Takao (bug fix etc. for version 0.9.3)
+ \item 中島幹夫 : NAKAJIMA, Mikio (bug fix etc. for version 0.9.3)
+ \item Stefan Monnier  (comments for version 0.9.1)
+ \item 鈴木健一 : Suzuki, Ken-ichi (manuediff)
+%% 回答待ち
+%%\item 鈴木信吾 : SUZUKI, Shingo (Maintainer of manued mirror pages)
+%%\item 種村真一 : TANEMURA Shin'ichi  (Maintainer of manued mirror pages)
+\end{itemize}
+
+\nocite{bib:Takeuchi1986}
+\nocite{bib:Aoyagi1997}
+\nocite{bib:Hirose1999}
+\nocite{bib:elispinfo}
+\addcontentsline{toc}{section}{参考文献}
+\bibliographystyle{jplain}
+\bibliography{reference-j}
+\printindex
+
+\begin{rawhtml}
+<address>
+Copyright (C) 1998-2002 YAMAUCHI, Hitoshi (山内 斉)<br>
+Most recent update : <!--#echo var="LAST_MODIFIED" --> :
+</address>
+\end{rawhtml}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: yatex
+%%% TeX-master: t
+%%% End:
