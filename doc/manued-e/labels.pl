@@ -58,7 +58,7 @@ $external_latex_labels{$key} = q|4.2|;
 $noresave{$key} = "$nosave";
 
 $key = q/sec:PrettyPrintCustomize/;
-$external_latex_labels{$key} = q|5.6.4|; 
+$external_latex_labels{$key} = q|5.6.3|; 
 $noresave{$key} = "$nosave";
 
 $key = q/item:deforder/;

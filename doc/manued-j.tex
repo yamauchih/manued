@@ -25,14 +25,13 @@
 \usepackage{html}
 \usepackage{makeidx}
 \usepackage{graphics}
-\usepackage{graphicx}
+%\usepackage{graphicx}
 \usepackage{color}
 \makeindex
 
 \title{Manued Reference Manual \\
   \includegraphics{manuedlogo}}
-\author{YAMAUCHI, Hitoshi (山内斉)}
-\date{2002-8-12(Mon)}
+\author{Hitoshi Yamauchi (山内斉)}
 
 \begin{document}
 \maketitle
@@ -42,15 +41,15 @@
 \end{rawhtml}
 
 \begin{abstract}
-  真鵺道とは，文書の校正方法の一種である．この手法は第39回プログラミン
-  グシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
-  タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正に
-  あったので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような
-  場合に特に有効である．まず本文書では，真鵺道方式による校正手法を紹介
-  する．そしてこの校正手法をサポートするemacs lispプログラムである
-  \texttt{manued.el}の実装を紹介する．真鵺道による校正手法と
-  \texttt{manued.el}が電子メールを利用した原稿，論文のやりとりに繁雑さ
-  を感じている方々の手助けとなれば幸いである．
+ 真鵺道は，文書の校正方法の一種である．この手法は1998年の第39回プログラミ
+ ングシンポジウムにおいて竹内郁雄により提案された．この方法はテキストデー
+ タの校正一般に利用可能であるが，その開発の動機が電子的な文書の校正にあっ
+ たので，遠隔地にて電子メイルを用いて編集者と校正作業を行うような場合に特
+ に有効である．まず本文書では，真鵺道方式による校正手法を紹介する．そして
+ この校正手法をサポートする emacs lispプログラムである\texttt{manued.el}
+ の実装を紹介する．真鵺道による校正手法と\texttt{manued.el}が電子メールを
+ 利用した原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸い
+ である．
 \end{abstract}
 \tableofcontents
 
@@ -63,11 +62,10 @@
 
 \subsection{真鵺道の概要}
 
-現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期
-待できない．特に電子メイルで原稿をやりとりするような環境では利用可能な
-文字の種類などが限られるため，校正はさらに困難となる．現在のところ，
-Email では，以下のような方法で校正情報を伝えることがよく行なわれてい
-るようである．
+現在のところ，電子的な原稿を修正する際に紙に朱を入れるような容易さは期待
+できない．特に電子メイルで原稿をやりとりするような環境では利用可能な文字
+の種類などが限られるため，校正はさらに困難となる．現在のところ，Email で
+は，以下のような方法で校正情報を伝えることがよく行なわれているようである．
 \begin{verbatim}
     Azimuth のロボット3原則
     ^^^^^^^
@@ -117,7 +115,7 @@ manued-minor-mode では大きく分けて以下の機能を利用可能である．
 
 \begin{itemize}
 \item 著者 \\
-  Copyright (C) 1997-2002 山内 斉 (Hitoshi Yamauchi)
+      Copyright (C) 1997-2012 山内 斉
 \end{itemize}
 
 \newpage
@@ -129,18 +127,14 @@ manued-minor-mode では大きく分けて以下の機能を利用可能である．
 
 \subsection{About Manued}
 
-真鵺道とは，第39回プログラミングシンポジウムにおいて竹内郁雄先生により
-提案された電子メイルなどでの論文や文書のやりとり時の校正をより容易にす
-るための方法である．その方法を実践するための実装の一つとして
-\texttt{manued.el}をお届けする．\texttt{manued.el}が電子メールにおける
-原稿，論文のやりとりに繁雑さを感じている方々の手助けとなれば幸いである．
+真鵺道とは，1998年の第39回プログラミングシンポジウムにおいて竹内郁雄によ
+り提案された．これは電子メイルでの論文や文書のやりとり時の校正をより容易
+にするための方法である．\texttt{manued.el} はこの方法を一実装である．
 
 \subsection{Installation}
 
-\texttt{manued.el}は Emacs Version 19.34 以降に依存している．Emacs
-Version 19.34 以降のものあるいは，それに基づいた Mule 等を利用されたい．
-筆者の環境は GNU Emacs 19.34.1, Mule Version 2.3 (SUETSUMUHANA)である．
-Install は以下のように行う．
+\texttt{manued.el}は Emacs Version 20.7 以降に依存している．Install は以
+下のように行う．
 
 \begin{enumerate}
 \item \texttt{manued.el}を load-path の通った場所に置く．
@@ -157,18 +151,18 @@ manued-minor-mode に入って動作を確認する．
 
 \begin{itemize}
 \item チュートリアル\\ %
-  manued.tut というファイルがアーカイブに付属しているはずなのでそれを
-  emacs に読み込み，指示に従う．
+      manued.tut というファイルがアーカイブに付属しているのでこれを emacs に
+      読み込み，指示に従う．
 \item 手動の動作確認 \\ %
   \begin{enumerate}
-  \item M-x manued-minor-mode で manued-minor-mode に入る．
-  \item テキストを入力する．
-  \item マークとカーソル移動を用いてリージョンを作成し，
-    manued-insert-swap-command (C-c C-m C-s) により，リージョンを swap
-    コマンドで囲んでみる． manued-show-newer-in-manued-buffer を実行す
-    ることによって校正後の文書が抽出される．
-  \item その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマンド
-    の位置を探すことができるのでそれを試してみる．
+   \item M-x manued-minor-mode で manued-minor-mode に入る．
+   \item テキストを入力する．
+   \item マークとカーソル移動を用いてリージョンを作成し，
+         manued-insert-swap-command (C-c C-m C-s) により，リージョンを
+         swapコマンドで囲んでみる． manued-show-newer-in-manued-buffer を
+         実行することによって校正後の文書が抽出される．
+   \item その他，メニューの項目を試す．M-n, M-p で前後の真鵺道コマンド
+         の位置を探すことができるのでそれを試してみる．
   \end{enumerate}
 \end{itemize}
 
@@ -179,34 +173,33 @@ manued-minor-mode に入って動作を確認する．
 \section{真鵺道(Manued)とは?}
 \subsection{真鵺道概要}
 
-真鵺道とは，第39回プログラミングシンポジウムにおいて\htmladdnormallink
-{竹内郁雄先生}{http://ne.cs.uec.ac.jp/tak.html}により提案された電子メ
-イルなどのテキストデータを介した論文や文書のやりとり時の校正をより容易
-にするための校正用言語 (Manuscript Editing Language)
-である~\cite{bib:Takeuchi1998}．
-以下にこの論文の概要をまとめる．\htmladdnormallink
-{Web上には原文のテキストがあります．}{./manuscripteditting.txt.gz}
+真鵺道とは，1998年に第39回プログラミングシンポジウムにおいて竹内郁雄によ
+り提案された電子メイルなどのテキストデータを介した論文や文書のやりとり時
+の校正をより容易にするための校正用言語 (Manuscript Editing Language)であ
+る~\cite{bib:Takeuchi1998}．以下にこの論文の概要をまとめる．
+\htmladdnormallink {Web上には原文のテキストがありま
+す．}{./manuscripteditting.txt.gz}
 
 電子メールによって原稿を修正する際には，
 \begin{itemize}
-\item 紙の上のような訂正記号が使えない．利用できる文字集合の種類が限ら
-  れる．
-\item 色が利用できない．
-\item mail reader によっては文書の二次元情報を保存しないものがあり，編
-  集者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
-  えば Eudora など)．もともと電子メイルでは二次元情報についての規定が
-  ないのでそのような状況は常に発生しうる．
-\item 改行位置に依存したくない．エディタやワープロなどの行の折り返し機
-  能などによって訂正情報が失われることを避けたい．
+ \item 紙の上のような訂正記号が使えない．利用できる文字集合の種類が限ら
+       れる．
+ \item 色が利用できない．
+ \item mail reader によっては文書の二次元情報を保存しないものがあり，編集
+       者や著者が異なる mail reader を用いている場合に情報が伝わらない(例
+       えば Eudora など)．もともと電子メイルでは二次元情報についての規定
+       がないのでそのような状況は常に発生しうる．
+ \item 改行位置に依存したくない．エディタやワープロなどの行の折り返し機能
+       などによって訂正情報が失われることを避けたい．
 \end{itemize}
-という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，
-郵送するという手が一般に行なわれてきたが，それでは間にあわないことが多
-い．Fax という手もあるが，受信した紙から電子情報への変換時には人間が入
-力する部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手
-書き文字の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた
-原稿中の訂正記号を解釈して文書を編集することは現在のところ困難であると
-思われる．結局，もともとの原稿は多くの場合電子情報であり，それを利用で
-きなくする手はあまり賢いとは言えまい．
+という問題がある．このような問題に対して，紙に印刷して校正を朱で入れ，郵
+送するという手が一般に行なわれてきたが，それでは間にあわないことが多い．
+Fax という手もあるが，受信した紙から電子情報への変換時には人間が入力する
+部分が存在し，手間がかかる上に誤りが混入する可能性が高くなる．手書き文字
+の OCR 技術もあるがまだ成熟したとは言えない．さらに朱を入れた原稿中の訂正
+記号を解釈して文書を編集することは現在のところ困難であると思われる．結局，
+もともとの原稿は多くの場合電子情報であり，それを利用できなくする手はあま
+り賢いとは言えまい．
 
 そこで，文献~\cite{bib:Takeuchi1998}では
 \begin{itemize}
@@ -701,9 +694,7 @@ SGML, HTML, XML 風のもの
 以下のWeb Siteに最新版の\texttt{manued.el}とドキュメントがある．
 
 \begin{itemize}
-\item \htmladdnormallink{http://www.mpi-sb.mpg.de/\~{}hitoshi/otherprojects/manued/index-j.shtml}{http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml}
-\item \htmladdnormallink{http://www.archi.is.tohoku.ac.jp/\~{}yamauchi/otherprojects/manued/index-j.shtml}{http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index-j.shtml}
-\item \htmladdnormallink{http://ne.cs.uec.ac.jp/}{http://ne.cs.uec.ac.jp/}(ミラーサイト)
+\item \htmladdnormallink{https://github.com/emacsmirror/manued}{https://github.com/emacsmirror/manued}
 \end{itemize}
 
 \subsection{manued.el とその作成経緯について}
@@ -717,33 +708,32 @@ SGML, HTML, XML 風のもの
 コマンドのサーチ，整形 (修正前あるいは修正後の文章の取り出し)，また真
 鵺道文書作成補助機能などを提供する．
 
-私は大学院生時代に佐藤雅彦先生の授業を受けた時からLispという言語に興味
-を持っていた．しかし，一度もLispプログラムを書いたことがなかった．実は
-Lispに興味を持ってから何度かLispに挑戦したのだが，まわりに気軽にLispに
-ついて聞けるLisp使いがいなかったことや，Lispで本当に書きたいものという
-ものがわからず，挫折していた．研究室にはHCL(Hokkaido Common Lisp)とい
-う処理系がOmronのLuna 68Kというマシン上にあり，興味からほんの少し触っ
-た程度であった．
+% 私は大学院生時代に佐藤雅彦先生の授業を受けた時からLispという言語に興味
+% を持っていた．しかし，一度もLispプログラムを書いたことがなかった．実は
+% Lispに興味を持ってから何度かLispに挑戦したのだが，まわりに気軽にLispに
+% ついて聞けるLisp使いがいなかったことや，Lispで本当に書きたいものという
+% ものがわからず，挫折していた．研究室にはHCL(Hokkaido Common Lisp)とい
+% う処理系がOmronのLuna 68Kというマシン上にあり，興味からほんの少し触っ
+% た程度であった．
 
-大学院を離れてから電子メイルにて論文の原稿を何度かやりとりする必要が生
-じたが，修正事項を上手く伝えられないことと，その手間の多さに辟易してい
-た．そんな頃，プログラミングシンポジウムに参加し，真鵺道の発表を聞いて
-いるうちにたちまち魅かれた．これこそEmacs Lispで書くべきものだ．そう思っ
-た．プロシンの会場に居た方々の中にはこの考えに共感して頂ける方もきっと
-いらっしゃると思う．竹内先生が「これはLispの例題としては，4年生が卒論
-に入る前準備程度のレベルのものだろう」とおっしゃったことから，私はこの
-真鵺道プログラムは私にとって良いLispの勉強の例題になるだろうと考え，
-Lispの勉強からはじめた．幸い今回はその点に関してはすばらしい先生にめぐ
-まれ，ここに\texttt{manued.el}を提供することができる．
+% 大学院を離れてから
+
+1997年頃，電子メイルにて論文の原稿を何度かやりとりする必要が生じたが，修
+正事項を上手く伝えられないことと，その手間の多さに辟易していた．そんな頃，
+プログラミングシンポジウムに参加し，真鵺道の発表を聞いているうちにたちま
+ち魅かれた．これこそEmacs Lispで書くべきものだ．そう思い実装するに至った．
+
+% 竹内先生が「これはLispの例題としては，4年生が卒論に入る前準備程度のレベル
+% のものだろう」とおっしゃったことから，私はこの真鵺道プログラムは私にとっ
+% て良いLispの勉強の例題になるだろうと考え，Lispの勉強からはじめた．幸い今
+% 回はその点に関してはすばらしい先生にめぐまれ，ここに\texttt{manued.el}を
+% 提供することができる．
 %% 前田敦司先生
 
 \subsection{Install 方法}
 \label{sec:Instllation}
 
-\texttt{manued.el}はEmacs Version 19.34以降に依存している．Emacs
-Version 19.34以降のものあるいは，それに基づいたMuleを利用すること．作
-者が \texttt{manued.el}を開発した環境はGNU Emacs 19.34.1(mule Version
-2.3 (SUETSUMUHANA)) である．
+\texttt{manued.el}はEmacs Version 20.7.2以降に依存している．
 
 \begin{enumerate}
 \item manued.el を load-path の通っている directory に置く
@@ -759,9 +749,6 @@ Version 19.34以降のものあるいは，それに基づいたMuleを利用すること．作
 真鵺道文書をバッファに読み込み，M-x manued-minor-mode で真鵺道モードに
 入る．以下のコマンドが利用可能となっている．キーのデフォルトのバインド
 などは今後の検討課題である．もちろんカスタマイズ可能である．
-%%(mitemizee で階層付きのメニューを作成しようと，menu-bar.el などを眺め
-%%たのですが，Lisp を触りはじめてまだ 1 ヶ月の私は未熟でどうも上手くいき
-%%ません．どなたか御存知の方教えて下さい．)
 
 \begin{itemize}
  \item モード開始とその他
@@ -906,27 +893,6 @@ hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
 をチェックする．そしてもし同一の記号が割り当たっているようであれば警告
 出すので，正しい動作が可能なように def コマンドの定義を直す必要がある．
 
-%%
-%% 範囲指定に関しては廃止の方向にある
-%%
-\subsubsection{真鵺道文書の範囲指定}
-\label{sec:DocBeginEnd}
-
-\textbf{注意: 文書の範囲指定に関しては今後廃止の方向で検討している．}
-
-\texttt{manued.el}は真鵺道の文書の範囲を指定することができる．ただし，
-これらの文字列が存在しない場合には，真鵺道文書の初まりは文書の先頭に，
-終わりは文書の最後とみなされる．
-
-\begin{itemize}
-\item manued-doc-begin-pat\\ %
-  真鵺道文書の初まりを示す文字列を入れておく
-  (defalut `-*-*- BEGINMANUED -*-*-')
-\item manued-doc-end-pat\\ %
-  真鵺道文書の終わりを示す文字列を入れておく(defalut
-  `-*-*- ENDMANUED -*-*-')
-\end{itemize}
-
 \subsubsection{Hi-Light の色}
 \label{sec:HilightColor}
 
@@ -939,12 +905,10 @@ hook 関数を用いる方法である．関数 `manued-minor-mode' は最後に
 \item font-lock-modeに追従して利用する場合．(\texttt{'follow-font-lock-mode})
 \end{itemize}
 
-
 例
 \begin{verbatim}
 (setq manued-use-color-hilit 'follow-font-lock-mode)
 \end{verbatim}
-
 
 色の指定には，emacs の色指定名を 6 つ並べたリストを用いる．どのような
 色があるかは M-x list-colors-display にて見ることができる．色のリスト
@@ -1058,8 +1022,6 @@ last 部分を hi-light する場合の色リスト
 \label{sec:Bugs}
 
 \begin{itemize}
-\item 英語のドキュメントの質の不良．しかし，直すだけの英語力が当方に不
-  足しています．コメントなどは歓迎します．
 \item 現在のバージョン(0.9.5)では \texttt{font-lock-mode}
   を使っていません．そのため，環境によっては訂正箇所のハイライトに問題が
   あります．これは色の表示に関してのみの問題です．
@@ -1068,7 +1030,7 @@ last 部分を hi-light する場合の色リスト
 \subsection{Copying}
 \label{sec:Copying}
 
-\texttt{manued.el}(C) Copyright 1998-2002 YAMAUCHI Hitoshi (山内 斉)
+\texttt{manued.el}(C) Copyright 1998-2012 Hitoshi Yamauchi (山内 斉)
 
 本ソフトウェアはフリー (自由な) ソフトウェアです．本プログラムを使用し
 て生じたいかなる結果に対しても作者は責任を負いません．Free Software
@@ -1320,27 +1282,22 @@ Windowsの秀丸というエディタ上に実装された\texttt{manued}が存在するようです．
 文献\cite{bib:Takeuchi1998}, ``電子メールで原稿を修正する方法 ---
 Manuscript Editing (Manued, 真鵺道)を目指して ---''の電子的原稿の提供
 と，このような素晴しいアイデアを発表して下さった竹内郁雄先生に感謝いた
-します．真鵺道を知ってから現在までの私の論文は全て真鵺道なしには提出で
-きなかったものばかりです．
+します．
 
 真鵺道の簡潔な実装により知的な驚きを下さった和田英一先生に感謝いたしま
 す．
 
 また，全く Lisp を知らなかった私にLispを教えて下さり，つまらない質問に
-も丁寧に答えて下さった前田敦司氏にも感謝いたします．前田氏なくして，こ
-の実装はありえませんでした．
+も丁寧に答えて下さった前田敦司氏にも感謝いたします．
 
 以下の方々がこれまで\texttt{manued.el}に関してバグフィックス，有益なコ
 メントなどの形で貢献して下さいました．感謝いたします．(Alphabetical
 order)
 \begin{itemize}
- \item 川村尚生 : KAWAMURA, Takao (bug fix etc. for version 0.9.3)
- \item 中島幹夫 : NAKAJIMA, Mikio (bug fix etc. for version 0.9.3)
+ \item 川村尚生 : Takao Kawamura (bug fix etc. for version 0.9.3)
+ \item 中島幹夫 : Mikio Nakajima (bug fix etc. for version 0.9.3)
  \item Stefan Monnier  (comments for version 0.9.1)
  \item 鈴木健一 : Suzuki, Ken-ichi (manuediff)
-%% 回答待ち
-%%\item 鈴木信吾 : SUZUKI, Shingo (Maintainer of manued mirror pages)
-%%\item 種村真一 : TANEMURA Shin'ichi  (Maintainer of manued mirror pages)
 \end{itemize}
 
 \nocite{bib:Takeuchi1986}
@@ -1348,13 +1305,13 @@ order)
 \nocite{bib:Hirose1999}
 \nocite{bib:elispinfo}
 \addcontentsline{toc}{section}{参考文献}
-\bibliographystyle{jplain}
+\bibliographystyle{plain}
 \bibliography{reference-j}
 \printindex
 
 \begin{rawhtml}
 <address>
-Copyright (C) 1998-2002 YAMAUCHI, Hitoshi (山内 斉)<br>
+Copyright (C) 1998-2012 Hitoshi Yamauchi (山内 斉)<br>
 Most recent update : <!--#echo var="LAST_MODIFIED" --> :
 </address>
 \end{rawhtml}

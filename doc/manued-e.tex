@@ -1,6 +1,6 @@
 %%
 %% manued-e.tex : the manual of manued.el in English
-%% Copyright (C) 1998-2002 Hitoshi Yamauchi 山内 斉
+%% Copyright (C) 1998-2012 Hitoshi Yamauchi 山内 斉
 %%
 \documentclass{article}
 \usepackage{html}
@@ -12,8 +12,8 @@
 
 \title{Manued Reference Manual \\
   \includegraphics{manuedlogo}}
-\author{YAMAUCHI, Hitoshi }
-\date{2002-8-12(Mon)}
+\author{Hitoshi Yamauchi }
+
 
 \begin{document}
 \maketitle
@@ -23,15 +23,11 @@
 \end{rawhtml}
 
 \begin{abstract}
- Manued is a method for proofreading of manuscripts, proposed by Ikuo
- Takeuchi in No.39 Programming symposium in Japan. Manued is a media
- independent proofreading method, however, it is especially effective
- for exchanging electronic text via E-mail. This document introduces the
- manued method and \texttt{manued.el} which is an emacs lisp
- implementation for supporting \texttt{manued} method. I wish this
- method and \texttt{manued.el} will be a help for the people who feels
- some difficulty to exchange a manuscript via Email with their editor or
- colleagues.
+ Manued is a proofreading method of manuscripts, proposed by Ikuo
+ Takeuchi in No.39 Programming symposium, 1998. Although, Manued is a
+ media independent proofreading method, it is especially effective for
+ exchanging electronic text via E-mail. \texttt{manued.el} is an emacs
+ lisp implementation to realize this method on emacs.
 \end{abstract}
 \tableofcontents
 \newpage
@@ -42,12 +38,13 @@
 \section{Introduction}
 \subsection{Brief description of Manued}
 
-For the present, revising electric manuscripts is not easy as revising
-them on a piece of paper with red ink. Especially, in Email
-environment, it is hard to revise a manuscript since the kinds of usable
-characters are limited. However, many people want to exchange
-manuscripts by Email via the Internet. Conventionally, many people
-may use a method for revising an electric manuscript like below.
+Oddly, even in this digital world, revising electric manuscripts is not
+easy as revising them on a piece of paper with red ink. Especially, in
+an email environment, it is hard to revise a manuscript since the kinds
+of usable characters are limited, or your email client might
+automatically change the text arrangement. However, many people want to
+exchange manuscripts by email. Conventionally, many people may use a
+method for revising an electric manuscript like below.
 \begin{verbatim}
     The Three Laws of Robotics by Azimuth.
                                   ^^^^^^^
@@ -61,27 +58,25 @@ may use a method for revising an electric manuscript like below.
 \end{verbatim}
 
 This conventional method indicated correcting position with a symbol
-`\^' and proofreading plans with a text. This conventional method
-always needs much input work and some kind of ambiguous is included in
-it, because proofreading plans are directed by natural language.  The
-main problem of this conventional method comes from this
-ambiguous. Even if the manuscript is already inputed in a computer,
-this ambiguousness interferes automatic extraction of the revised
-document. Furthermore, information of correcting position with `\^'
-sometimes may be no mean when the mail reading environment is changed.
-For example, someone reads a manuscript with proportional font and the
-other one does not. In other words, there is the case that it is
+`\^' and proofreading plans with a text. This method always needs much
+input work and includes some kind of ambiguous, because the proofreading
+plans are directed by natural language.  The main problem of this
+conventional method comes from this ambiguity. Even if the manuscript
+has already been digial data, this ambiguity makes automatic extraction
+of the revised document difficult. Furthermore, information of
+correcting position with `\^' sometimes may not be kept depends on the
+mail client.  For example, someone reads a manuscript with proportional
+font and the other doesn't. In other words, there is the case that it is
 difficult to specify a correcting point since each person has own
-environment to read an Email including a manuscript.
+environment to read an email including a manuscript.
 
-Proofreading of Manued method solves these problems. The input for
-designation of proofreading is relatively easy, and it can define
-exact designation of the correcting region and how to change the text.
-Therefore, there is no fail to miss the correcting position. And there
-is no mis-recognition of the proofreading text that is a comment or a
-substitution. In particular, on of the advantages of manued method is
-independence from environment. We should only assume the manuscript is
-written as a text file.
+Manued method solves these problems. The input for designation of
+proofreading is easy, and it can define exact designation of the
+correcting region and how to change the text.  Therefore, there is no
+failure the correcting position. There is no mis-recognition of the
+proofreading text that is a comment or a substitution. In particular,
+the manued method is independence from the reading environment. We
+should only assume the manuscript is written as a text file.
 
 Manued has two main notation of proofreading rule. One is ``delete and
 insert'' rule. This is shown with notation of [original text
@@ -97,22 +92,22 @@ text will be changed as follows.
 \end{quotation}
 
 Of course, we can use this method with a piece of paper and a
-pen. However, we assume only an editor to edit a text file. Although,
-I implemented ``manued-minor-mode'' on the Emacs editor to make manued
-method more usefully. In manued-minor-mode, we can use following kinds
-of functions.
+pen. However, we assume only an editor program edits the text file. I
+implemented ``manued-minor-mode'' on the Emacs editor to make this
+method more useful. In manued-minor-mode, we can use following
+functions.
 \begin{itemize}
-\item Extracting the original document or the revised one from one
-  manued document automatically
-\item Searching the proofreading position
-\item Assistance for inserting manued commands
+ \item Extracting the original document or the revised one from one
+       manued document automatically
+ \item Searching the proofreading position
+ \item Assistance for inserting manued commands
 \end{itemize}
 
-Since manued method does not care environment, assisting tools for
-manued method can be implemented on other editors. Just only because I
-always use the emacs, I implemented the tool on the emacs. So, please
-inform me if you implemented an assistance tool for manued method on
-other environment. Examples of demanded environments are as follows.
+Since manued method doesn't care the writing environment, an input
+assisting tools can be implemented on other editors. Just only because I
+always use the emacs, I implemented the tool on there. So, please let me
+know if you implemented an assistance tool for manued method on other
+environment. Examples of demanded environments are as follows.
 \begin{itemize}
 \item vi
 \item Microsoft Word
@@ -136,21 +131,19 @@ other environment. Examples of demanded environments are as follows.
 \subsection{About Manued}
 
 Manued is a method for proofreading of manuscripts, proposed by Ikuo
-TAKEUCHI in No.39 Programming symposium of Japan. The aim of this
-method is to achieve easy proofreading when people exchange a
-manuscript via Email.  I present \texttt{manued.el} as one of the
-implementations to assist the method method.
+Takeuchi in No.39 Programming symposium, Japan, 1998. The aim of this
+method is to achieve easy proofreading when people exchange a manuscript
+via email.  I present \texttt{manued.el} as one of the implementations
+to assist the method.
 
 \subsection{Installation}
 
-\texttt{manued.el} depends on the Emacs version 19 or later. please
-use \texttt{manued.el} on the Emacs version 19.34 or later, or mule
-based on them. Author uses it on the GNU Emacs 19.34.1, Mule Version
-2.3 (SUETSUMUHANA). Installation of \texttt{manued.el} is as follows.
+\texttt{manued.el} depends on the Emacs version 20.7 or
+later. Installation procedure of \texttt{manued.el} is as following.
 
 \begin{enumerate}
-\item Put the \texttt{manued.el} file on your emacs `load-path'.
-\item Add the next line to your .emacs file.
+ \item Put the \texttt{manued.el} file on your emacs `load-path'.
+ \item Add the next line to your .emacs file.
 \begin{verbatim}
 (autoload 'manued-minor-mode "manued" "manuscript editing mode" t)
 \end{verbatim}
@@ -159,25 +152,25 @@ based on them. Author uses it on the GNU Emacs 19.34.1, Mule Version
 
 \subsection{Starting Manued}
 
-To try to \texttt{manued.el}, you can read the tutorial
+To try out the \texttt{manued.el}, you can read the tutorial
 file(\texttt{manued.tut}) or directly enter to the
 \texttt{manued-minor-mode}.
 
 \begin{itemize}
 \item Read the tutorial \\ %
-  You can find the \texttt{manued-e.tut} file in the archive of the
+  You can find the \texttt{manued-e.tut} file in the
   manued package. Please read the \texttt{manued-e.tut} file in your
-  emacs buffer (e.g. type M-x find-file) .
+  emacs buffer.
 \item Directly enter to the \texttt{manued-minor-mode} \\ %
   \begin{enumerate}
   \item To enter \texttt{manued-minor-mode}, type ``M-x
     manued-minor-mode''.
   \item Type some texts in the buffer.
-  \item To insert manued swap command, put a mark and type M-x
+  \item To insert a manued swap command, put a mark and type M-x
     manued-insert-swap-command (or type C-c C-m C-s).
-  \item To extract revised document in another buffer, Type
+  \item To extract the revised document in another buffer, Type
     manued-show-newer-in-manued-buffer.
-  \item Others: please select a menu item. Type M-n or M-p, this is
+  \item Others: select from a menu item. Type M-n or M-p, this is
     the search command for manued command.
   \end{enumerate}
 \end{itemize}
@@ -190,59 +183,60 @@ file(\texttt{manued.tut}) or directly enter to the
 \section{What is Manued?}
 \subsection{Outline of Manued}
 
-Manued is a method for proofreading of manuscripts, proposed by
-\htmladdnormallink{TAKEUCHI, Ikuo}{http://ne.cs.uec.ac.jp/tak.html} in
-No.39 Programming symposium in Japan~\cite{bib:Takeuchi1998}. Manued
-stands for MANUscript EDiting Language (and there is another
-origin. Takeuchi is interested in `Nue'. This is an imaginary creature
-of Japan. Ma-nue-dou has special meaning in Japanese). The aim of this
-method is to achieve easy proofreading with exchanging a manuscript
-via Email.(\htmladdnormallink{Here is original text in
-  Japanese on the Web.}{./manuscripteditting.txt.gz})
+Manued is a proofreading method of manuscripts, proposed by
+\htmladdnormallink{Ikuo Takeuchi}{http://ne.cs.uec.ac.jp/tak.html} in
+No.39 Programming symposium~\cite{bib:Takeuchi1998}, 1998. Manued stands
+for MANUscript EDiting Language (and there is another origin. Takeuchi
+is interested in `Nue'. This is an imaginary creature of
+Japan. Ma-nue-dou has special meaning in Japanese). The aim of this
+method is to achieve easy proofreading with exchanging a manuscript via
+email.(\htmladdnormallink{Here is original text in Japanese on the
+Web.}{./manuscripteditting.txt.gz})
 
-When we revise a manuscript sent by Email, there are some problems as
-follows.
+When we revise a manuscript sent by email, there are some problems as
+following.
 \begin{itemize}
-\item We cannot use the special symbols like hand written characters
-  for the proofreading a manuscript. The kind of Email
-  usable-character-set is limited.
-\item We usually can not use colors.
-\item Some mail reader does not keep two dimensional information of
-  document. When author's mail reader and editor's one are different,
-  it is not guarantee that positioning information of the document is
-  the same. One famous implementation of such mail reader is
-  Eudora. This is not Eudora's defect. Originally Email protocol (RFC
-  822) does not have any rules about character width, fonts and how to
-  display breaking lines. Therefore, these situations can usually
-  occur.
-\item We do not want to depend on line feed position. To send exact
-  correction information, we want to avoid the effect of editor
-  software's line feed processing algorithm for a long line, which
-  depends on each editor program.
+ \item We cannot use the special symbols like hand written characters
+       for the proofreading a manuscript. The email usable-character-set
+       is limited.
+
+ \item Using colors are cumbersome.
+
+ \item Some mail reader doesn't keep two dimensional information of the
+      document. When the author and the editor use different editor,
+      there is no guarantee that the positioning information of the
+      document is the same. Originally email protocol (RFC 822) does not
+      have any rules about character width, fonts and how to display
+      breaking lines. Therefore, these situations can usually occur.
+
+ \item We don't want to depend on the line feed position. To send exact
+       correction information, we would like to avoid the effect of the
+       editor software's line feed processing algorithm for a long line,
+       which depends on each editor program.
 \end{itemize}
 
 To solve these problems, we used to exchanging printed paper including
 proofreading information with red ink via snail-mail. However, this
-method takes too long time and we have already high-speed
-Email. Using facsimile is another solution since it has acceptable
-transmission speed, but receiver must inputs corrections by reading
-pieces of paper with his/her eyes. So, some errors will be mixed to a
-manuscript by human error, and input costs for human being is very
-high. There is the OCR technology for recognizing hand written
-characters, but it seems that is not matured for general using. In the
-end, it seems not a good idea to change the media of the manuscript
-from electric stuffs to printed papers.
+method takes too long in this digital era. Using facsimile is another
+solution since it has acceptable transmission speed, but receiver must
+inputs corrections by reading pieces of paper with his/her eyes. So,
+some errors will be mixed to a manuscript by human error, and input
+costs for human being is high. There is the OCR technology for
+recognizing hand written characters, but why we need to use them if we
+have already typed in the email. In the end, it seems not a good idea to
+change the media of the manuscript from electric stuffs to printed
+papers.
 
-\cite{bib:Takeuchi1998} says that proofreading for an electric text
-should have next features.
+\cite{bib:Takeuchi1998} pointed out that proofreading for an electric
+text should have the following features.
 \begin{itemize}
-\item Both revised document and original one are extracted
-  automatically. (required)
-\item High readability for human being.
-\item Correction points should be easily found.
-\item We can put some comments for revised region.
-\item It should be easy to put revision information to a manuscript.
-\item Repeated correction directive should be abstracted.
+ \item Both revised document and original one are extracted
+       automatically. (required)
+ \item High readability for human being.
+ \item Correction points should be easily found.
+ \item We can put some comments for revised region.
+ \item It should be easy to put revision information to a manuscript.
+ \item Repeated correction directive should be abstracted.
 \end{itemize}
 
 Manued is proposed to satisfy these features and this stands for
@@ -257,16 +251,16 @@ Let me show you some simple examples.
 
 \begin{latexonly}
   \begin{itemize}
-  \item He was {\color{red}\textbf{\underline{killed}}} at programming.
-  \item When ``Norwegian {\color{red}\textbf{\underline{woods}}}'' is
-    translated to Japanese, it is always
-    {\color{red}\textbf{\underline{interpretented}}} as ``a forest in
-    Norway''. However, {\color{red}\textbf{\underline{1}}} of my
-    friends says that the {\color{red}\textbf{\underline{light}}}
-    meaning is a furniture made in Norway. Please tell me which is
-    right?
-  \item Why do people say ``chapter
-    {\color{red}\textbf{\underline{first}}}''?
+   \item He was {\color{red}\textbf{\underline{killed}}} at programming.
+   \item When ``Norwegian {\color{red}\textbf{\underline{woods}}}'' is
+         translated to Japanese, it is always
+         {\color{red}\textbf{\underline{interpretented}}} as ``a forest in
+         Norway''. However, {\color{red}\textbf{\underline{1}}} of my
+         friends says that the {\color{red}\textbf{\underline{light}}}
+         meaning is a furniture made in Norway. Please tell me which is
+         right?
+   \item Why do people say ``chapter
+         {\color{red}\textbf{\underline{first}}}''?
   \end{itemize}
 \end{latexonly}
 \begin{rawhtml}
@@ -288,7 +282,7 @@ Let me show you some simple examples.
 \end{rawhtml}
 
 
-I emphasized the point which I wanted to correct in this
+I emphasized the point which I would like to correct in this
 text. However, some browsers may not express them. I want to correct
 above text as follows.
 
@@ -325,8 +319,7 @@ above text as follows.
   </ul>
 \end{rawhtml}
 
-To do this with conventional method, for example, we correct as
-follows.
+By the conventional method, we correct the text as the following.
 
 \begin{verbatim}
 He was killed at programming.
@@ -354,16 +347,15 @@ Why do people say ``chapter first''?
 
 To display this conventional descriptions for browsers, I use special
 tags to preserve two dimensional information like verbatim (for LaTeX)
-or pre (for html). However, in Email environment (RFC 822), there is
-no such special directives and this conventional descriptions using
-`\^' symbol may corrupted. For example, the same information will be
-shown in the next paragraph without the tags which preserves two
-dimensional information. The representation of above text will be
-varied with each environment, since usual browser ignores successive
-white spaces and line feeds. Some people can understand next
-documents, but the others see meaningless texts. It will be clear at a
-glance that this is not beneficial for the people who can not read
-next text.
+or pre (for html). However, in email environment (RFC 822), there is no
+such special directives and this conventional descriptions using `\^'
+symbol may corrupted. For example, the same information will be shown in
+the next paragraph without the tags which preserves two dimensional
+information. The representation of above text will be varied with each
+environment, since usual browser ignores successive white spaces and
+line feeds. Some people can understand next documents, but the others
+see meaningless texts. It will be clear at a glance that this is not
+beneficial for the people who can not read the following text.
 
 He was killed at programming.
        \^ skilled. This small missing "s" is fatal!
@@ -387,19 +379,20 @@ Why do people say ``chapter first''?
                                      one is right.)
 
 
-In addition, even if an environment can preserve two dimensional
+In addition, even if an environment can preserve the two dimensional
 information, it is hard to distinguish among correction information,
 only the comment and original text.  Moreover, first you corrected the
-latter part of your manuscript and second you correct former part of
-the manuscript, latter corrected parts are sometimes shifted. In such
+latter part of your manuscript and second you correct former part of the
+manuscript, latter corrected parts are sometimes shifted. In such
 situation, you must maintain the manuscript for keeping consistency of
-two dimensional information of revised position. This is not easy way.
-It is also stressed that cut and paste manipulation may be harmful for
+two dimensional information of revised position. This is not easy.  I
+stressed also that cut and paste manipulation may be harmful for the
 conventional method.  Proofreading with Manued is independent from two
-dimensional information and can resolve conventional method using '\^'
-symbol.
+dimensional information and can resolve the problems of conventional
+method using '\^' symbols.
 
-In Manued method, there are two replacement rules shown as follows.
+In Manued method, there are only two replacement rules shown as the
+following.
 
 \begin{itemize}
 \item \verb-[A/B]- : This means `delete A and insert B'.
@@ -416,7 +409,7 @@ In Manued method, there are two replacement rules shown as follows.
 \end{itemize}
 
 According to above rules, the example texts will be presented as
-follows.
+the following.
 
 \begin{latexonly}
   \begin{itemize}
@@ -459,14 +452,13 @@ follows.
   </ul>
 \end{rawhtml}
 
-You can see this method is stronger than conventional method. Do you
-understand the overview of Manued? If there is a tool which proceeds
-these rules, manued method will be more powerful and
-useful. Therefore, I implemented \texttt{manued.el}, this program
-supports manued method. \texttt{manued.el} has next functions :
-highlighting correction regions, searching manued directives,
-inserting manued directives, extracting revised document and original
-one.
+You can see the method is stronger than the conventional method. I think
+you see how manued works. If there is a tool which processes these
+rules, manued method will be more powerful and useful. Therefore, I
+implemented \texttt{manued.el}, this program supports manued
+method. \texttt{manued.el} has the following functions : highlighting
+correction regions, searching manued directives, inserting manued
+directives, extracting revised document from the original one.
 
 \newpage
 \begin{rawhtml}
@@ -478,27 +470,28 @@ one.
   correction symbols}
 
 In Manued, there are ``definition commands of correction symbols'' and
-``manued commands''.  ``Definition commands of correction symbols'' is
+``manued commands''.  ``Definition commands of correction symbols'' are
 to avoid dependences of different environments and ``manued commands''
-is to indicate proofreading points. We also call definition commands
-of correction symbols as def-command, because these commands are
-started with string `def'. Def-commands define proofreading symbols in
-a manuscript. To correspond to next circumstances, def-commands is
-defined by Manued.
+is to indicate proofreading points. We also call definition commands of
+correction symbols as def-command, because these commands are always
+started with a string `def'. Def-commands define proofreading symbols in a
+manuscript. To correspond to next circumstances, def-commands is defined
+by Manued.
 \begin{itemize}
-\item Since usable characters are limited in Email environment, the
-  characters indicating correction points with Manued will be varied
-  according to a document.
-\item It is almost same with above, if fixed correction characters are
-  used for indicating proofreading point by manued, some environment
-  forces to use too many escape commands. This will degrade
-  readability of manued document. We want to avoid this situation with
-  using def-commands.
+ \item Since usable characters are limited in email environment, the
+       characters indicating correction points with Manued will be
+       varied according to a document.
+
+ \item It is almost same with above. If fixed correction characters are
+       used for indicating proofreading point by manued, some
+       environment forces to use too many escape commands. This will
+       degrade readability of the manued document. We would like to
+       avoid these situations using def-commands.
 \end{itemize}
 
-Def-command is always put in the beginning of document and must be put
-at the beginning of line. When it is not put at the beginning of line,
-Manued does not recognize they are the def-commands. The names of
+Def-command is always put at the beginning of the document and must be
+put at the beginning of line. When it is not put at the beginning of
+line, Manued could not recognize them in my implementation. The names of
 definition commands of correction symbols are `def' plus each manued
 command name. For example, `delete and insert' command is defined by
 `defdelete' def-command.
@@ -516,8 +509,8 @@ Then correction region will be written as next.
 This means delete `original text' and insert `revised text'.
 
 When your document has no def-command, default characters are used
-that suggested in \cite{bib:Takeuchi1998} by Ikuo TAKEUCHI. I will
-also show the default def-commands in next the section.
+that suggested in \cite{bib:Takeuchi1998} by Ikuo Takeuchi. I will
+also show the default def-commands in the following section.
 
 \subsection{Definition commands of correction symbols for
   \texttt{manued.el} ver.0.9}
@@ -525,7 +518,7 @@ also show the default def-commands in next the section.
 
 This section explains the def-commands.
 
-Def-commands always appears in a proofreaded document as follows.
+Def-commands always appears in a proofreaded document as the following.
 \begin{verbatim}
         defparentheses  [ ]
         defdelete       /
@@ -535,125 +528,125 @@ Def-commands always appears in a proofreaded document as follows.
         deforder        newer-last
         defversion      0.9.5
 \end{verbatim}
-I will show the each line meaning and default values of each
-def-commands.
-
+The details of the each line are:
 \begin{itemize}
 \item defparentheses\\ %
-  This def-command defines the start string and end string of manued
-  command.  (default value `\texttt{[ ]}')
+      Defines the start string and end string of manued
+      command.  (default value `\texttt{[ ]}')
 \item defdelete\\ %
-  This defines manued command of delete and insert. In default, delete
-  the former part of this symbol and insert the latter part of this
-  symbol. For example, \texttt{[A/B]} means delete A and insert
-  B. You can exchange the delete part and insert part, see also
-  deforder.  (default value `\texttt{/}')
+      Defines delete and insert string. In default, delete
+      the former part of this symbol and insert the latter part of this
+      symbol. For example, \texttt{[A/B]} means delete A and insert
+      B. You can exchange the delete part and insert part, see also
+      deforder.  (default value `\texttt{/}')
 \item defswap\\ %
-  This defines manued command of swap. For example,
-  \verb-[A|B|C]- means A and C will be swapped and results is
-  CBA.  (default value `\verb-|-')
+      Defines swap command. For example,
+      \verb-[A|B|C]- means A and C will be swapped and results is
+      CBA.  (default value `\verb-|-')
 \item defescape\\ %
-  This defines manued command of escape. For example, [This is
-  \verb|~|[foo\verb|~|]/These are \verb|~|[bars\verb|~|]] will be
-  delete ``This is [foo]'' and insert ``These are [bars]''.  However,
-  too many escapes are very complicated to read. To avoid this, you
-  can re-define manued command strings by using defparentheses.  For
-  example, write ``defparentheses \{ \}'', we can rewrite below to
-  \{This is [foo]/These are
-  [bars]\}.  (default value `\verb|~|') \\ %
-  Here, you must pay attention that escaped symbol is starting manued
-  command strings only when it is not in manued command. This is avoid
-  complicated situation like below.
+      Defines manued escape command. For example, [This is
+      \verb|~|[foo\verb|~|]/These are \verb|~|[bars\verb|~|]] has
+      delete ``This is [foo]'' and insert ``These are [bars]''.  However,
+      too many escapes and is too complicated to read. To avoid this
+      many escape situation, you can re-define manued command strings by
+      using defparentheses.  For example, write ``defparentheses \{
+      \}'', we can rewrite below to \{This is [foo]/These are [bars]\}.
+      (default value `\verb|~|') \\
+      Here, you must pay attention that
+      escaped symbol is starting manued command strings only when it is
+      not in manued command. This is avoid complicated situation like
+      below.
 \begin{verbatim}
         The ratio $a_n/b_n$ must be considered here.
         ~[\lim_{n \to \infty} \frac{a_n}{b_n} \]
 \end{verbatim}
-  If any manued command symbol is treated in any place, all manued
-  command in original text must be escaped. In this time, '/' of
-  $a_n/b_n$ and ] is corresponding to manued command symbol. But these
-  symbol is not in manued command. It is too complicated to escape
-  them all. To avoid such situation, `starting manued region strings'
-  is the only escape target (in here, `[') in plain text.
-\item defcomment\\ %
-  This defines comment of manued command. Latter part of this symbol
-  in manued command will be ignored.  (default value `\texttt{;}')
-\item deforder \label{item:deforder}\\ %
-  This defines newer part of delete command. In defdelete command of
-  the manued method, the deleted part is called as the `older' part,
-  and the inserted part is called as the `newer' part. The list in
-  delete command is ordered as [first/last]. You can decide which is
-  delete part.  So, these (newer older) and (first last) combinations
-  will be next 4 types.
-  \begin{itemize}
-  \item newer-first
-  \item newer-last
-  \item older-first
-  \item older-last
-  \end{itemize}
-  This deforder of definition commands of correction symbols is only
-  define attribute of delete command, and does not define any manued
-  command symbol.  (default value `\texttt{newer-last}')
-\item defversion\\ %
-  This def-command shows the version information for
-  \texttt{manued.el}.  This is useful information for the
-  \texttt{manued.el} program.  (default value `(manued-version-num)')
+      If any manued command symbol is processed at any place, all manued
+      command in original text must be escaped. In the above example,
+      '/' of $a_n/b_n$ and ] is corresponding to manued command
+      symbol. But these symbols are not in the manued command. It is too
+      cumbersome to escape all the manued command in the
+      text. Therefore, `starting manued region strings' is the only
+      escape target (in here, `[') in the plain text in my
+      implementation.
+ \item defcomment\\ %
+       Defines comment of manued command. Latter part of this symbol
+       in manued command will be ignored.  (default value `\texttt{;}')
+ \item deforder \label{item:deforder}\\ %
+       This defines newer part of delete command. In defdelete command of
+       the manued method, the deleted part is called as the `older' part,
+       and the inserted part is called as the `newer' part. The list in
+       delete command is ordered as [first/last]. You can decide which is
+       delete part.  So, these (newer older) and (first last) combinations
+       will be next 4 types.
+       \begin{itemize}
+        \item newer-first
+        \item newer-last
+        \item older-first
+        \item older-last
+       \end{itemize}
+       This deforder of definition commands of correction symbols is only
+       define attribute of delete command, and doesn't define any manued
+       command symbol.  (default value `\texttt{newer-last}')
+ \item defversion\\ %
+       Shows the version information for \texttt{manued.el}.  This is
+       useful information for the \texttt{manued.el} program.  (default
+       value `(manued-version-num)')
 \end{itemize}
 
-Definition commands of correction symbols should be located the top of
-a corrected manuscript and each def-command must be located at the
-beginning of line. If a manuscript does not include these
-def-commands, the default manued symbols will be
-used. \texttt{Manued.el} checks consistency of def-commands and warns
-to the user when consistency is broken, for example, if defparentheses
-has only one argument, manued.el warns it.
+Definition commands should be located at the top of a manuscript and
+each def-command must be located at the beginning of line. If a
+manuscript does not include these def-commands, the default manued
+symbols will be used. \texttt{manued.el} checks consistency of
+def-commands and warns to the user when it is not consistent, for
+example, if defparentheses has only one argument, it will be warned.
 
 \subsection{manued commands for \texttt{manued.el} version 0.9 or later}
 
 This section explains manued commands with default manued symbols.
 
 \begin{itemize}
-\item \verb-[A/B]-\\ %
-  Delete A, insert B The variations are
-  \begin{enumerate}
-  \item \verb-[A/]- : Delete A. (delete A, insert null string.)
-  \item \verb-[/A]- : Insert A. (delete null string, insert A.)
-  \end{enumerate}
+ \item \verb-[A/B]-\\ %
+       Delete A, insert B The variations are
+       \begin{enumerate}
+        \item \verb-[A/]- : Delete A. (delete A, insert null string.)
+        \item \verb-[/A]- : Insert A. (delete null string, insert A.)
+       \end{enumerate}
 
-\item \verb-[A|B|C]-\\ %
-  Swap A with C. This will be CBA.  \\ %
-  The variation is
-  \begin{enumerate}
-  \item \verb-[A||C]- : Swap A with C. This will be CA.
-  \end{enumerate}
+ \item \verb-[A|B|C]-\\ %
+       Swap A with C. This will be CBA.  \\ %
+       The variation is
+       \begin{enumerate}
+        \item \verb-[A||C]- : Swap A with C. This will be CA.
+       \end{enumerate}
 
-\item \verb-[; comment ]- \\ %
-  Set a comment range from `;' to `]'.
+ \item \verb-[; comment ]- \\ %
+       Set a comment range from `;' to `]'.
 
-\item Supplement \\ %
-  These manued symbols will be ignored at right after escape symbol.
-  When you want to write this command strings, you can use escape
-  symbol. For example, \verb|~[| will be \verb|[|.
+ \item Note \\
+       Sometimes you might want to write the manued command string
+       itself. In that case, you can just escape the command. For
+       example, \verb|~[| will be \verb|[|.
 \end{itemize}
 
-Nest of these commands is possible, and process is done from the
-inside. However, non interpretable list of manued command is an error.
-For example, it is an error that there is no defRparenthesis
-corresponding to defLparenthesis, or it is also an error like
-\verb-[A|B/C]- manued sequence.
+Nesting of these commands is possible, and process is done from the
+inside to outside. However, non interpretable list of manued command is
+an error.  For example, it is an error that there is no matching
+defparenthesis (e.g., not closing or closing without opening), or it is
+also an error like \verb-[A|B/C]- manued sequence.
 
 \subsection{Pretty print (after ver.0.9.5)}
 
 When you extract the new document with manued, do you want to modify the
 extracted part? For example, when you use a markup language and you want
 to emphasize the proofreading part with the language.  If yes, there is
-a way to modify the extracted part.
+the way to modify the extracted part.
 
 First, you type
 \begin{verbatim}
   M-x manued-set-pretty-print-on
 \end{verbatim}
 and, you apply some Extracting document commands. I will describe this
-with next Example 1.
+with the following example.
 
 Example 1: Extract from \verb-[A/B;C]- to
 \verb-\colortext{blue}{A}\colortext{red}{B}\colortext{green}{C}-.
@@ -669,7 +662,7 @@ like next:
 (setq manued-pretty-print-format-delete-list
   '("First Element Format" "Second Element Format" "Comment Element Format"))
 \end{verbatim}
-Each string element will be an argument of format function of the Emacs.
+Each string element will be an argument of the format function of the Emacs.
 
 \subsubsection{Examples of pretty print}
 
@@ -689,21 +682,20 @@ from \verb-[A/B;C]- to \verb-{A*B@C}-.
   '("{%s*" "%s" "@%s}"))
 \end{verbatim}
 
-In manued, the comment part is optional and it is not needed.
-Therefore, when there is no comment in manued expression,
-the comment part format string is not outputed in default.
-However, this behavior is controlled by the variable
-\verb|manued-pretty-print-null-comment-out-p|.
-Here, we describe only about delete command, but also the way to control
-swap command with pretty print mode. See \ref{sec:PrettyPrintCustomize}
-in details.
+In manued, the comment part is an optional (not needed).  Therefore,
+when there is no comment in manued expression, the comment part format
+string is not outputted by default.  This behavior is controlled by the
+variable \verb|manued-pretty-print-null-comment-out-p|.  Here, we
+describe only about delete command, but also the way to control swap
+command with pretty print mode. See \ref{sec:PrettyPrintCustomize} in
+details.
 
 
-\subsection{Example of manued documents}
+\subsection{Examples of manued documents}
 \subsubsection{Example 1}
 
-Since defLparenthesis and defRparenthesis can indicate any strings
-without white space, next example is valid.
+Since defparenthesis can indicate any strings without white space, next
+example is valid.
 \begin{verbatim}
     defparentheses ^_^[  ]^_^
 
@@ -713,20 +705,20 @@ without white space, next example is valid.
 
 \begin{itemize}
 \item Original version :\\ %
-  Manued, stands for ``Tao of manued''
+      Manued, stands for ``Tao of manued''
 \item Revised version : \\ %
-  Manued stands for ``Manuscript Editing Language''.
+      Manued stands for ``Manuscript Editing Language''.
 \end{itemize}
 
 \subsubsection{Example 2}
-When you have an environment that can use multi-byte characters, you
-may use some def-commands with multi-byte characters. This document of
-Japanese version shows such example. But this document does not assume
+When you have an environment that can use multi-byte characters, you may
+use some def-commands with multi-byte characters. This document of
+Japanese version shows such examples. But this document does not assume
 such environment, I omit the example multi-byte def-command.
 
 \subsubsection{Example 3}
 
-This looks like SGML, HTML, XML.
+The following text looks like a SGML, HTML, XML.
 
 \begin{verbatim}
     defparentheses      <manued>  </manued>
@@ -754,39 +746,37 @@ This looks like SGML, HTML, XML.
 
 \subsubsection{Example 4}
 
-One of my friends, Mr. Tateoka, proposed below definition, this has
-some kind of interest since it looks like `sed' commands.
+Tateoka proposed the following definition, this looks like `sed'
+commands.
 \begin{verbatim}
-    defLparenthesis s/
-    defRparenthesis /g
+    defparenthesis s/ /g
     defdelete //
     defescape
 
-
-    Manued was proposed by Ikuo TAKEUCHI who grieved that editing
-    manuscripts by s/Electric mail//Email; Later, you use the word
-    Email, please standardize your terms./g was not smoothly done
+    Manued was proposed by Ikuo Takeuchi who grieved that editing
+    manuscripts by s/Electric mail//email; Later, you use the word
+    email, please standardize your terms./g was not smoothly done
     because two dimensional information s/od//of/g document is not
-    kept in Email.
+    kept in email.
 \end{verbatim}
 
 \begin{itemize}
 \item Original version :\\ %
-  Manued was proposed by Ikuo TAKEUCHI who grieved that editing
+  Manued was proposed by Ikuo Takeuchi who grieved that editing
   manuscripts by Electric mail was not smoothly done because two
-  dimensional information od document is not kept in Email.
+  dimensional information od document is not kept in email.
 \item Revised version : \\ %
-  Manued was proposed by Ikuo TAKEUCHI who grieved that editing
-  manuscripts by Email was not smoothly done because two dimensional
-  information of document is not kept in Email.
+  Manued was proposed by Ikuo Takeuchi who grieved that editing
+  manuscripts by email was not smoothly done because two dimensional
+  information of document is not kept in email.
 \end{itemize}
 
 %% Manued Software
-%% Copyright (C) By YAMAUCHI Hitoshi
+%% Copyright (C) By Hitoshi Yamauchi
 %% Today, The dummy Professer is not here. No one knows where he
 %% is. Even the office does not know.
 %% He did not know the word of responsibility. Why such a professor is
-%% not fired?  1998-2-4(Wed)
+%% not be fired?  1998-2-4(Wed)
 
 \newpage
 \begin{rawhtml}
@@ -797,68 +787,56 @@ some kind of interest since it looks like `sed' commands.
 
 \subsection{Download}
 
-You can find the latest version and documents in following Web sites.
+You can find the latest version and documents in the following Web sites.
 
 \begin{itemize}
-\item \htmladdnormallink{http://www.mpi-sb.mpg.de/\~{}hitoshi/otherprojects/manued/index.shtml}{http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index.shtml}
-\item \htmladdnormallink{http://www.archi.is.tohoku.ac.jp/\~{}yamauchi/otherprojects/manued/index.shtml}{http://www.archi.is.tohoku.ac.jp/~yamauchi/otherprojects/manued/index.shtml}
-\item \htmladdnormallink{http://ne.cs.uec.ac.jp/}{http://ne.cs.uec.ac.jp/} (Mirror site)
+\item \htmladdnormallink{https://github.com/emacsmirror/manued}{https://github.com/emacsmirror/manued}
 \end{itemize}
 
 
 \subsection{Short history of \texttt{manued.el}}
 
 \texttt{manued.el} is an Emacs lisp program for supporting the Manued
-proofreading method. Manued method itself is an easy proofreading
-method for correcting electric texts. Next features are considered to
-support for this method: emphasizing manued command (e.g. using
-colors), extracting revised text and original text. \texttt{manued.el}
-offers to add colors to manued commands, to search correction points,
-to extract revised text and original text and to support manued
-command inputs.
+proofreading method. Manued method itself is a proofreading method for
+correcting electric texts. You can use it even on a paper. But if I had
+a program, then I would like to have the following features: emphasizing
+manued commands (e.g. using colors), extracting the revised text and the
+original text automatically. \texttt{manued.el} offers to add colors to
+manued commands, to search correction points, to extract the revised
+text and the original text, and to assist to input manued commands.
 
-I (the author of \texttt{manued.el}) have been interested in Lisp
-language since I took the Masahiko SATO's class of functional
-language.  At that time, I was an master candidate. However, I have
-not written any Lisp programs before writing \texttt{manued.el}. I
-sometimes tried to write lisp program, but I always failed because I
-also have no program which I really want to write and I had no friends
-who is a lisper. There was the HCL (Hokkaido Common Lisp) in my
-laboratory on Omron's Luna 68k, but I just touched it at a time and I
-forget it.
+I have been interested in Lisp language since I took the Masahiko Sato's
+class, functional language.  At that time, I have not written any Lisp
+programs. I sometimes tried to write a lisp program, but I always failed
+because I don't have a killer problem which I really want to solve and I
+had no friend who is a lisper.
 
 Several years are passed, I must exchange manuscripts to correct with
-research colleagues of Tohoku University via Email. I felt high
-unpleasant for that work. First, I printed out a manuscript and
-checked it by red ball-point pen. Second, I inputed correction
-points.
+research colleagues via email. It was so cumbersome. I found it was so
+difficult to revise the manuscript via email, especially just before the
+deadline of our paper. First, I wrote my manuscript on my computer, then
+I printed it out, checked it by red pen, then, I inputted correction
+points back to the computer.
 
-Moreover, I supervised a student. One day he send me his draft of his
-master thesis. The time of correcting work reaches several hours and
-the time of input work was taken more hours. I used conventional
-method for correcting manuscript. However, we can not avoid errors
-with human being inputing them and misunderstanding of comments will
-be occurred since correction symbol was vague in the conventional
-method.
+Once I supervised a student. One day he send me his draft of his master
+thesis. The time of correcting work reaches several hours and the time
+of input work was taken more hours. I used the conventional method for
+correcting manuscript. However, there were so much errors and we both
+frustrated.
 
-In that days, I joined the programming symposium and heard the idea of
-Manued by Ikuo TAKEUCHI. Instantly I was fascinated this idea. I
-thought this is the program to write in Emacs lisp. I guessed many
-people in the hall of programming symposium agree that idea. Professor
-TAKEUCHI commented that ``This program may be very easy to
-implement. I think the fourth grade student entered his/her graduation
-thesis can be accomplish to write this program.'' I heard this comment
-and I thought this should be a good exercise to start writing lisp
-program for me. Fortunately, I have the best teacher to learn lisp and
-offer \texttt{manued.el} here. His name is MAEDA Atusi. I thank him.
+Then, I joined the programming symposium and heard the idea of manued. I
+was immediately fascinated this idea. I thought this is the program I
+should write and my natural choice is emacs lisp since I am a user of
+the editor. Professor Takeuchi commented that ``This program should be
+very easy to implement. I think the fourth grade student entered his/her
+graduation thesis can be accomplish to write this program.'' I thought
+this should be a good exercise to start writing lisp program for
+me. Fortunately, Atusi Maeda, a great lisper helped me a lot.
 
 
 \subsection{Installation}
 
-\texttt{manued.el} is based on Emacs Version 19.34 or later. Please
-use Emacs Version 19.34 or later or Mule based on Emacs version 19.34
-or later. The author's environment is GNU Emacs 19.34.1 (mule Version
-2.3 (SUETSUMUHANA)).
+\texttt{manued.el} is based on Emacs Version 20.7 or later.
 
 \begin{enumerate}
 \item Put \texttt{manued.el} the directory which is included
@@ -871,10 +849,9 @@ or later. The author's environment is GNU Emacs 19.34.1 (mule Version
 
 \subsection{How to use \texttt{manued.el}}
 
-Read a manued document which is a target document of proofreading in a
-emacs buffer, then type `M-x manued-minor-mode' to enter the
-manued-minor-mode. Below commands are available. Default key bindings
-is future work. Of course you can customize them.
+Open any text by emacs, then type `M-x manued-minor-mode' to enter the
+manued-minor-mode. The following commands are available. Of course you
+can customize the key bindings.
 
 \begin{itemize}
 \item Starting mode and others
@@ -974,11 +951,10 @@ is future work. Of course you can customize them.
 
 \subsection{Customizing \texttt{manued-minor-mode}}
 
-\textit{Manued.el} provides two main customizing methods. One of them
-is to change the emacs lisp variables instead of default values. I
-will show the list of customizable variables later. Another method is
-to use the hook function.  The entry function `manued-minor-mode'
-calls
+\textit{Manued.el} provides two main customizing methods. One of them is
+to change the emacs lisp variables. I will show the list of customizable
+variables later. Another method is to use the hook function.  The entry
+function `manued-minor-mode' calls
 \begin{verbatim}
         (run-hooks 'manued-minor-mode-hook)
 \end{verbatim}
@@ -999,8 +975,8 @@ file, then you read the file from \texttt{.emacs}. For this, add your
 
 \subsubsection{Manued definition commands of correction symbols (def-command)}
 
-When you set next variables in \texttt{.emacs} file or set by any
-other method, your definition is valid except when def-commands are
+When you set the following variables in \texttt{.emacs} file or set by
+any other method, your definition is valid except when def-commands are
 appeared in manued document. The default values of def-command is also
 shown in `()'.
 
@@ -1037,35 +1013,16 @@ symbol.), \texttt{manued.el} may warn it. Then you should change
 definition of def-commands.
 
 
-\subsubsection{Range specification of manued document}
-
-%\textbf{This section will be obsolete in the future version.}
-
-You can specify the range of manued document with next special
-strings.  When these strings of range specifying are not found in
-manued document, start of manued document is set to top of the
-document and end of it is set to bottom of the document.
-
-\begin{itemize}
-\item manued-doc-begin-pat \\ %
-  Strings which indicating starting point of manued document.
-  (default "-*-*-BEGINMANUED-*-*-")
-
-\item manued-doc-end-pat \\ %
-  Strings which indicating end point of manued document.  (default
-  "-*-*-ENDMANUED -*-*-")
-\end{itemize}
-
-\subsubsection{Colors of Hi-Light}
+\subsubsection{hi-light colors}
 % <label id="HilightColor">
 
 There are three choices for using color. Set following variable to
-\texttt{manued-use-color-hilit} according to your wish.
+\texttt{manued-use-color-hilit}.
 
 \begin{itemize}
-\item Use color as possible as it can.(\texttt{t})
-\item Never use color.(\texttt{nil})
-\item According to font-lock-mode status.(\texttt{'follow-font-lock-mode})
+ \item Use the color as possible as it can.(\texttt{t})
+ \item Never use the color.(\texttt{nil})
+ \item Following the font-lock-mode status.(\texttt{'follow-font-lock-mode})
 \end{itemize}
 
 Example.
@@ -1191,16 +1148,13 @@ The variables of keeping default color list is next.
 \subsection{Bugs}
 
 \begin{itemize}
-\item The quality of this document is very poor. Suggestions and
-  Comments are welcome.
-\item Current version (0.9.5) does not use \texttt{font-lock-mode},
-  so, some environment can not hi-light proofreading part. This is
-  related with only coloring the text.
+ \item Current version (0.9.5) does not use \texttt{font-lock-mode}, so,
+       some environment can not be hi-lighted.
 \end{itemize}
 
 \subsection{Copying}
 
-\texttt{manued.el} (C) Copyright 1998-2012 Yamauchi, Hitoshi
+\texttt{manued.el} (C) Copyright 1998-2012 Hitoshi Yamauchi
 
 This software is free software. There is absolutely no warranty about
 this program. This software can be redistributed only under GNU
@@ -1211,13 +1165,13 @@ Suggestions, comments and bug reports are welcome to
 \subsection{Manued Mailing List}
 
 Manued mailing list has opened since 2000-3．If you want to join that,
-please send an Email with no contents to
+please send an email with no contents to
 \begin{quotation}
  \latexhtml{manued-ml-subscribe@takopen.cs.uec.ac.jp}
  {manued-ml-subscribe" at "takopen.cs.uec.ac.jp.nicht.spam}
 \end{quotation}
 \latexhtml{}{(Please delete last .nicht.spam part and substitute `` at
-`` with @, when you send me an Email.)}
+`` with @, when you send me an email.)}
 In this ML, Current public language is Japanese, however, you can also
 write a mail with English.
 
@@ -1245,25 +1199,24 @@ write a mail with English.
 \subsection{TeX and Manued}
 
 
-How to compile TeX file which extracted by show-newer-command
+How to compile TeX file which is extracted by show-newer-command
 immediately.
 
 \label{sec:harmDefcommand}
 \subsubsection{When def-command harms TeX compilation.}
 
-I hope that I can compile the output of show-newer-command
-immediately.  (First, you apply manued-show-newer-in-manued-buffer to
-the current buffer. Second, you write *manued* buffer which is result
-of the command to foo.tex file by using M-x write-file. Finally you
-compile `foo.tex' file.) However the compilation may fail because of
-manued def-commands. One solution is not to use def-command in the
-manuscript and to set manued-def-* variables by elisp startup
+I would like to latex compile the output of show-newer-command immediately.
+(First, you apply manued-show-newer-in-manued-buffer to the current
+buffer. Second, you write *manued* buffer which is result of the command
+to foo.tex file by using M-x write-file. Finally you compile `foo.tex'
+file.) However the compilation may fail because of manued
+def-commands. One solution is not to use def-command in the manuscript
+and to set manued-def-* variables by elisp startup
 file(\textit{.emacs}).  But one of the meanings of def-command is to
-keep consistency between the def-command symbols and the manued
-commands within the document. Therefore, it is not a good idea to
-eliminate def-command header, especially a manuscript is exchanged via
-Email since this is just the case that such consistency should be
-kept.
+keep consistency between the def-command symbols and the manued commands
+within the document. Therefore, it is not a good idea to eliminate
+def-command header, especially a manuscript is exchanged via email since
+this is just the case that such consistency should be kept.
 
 \texttt{manued.el} can recognize extended def-command which is
 attached with some strings at top of def-command. You can set the head
@@ -1288,15 +1241,15 @@ Because the default manued command starts at `\verb|[|' and ends with
 Japanese environment, I change the `\verb|[|' and `\verb|]|' to 2bytes
 parentheses character. However, people use ASCII environment may not
 use such method. So, one of this solution uses some special strings
-instead of `\verb|[|' and `\verb|]|'. Next setting is one example.
+instead of `\verb|[|' and `\verb|]|'. Next setting is an example.
 
 \begin{verbatim}
         (setq manued-l-parenthesis-str ":[:")
         (setq manued-r-parenthesis-str ":]:")
 \end{verbatim}
 
-However this seems not so good solution. If you find some good strings
-for manued method, please inform me.
+However this seems not so good solution. I actually use a multi-byte
+characters, but that also depends on your environment.
 
 \newpage
 \begin{rawhtml}
@@ -1308,10 +1261,7 @@ for manued method, please inform me.
 \subsection{Other implementation of manued.el (By Prof. WADA)}
 
 Takeuchi and I introduce another implementation of manued on ``bit''
-No. 12, 1999. Prof. Wada also implemented it on emacs. Why are two
-manued implementations represented on the same editor (emacs)? I don't
-know the exact reason, however, I think emacs is one of the most easy
-way to implement an interactive text processing tools.
+No. 12, 1999. Prof. Wada also implemented it on emacs.
 
 This section introduces the implementation of manued by Prof. Wada.
 This implementation focuses to ``see'' the manued document and much
@@ -1344,7 +1294,7 @@ manuscript with the code to whom a person did not install
 ;; at the minibuffer, then type (eval-current-buffer) to evaluate whole
 ;; the program.
 ;;
-;; Next, put the text of your Email in the mule buffer, type `esc' `esc'
+;; Next, put the text of your email in the mule buffer, type `esc' `esc'
 ;; and (manued). Then, you can see the colored A, B, C potion in the
 ;; buffer.
 ;;
@@ -1454,27 +1404,23 @@ is a diff program which outputs manued format. Example:
 \section{Acknowledgements}
 
 Thanks to Takeuchi Ikuo to offer ``Manuscript Editing on E-mail'' and
-its electric text. Without manued, I can not submit all my papers
-written in last two years.
+its electric text.
 
-I also thanks to Eiiti Wada who gave me an intellectual surprise by
+I also thanks to Eiiti Wada who gave me an interesting surprise by
 the concise implementation.
 
-I also should say ``thank you'' to Maeda Atusi who teaches me the lisp
+I also should say ``thank you'' to Atusi Maeda who teaches me the lisp
 language. I had no knowledge about lisp when I started to implement
-this. \texttt{manued.el} may not be written without his assistance.
+this.
 
 Some people gave fruitful suggestions, comments with working codes to
-\texttt{manued.el} implementation. I will thank for all such people
-and especially next people.  (Alphabetical order)
+\texttt{manued.el} implementation. I will thank for all such people,
+especially the following people.  (Alphabetical order)
 \begin{itemize}
- \item KAWAMURA, Takao (bug fix etc. for version 0.9.3)
- \item NAKAJIMA, Mikio (bug fix etc. for version 0.9.3)
+ \item Ken-ich Suzuki (manuediff)
+ \item Mikio Nakajima (bug fix etc. for version 0.9.3)
  \item Stefan Monnier  (comments for version 0.9.1)
- \item Suzuki, Ken-ichi (manuediff)
-%% 回答待ち
-%%\item SUZUKI, Shingo (Maintainer of manued mirror pages)
-%%\item TANEMURA Shin'ichi  (Maintainer of manued mirror pages)
+ \item Takao Kawamura (bug fix etc. for version 0.9.3)
 \end{itemize}
 
 \nocite{bib:Takeuchi1986}
@@ -1488,7 +1434,7 @@ and especially next people.  (Alphabetical order)
 
 \begin{rawhtml}
 <address>
-Copyright (C) 1998-2002 yamauchi, Hitoshi<br>
+Copyright (C) 1998-2012 yamauchi, Hitoshi<br>
 Most recent update : <!--#echo var="LAST_MODIFIED" --> :
 </address>
 \end{rawhtml}

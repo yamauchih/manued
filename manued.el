@@ -6,11 +6,10 @@
 ;;; Created: 16 Jan 1998
 ;;; Keywords: proofreading, docs
 ;;;
-;;; Contributors: Thanks a lot.
-;;;     Atusi Maeda
-;;;	Stefan Monnier (0.9.1)
-;;;	Mikio Nakajima (0.9.3)
-;;;	Takao Kawamura (0.9.3)
+;;; Contributors: Atusi Maeda
+;;;	          Stefan Monnier (0.9.1)
+;;;	          Mikio Nakajima (0.9.3)
+;;;	          Takao Kawamura (0.9.3)
 ;;;
 ;;; This file is not part of GNU Emacs.
 ;;;
