@@ -1,7 +1,10 @@
-No implementation found for style `graphicx'
+
+manued-e.tex is newer than manued-e.aux: Please rerun latex.
 couldn't convert character 'circ into available encodings
 
  ...set $ACCENT_IMAGES  to get an image 
 couldn't convert character scirc into available encodings
 couldn't convert character dcirc into available encodings
 couldn't convert character rcirc into available encodings
+
+manued-e.tex is newer than manued-e.bbl: Please rerun latex and bibtex.
