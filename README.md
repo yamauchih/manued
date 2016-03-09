@@ -7,7 +7,7 @@ Manued is a proofreading method. manued.el is an emacs implementation.
 README
 ======
 
-manued Copyright 1998-2012 (C) Hitoshi Yamauchi
+manued Copyright 1998-2016 (C) Hitoshi Yamauchi
 
 This is a quick reference.
 
@@ -22,7 +22,7 @@ exchanging electric texts via E-mail.
 
 Manued web page
 *  https://github.com/yamauchih/manued
-*  http://www.mpi-inf.mpg.de/~hitoshi/otherprojects/manued/index.shtml
+*  http://sundayresearch.eu/hitoshi/otherprojects/index-j.html
 
 2. Installation
 ---------------
