@@ -22,7 +22,7 @@ exchanging electric texts via E-mail.
 
 Manued web page
 *  https://github.com/yamauchih/manued
-*  http://sundayresearch.eu/hitoshi/otherprojects/index-j.html
+*  *  http://sundayresearch.eu/hitoshi/otherprojects/manued/index.html
 
 2. Installation
 ---------------
