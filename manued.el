@@ -1,43 +1,45 @@
-;;;
 ;;; manued.el --- a minor mode of manued proofreading method.
-;;;
-;;; Author: Hitoshi Yamauchi
-;;; Maintainer: Hitoshi Yamauchi
-;;; Created: 16 Jan 1998
-;;; Keywords: proofreading, docs
-;;;
-;;; Contributors: Atusi Maeda
-;;;	          Stefan Monnier (0.9.1)
-;;;	          Mikio Nakajima (0.9.3)
-;;;	          Takao Kawamura (0.9.3)
-;;;
-;;; This file is not part of GNU Emacs.
-;;;
-;;; This program is free software; you can redistribute it and/or modify
-;;; it under the terms of the GNU General Public License as published by
-;;; the Free Software Foundation; either versions 2, or (at your option)
-;;; any later version.
-;;;
-;;; This program is distributed in the hope that it will be useful
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU General Public License for more details.
-;;; see <http://www.gnu.org/licenses/>.
-;;;
+;;
+;; Author: Hitoshi Yamauchi
+;; Maintainer: Hitoshi Yamauchi
+;; Created: 16 Jan 1998
+;; Keywords: proofreading, docs
+;;
+;; Contributors: Atusi Maeda
+;;	          Stefan Monnier (0.9.1)
+;;	          Mikio Nakajima (0.9.3)
+;;	          Takao Kawamura (0.9.3)
+;;
+;; This file is not part of GNU Emacs.
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;;
-;;; Manued stands for MANUscripting EDitor.
-;;;
-;;; Original idea of manued:
-;;;	Ikuo Takeuchi, ``Manuscripting Editing on E-mail,'' 39th
-;;;	Programming Symposium, 1998, January, pp.61--68
-;;;
-;;;	The original paper is written in Japanese,
-;;;	竹内郁雄, ``電子メールで原稿を修正する方法 --- Manuscript
-;;;     Editing (Manued, 真鵺道)を目指して ---'', 第 39 回プログラミン
-;;;	グシンポジウム, 1998, 1月, pp.61--68
-;;;
-;;;
+;;; Commentary:
+;;
+;; Manued stands for MANUscripting EDitor.
+;;
+;; Original idea of manued:
+;;	Ikuo Takeuchi, ``Manuscripting Editing on E-mail,'' 39th
+;;	Programming Symposium, 1998, January, pp.61--68
+;;
+;;	The original paper is written in Japanese,
+;;	竹内郁雄, ``電子メールで原稿を修正する方法 --- Manuscript
+;;     Editing (Manued, 真鵺道)を目指して ---'', 第 39 回プログラミン
+;;	グシンポジウム, 1998, 1月, pp.61--68
+
+;;; Code:
+
 ;;------------------------------------------------------------
 ;; debug 用の message 出力
 ;;------------------------------------------------------------
